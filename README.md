@@ -3,7 +3,7 @@
 1. Clone the project
 
     - git clone https://github.com/ekasaragih/produk-anisa
-    - cd manazashi_3
+    - cd your_project_folder
 
 2. Install dependencies
 
