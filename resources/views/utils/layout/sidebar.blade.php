@@ -179,31 +179,41 @@
 
     <!-- Mobile Menu (Hidden Initially) -->
     <div class="mobile-menu" id="mobileMenu">
-        <!-- Close Button -->
-        <button class="btn-close text-white" id="closeMenu" aria-label="Close"
-            style="position: absolute; top: 20px; right: 20px;"></button>
+        <div class="d-flex justify-content-between align-items-center px-3 py-1">
+            <a href="/" class="text-white fw-bold" style="border: none !important; font-size: 26px;">Produk Anisa</a>
 
-        <a href="{{ route('tingkat_pengetahuan_ibu_hamil') }}"
-            class="{{ Route::currentRouteName() == 'tingkat_pengetahuan_ibu_hamil' ? 'active' : '' }}"><i
-                class="fa fa-venus"></i> Tingkat Pengetahuan Ibu Hamil</a>
-        <a href="{{ route('promotive') }}" class="{{ Route::currentRouteName() == 'promotive' ? 'active' : '' }}"><i
-                class="fa fa-clipboard"></i> Promotif</a>
-        <a href="{{ route('preventive') }}" class="{{ Route::currentRouteName() == 'preventive' ? 'active' : '' }}"><i
-                class="fa fa-clipboard-check"></i> Preventif</a>
+            <button class="btn text-white" id="closeMenu" aria-label="Close">
+                <i class="fa fa-close" style="font-size: 36px;"></i>
+            </button>
+        </div>
 
-        <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 mt-3">Monitoring</h6>
+        <div class="mt-1">
+            <a href="{{ route('tingkat_pengetahuan_ibu_hamil') }}"
+                class="{{ Route::currentRouteName() == 'tingkat_pengetahuan_ibu_hamil' ? 'active' : '' }}"><i
+                    class="fa fa-venus"></i> Tingkat Pengetahuan Ibu Hamil</a>
+            <a href="{{ route('promotive') }}" class="{{ Route::currentRouteName() == 'promotive' ? 'active' : '' }}"><i
+                    class="fa fa-clipboard"></i> Promotif</a>
+            <a href="{{ route('preventive') }}"
+                class="{{ Route::currentRouteName() == 'preventive' ? 'active' : '' }}"><i
+                    class="fa fa-clipboard-check"></i> Preventif</a>
 
-        <a href="{{ route('monitoring') }}"
-            class="ps-4 ms-2 {{ Route::currentRouteName() == 'monitoring' ? 'active' : '' }}"><i
-                class="fa fa-tachometer-alt"></i> Dashboard</a>
-        <a href="/" class="ps-4 ms-2 "><i class="fa fa-cogs"></i> Page Lain..</a>
-        <a href="{{ route('input_kadar_hb') }}"
-            class="{{ Route::currentRouteName() == 'input_kadar_hb' ? 'active' : '' }}"><i class="fa fa-heartbeat"></i>
-            Input Kadar Hb</a>
-        <a href="{{ route('certificate') }}" class="{{ Route::currentRouteName() == 'certificate' ? 'active' : '' }}"><i
-                class="fa fa-certificate"></i> Sertifikat</a>
-        <a href="{{ route('contact_us') }}" class="{{ Route::currentRouteName() == 'contact_us' ? 'active' : '' }}"><i
-                class="fa fa-phone-alt"></i> Hubungi Kami</a>
+            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 mt-3">Monitoring</h6>
+
+            <a href="{{ route('monitoring') }}"
+                class="ps-4 ms-2 {{ Route::currentRouteName() == 'monitoring' ? 'active' : '' }}"><i
+                    class="fa fa-tachometer-alt"></i> Dashboard</a>
+            <a href="/" class="ps-4 ms-2 "><i class="fa fa-cogs"></i> Page Lain..</a>
+            <a href="{{ route('input_kadar_hb') }}"
+                class="{{ Route::currentRouteName() == 'input_kadar_hb' ? 'active' : '' }}"><i
+                    class="fa fa-heartbeat"></i>
+                Input Kadar Hb</a>
+            <a href="{{ route('certificate') }}"
+                class="{{ Route::currentRouteName() == 'certificate' ? 'active' : '' }}"><i
+                    class="fa fa-certificate"></i> Sertifikat</a>
+            <a href="{{ route('contact_us') }}"
+                class="{{ Route::currentRouteName() == 'contact_us' ? 'active' : '' }}"><i class="fa fa-phone-alt"></i>
+                Hubungi Kami</a>
+        </div>
     </div>
 
 
@@ -227,7 +237,7 @@
         toggleMenu.addEventListener("click", () => {
             if (mobileMenu.style.display === "none" || mobileMenu.style.display === "") {
                 mobileMenu.style.display = "block";
-                featureContent.style.marginTop = "25rem"; 
+                featureContent.style.marginTop = "30rem"; 
                 mobileMenu.style.transform = "none"; 
                 mobileMenu.style.top = "0px";
             } else {
