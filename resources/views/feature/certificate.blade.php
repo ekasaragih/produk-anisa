@@ -2,70 +2,7 @@
 
 @section('head')
 <style>
-    .badge {
-        display: inline-block;
-        padding: 0.25em 0.5em;
-        font-size: 75%;
-        font-weight: 700;
-        line-height: 1;
-        text-align: center;
-        white-space: nowrap;
-        vertical-align: baseline;
-        border-radius: 0.25rem;
-    }
 
-    .badge-warning {
-        background-color: #ffc107;
-        color: #fff;
-    }
-
-    .badge-soft-warning {
-        color: #f1b44c;
-        background-color: rgba(241, 180, 76, .18);
-    }
-
-    .badge-success {
-        background-color: #2dce89;
-        color: #fff;
-    }
-
-    .badge-soft-success {
-        color: #34c38f;
-        background-color: rgba(52, 195, 143, .18);
-    }
-
-    .badge-warn-subtle {
-        color: #e9bc18;
-        background-color: #fcf5dc;
-    }
-
-    .badge-info-subtle {
-        color: #179faa;
-        background-color: #dcf1f2;
-    }
-
-    .badge-secondary-subtle {
-        color: #438eff;
-        background-color: #e3eeff;
-    }
-
-    .badge-primary-subtle {
-        color: #5a58eb;
-        background-color: #e6e6fc;
-    }
-
-    .badge-danger-subtle {
-        color: #f9554c;
-        background-color: #fee6e4;
-    }
-
-    .rounded-pill {
-        border-radius: 50rem;
-    }
-
-    .d-inline {
-        display: inline;
-    }
 </style>
 @endsection
 
@@ -73,7 +10,7 @@
 @include('utils.layout.topnav', ['title' => 'Sertifikat'])
 <div class="container-fluid py-1 px-3">
     <div class="row">
-        <div class="card" style="background-color: #CBE2C9;">
+        <div class="card" style="background-color: #F8FAFC;">
             <div class="card-body" style="padding: 5px;">
                 {{-- Replace this part --}}
                 Ini page 'Sertifikat'

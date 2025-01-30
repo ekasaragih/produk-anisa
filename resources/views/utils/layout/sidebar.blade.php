@@ -19,14 +19,14 @@
         .sidebar {
             width: 250px;
             height: 100vh;
-            background: #685752;
+            background: #001A6E;
             color: white;
             position: fixed;
             top: 6px;
             left: 6px;
             transition: all 0.3s;
             padding-top: 20px;
-            border-right: 5px solid #8EB486;
+            border-right: 5px solid #009990;
             border-radius: 15px;
         }
 
@@ -42,7 +42,7 @@
         }
 
         .sidebar .active {
-            background: #92817A !important;
+            background: #074799 !important;
             color: white !important;
             font-weight: bold !important;
         }
@@ -61,7 +61,7 @@
         }
 
         .sidebar a:hover {
-            background: #92817A;
+            background: #074799;
             color: white;
             font-size: 13px;
         }
@@ -75,7 +75,7 @@
         /* Mobile Menu (Hidden by Default) */
         .mobile-menu {
             display: none;
-            background: #685752;
+            background: #001A6E;
             color: white;
             position: absolute;
             top: 56px;
@@ -84,11 +84,11 @@
             text-align: left;
             transition: transform 0.3s ease-in-out;
             transform: translateY(-100%);
-            border-top: 5px solid #8EB486;
+            border-top: 5px solid #009990;
         }
 
         #mobileNav {
-            background: #685752;
+            background: #001A6E;
         }
 
         .mobile-menu.show {
@@ -105,7 +105,7 @@
         }
 
         .mobile-menu a:hover {
-            background: #92817A;
+            background: #074799;
             color: white;
             font-size: 15px;
         }
@@ -183,17 +183,27 @@
         <button class="btn-close text-white" id="closeMenu" aria-label="Close"
             style="position: absolute; top: 20px; right: 20px;"></button>
 
-        <a href="#"><i class="fa fa-venus"></i> Tingkat Pengetahuan Ibu Hamil</a>
-        <a href="#"><i class="fa fa-clipboard"></i> Promotif</a>
-        <a href="#"><i class="fa fa-clipboard-check"></i> Preventif</a>
+        <a href="{{ route('tingkat_pengetahuan_ibu_hamil') }}"
+            class="{{ Route::currentRouteName() == 'tingkat_pengetahuan_ibu_hamil' ? 'active' : '' }}"><i
+                class="fa fa-venus"></i> Tingkat Pengetahuan Ibu Hamil</a>
+        <a href="{{ route('promotive') }}" class="{{ Route::currentRouteName() == 'promotive' ? 'active' : '' }}"><i
+                class="fa fa-clipboard"></i> Promotif</a>
+        <a href="{{ route('preventive') }}" class="{{ Route::currentRouteName() == 'preventive' ? 'active' : '' }}"><i
+                class="fa fa-clipboard-check"></i> Preventif</a>
 
-        <h6 class="ps-4 ms-2 text-uppercase text-xs text-left font-weight-bolder opacity-6 mt-3">Monitoring</h6>
+        <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 mt-3">Monitoring</h6>
 
-        <a href="#" class="ps-4 ms-2"><i class="fa fa-tachometer-alt"></i> Dashboard</a>
-        <a href="#" class="ps-4 ms-2"><i class="fa fa-cogs"></i> Page Lain..</a>
-        <a href="#"><i class="fa fa-heartbeat"></i> Input Kadar Hb</a>
-        <a href="#"><i class="fa fa-certificate"></i> Sertifikat</a>
-        <a href="#"><i class="fa fa-phone-alt"></i> Hubungi Kami</a>
+        <a href="{{ route('monitoring') }}"
+            class="ps-4 ms-2 {{ Route::currentRouteName() == 'monitoring' ? 'active' : '' }}"><i
+                class="fa fa-tachometer-alt"></i> Dashboard</a>
+        <a href="/" class="ps-4 ms-2 "><i class="fa fa-cogs"></i> Page Lain..</a>
+        <a href="{{ route('input_kadar_hb') }}"
+            class="{{ Route::currentRouteName() == 'input_kadar_hb' ? 'active' : '' }}"><i class="fa fa-heartbeat"></i>
+            Input Kadar Hb</a>
+        <a href="{{ route('certificate') }}" class="{{ Route::currentRouteName() == 'certificate' ? 'active' : '' }}"><i
+                class="fa fa-certificate"></i> Sertifikat</a>
+        <a href="{{ route('contact_us') }}" class="{{ Route::currentRouteName() == 'contact_us' ? 'active' : '' }}"><i
+                class="fa fa-phone-alt"></i> Hubungi Kami</a>
     </div>
 
 

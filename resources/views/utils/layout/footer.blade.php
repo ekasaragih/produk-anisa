@@ -6,7 +6,7 @@
                     ©
                     <script>
                         document.write(new Date().getFullYear())
-                    </script>Produk Anisa. All Rights Reserved,
+                    </script> Produk Anisa. All Rights Reserved,
                     made with <i class="fa fa-heart"></i> by
                     <a href="#" class="font-weight-bold" target="_blank">UUU Team
                     </a>

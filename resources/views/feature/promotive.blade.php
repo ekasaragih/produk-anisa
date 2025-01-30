@@ -9,7 +9,7 @@
 @include('utils.layout.topnav', ['title' => 'Promotif'])
 <div class="container-fluid py-1 px-3">
     <div class="row">
-        <div class="card" style="background-color: #CBE2C9;">
+        <div class="card" style="background-color: #F8FAFC;">
             <div class="card-body" style="padding: 5px;">
                 {{-- Replace this part --}}
                 Ini page 'Promotif'
