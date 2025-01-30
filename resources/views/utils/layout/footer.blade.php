@@ -6,9 +6,9 @@
                     ©
                     <script>
                         document.write(new Date().getFullYear())
-                    </script>,
+                    </script>Produk Anisa. All Rights Reserved,
                     made with <i class="fa fa-heart"></i> by
-                    <a href="https://www.linkedin.com/in/ekasaragih/" class="font-weight-bold" target="_blank">UUU Team
+                    <a href="#" class="font-weight-bold" target="_blank">UUU Team
                     </a>
 
                 </div>
