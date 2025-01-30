@@ -8,9 +8,9 @@ Route::get('/auth/login', [AuthController::class, 'showLogin'])->name('user.logi
 Route::post('/auth/login', [AuthController::class, 'login']);
 Route::post('/auth/logout', [AuthController::class, 'logout'])->name('user.logout');
 
-Route::get('/', function () {
-    return view('tingkat_pengetahuan_ibu_hamil');
-});
+
+Route::get('/', [PageController::class, 'tingkat_pengetahuan_ibu_hamil'])->name('tingkat_pengetahuan_ibu_hamil');
+
 
 // this should be using authentication
 Route::get('/promotive', [PageController::class, 'promotive'])->name('promotive');

@@ -41,6 +41,12 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
 
+        .sidebar .active {
+            background: #92817A !important;
+            color: white !important;
+            font-weight: bold !important;
+        }
+
         .sidebar #title {
             font-size: 15px !important;
         }
@@ -130,23 +136,33 @@
             <h4><a id="title" href="/">Produk Anisa</a></h4>
         </div>
 
-        <a href="#"><i class="fa fa-venus"></i> Tingkat Pengetahuan Ibu Hamil</a>
-        <a href="#"><i class="fa fa-clipboard"></i> Promotif</a>
-        <a href="#"><i class="fa fa-clipboard-check"></i> Preventif</a>
+        <a href="{{ route('tingkat_pengetahuan_ibu_hamil') }}"
+            class="{{ Route::currentRouteName() == 'tingkat_pengetahuan_ibu_hamil' ? 'active' : '' }}"><i
+                class="fa fa-venus"></i> Tingkat Pengetahuan Ibu Hamil</a>
+        <a href="{{ route('promotive') }}" class="{{ Route::currentRouteName() == 'promotive' ? 'active' : '' }}"><i
+                class="fa fa-clipboard"></i> Promotif</a>
+        <a href="{{ route('preventive') }}" class="{{ Route::currentRouteName() == 'preventive' ? 'active' : '' }}"><i
+                class="fa fa-clipboard-check"></i> Preventif</a>
 
         <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 mt-3">Monitoring</h6>
 
-        <a href="#" class="ps-4 ms-2"><i class="fa fa-tachometer-alt"></i> Dashboard</a>
-        <a href="#" class="ps-4 ms-2"><i class="fa fa-cogs"></i> Page Lain..</a>
-        <a href="#"><i class="fa fa-heartbeat"></i> Input Kadar Hb</a>
-        <a href="#"><i class="fa fa-certificate"></i> Sertifikat</a>
-        <a href="#"><i class="fa fa-phone-alt"></i> Hubungi Kami</a>
+        <a href="{{ route('monitoring') }}"
+            class="ps-4 ms-2 {{ Route::currentRouteName() == 'monitoring' ? 'active' : '' }}"><i
+                class="fa fa-tachometer-alt"></i> Dashboard</a>
+        <a href="/" class="ps-4 ms-2 "><i class="fa fa-cogs"></i> Page Lain..</a>
+        <a href="{{ route('input_kadar_hb') }}"
+            class="{{ Route::currentRouteName() == 'input_kadar_hb' ? 'active' : '' }}"><i class="fa fa-heartbeat"></i>
+            Input Kadar Hb</a>
+        <a href="{{ route('certificate') }}" class="{{ Route::currentRouteName() == 'certificate' ? 'active' : '' }}"><i
+                class="fa fa-certificate"></i> Sertifikat</a>
+        <a href="{{ route('contact_us') }}" class="{{ Route::currentRouteName() == 'contact_us' ? 'active' : '' }}"><i
+                class="fa fa-phone-alt"></i> Hubungi Kami</a>
 
 
         <form role="form" method="post" action="" id="logout-form" class="mt-4">
             @csrf
             <a href="" onclick="">
-                <i class="fa fa-user me-sm-1"></i>Log out
+                <i class="fa fa-user me-sm-1"></i>Keluar dari Akun
             </a>
         </form>
         </div>
