@@ -1,87 +1,149 @@
 @extends('utils.layout.sidebar')
 
 @section('head')
-<style>
+    <style>
+        .certificate-container {
+            border: 5px solid #4b7795;
+            padding: 30px;
+            background: linear-gradient(to right, rgba(32, 101, 239, 0.3), rgba(32, 198, 88, 0.2));
+            width: 90%;
+            margin: 50px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
 
-</style>
+        .certificate-title {
+            font-size: 2.8em;
+            font-weight: bold;
+            color: #000000;
+            margin-bottom: 30px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .certificate-subtitle {
+            font-size: 1.2em;
+            margin-bottom: 25px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .date-content {
+            font-size: 1.2em;
+            margin-top: 30px;
+            margin-bottom: 40px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .certificate-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .certificate-content p {
+            font-size: 1.1em;
+            margin: 0;
+            line-height: 1.8;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+
+        .recipient-name {
+            font-size: 2em;
+            margin-bottom: 10px;
+            position: relative;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .recipient-name::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            width: 80%;
+            border-bottom: 2px solid #ffffff;
+            transform: translateX(-50%);
+        }
+
+        .signature {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .signature p {
+            font-size: 1.2em;
+            margin: 5px 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 0.8em;
+            color: #777;
+        }
+    </style>
 @endsection
 
 @section('content')
-@include('utils.layout.topnav', ['title' => 'Sertifikat'])
-<div class="container-fluid py-1 px-3">
-    <div class="row">
-        <div class="card" style="background-color: #F8FAFC;">
-            <div class="card-body" style="padding: 5px;">
-                {{-- Replace this part --}}
-                Ini page 'Sertifikat'
-            </div>
+    @include('utils.layout.topnav', ['title' => 'Sertifikat'])
+    <div class="container-fluid py-1 px-3">
+        <div class="row">
+            <div class="card" style="background-color: #F8FAFC;">
+                <div class="certificate-container">
+                    <div class="certificate-title">
+                        SERTIFIKAT PENCAPAIAN
+                    </div>
 
-            {{-- Replace this part --}}
-            <br>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis malesuada sit amet massa blandit venenatis.
-                In tempor
-                porta nisl vel tempus. Cras ex ex, placerat sed risus vel, facilisis auctor quam. Maecenas blandit odio
-                felis, vel
-                cursus felis viverra ac. Phasellus at velit dictum nulla ultrices laoreet. Fusce vehicula erat sed lorem
-                facilisis
-                ultrices eu eget ante. Fusce laoreet libero vel mi volutpat iaculis. Curabitur id hendrerit quam, ut
-                ultrices erat.
-                Suspendisse quis mauris sit amet neque tristique elementum quis nec est.
-                <br><br>
-                Donec urna urna, auctor sit amet ultrices vitae, laoreet ut metus. Duis accumsan dictum felis eget
-                bibendum. Nulla
-                volutpat, sem in molestie aliquam, mi turpis faucibus risus, eu ornare eros nibh at risus. Vestibulum
-                sed pulvinar
-                tortor. Cras magna ipsum, rutrum ut ipsum a, semper efficitur ipsum. Suspendisse laoreet ante id
-                hendrerit fermentum. Ut
-                quis justo metus. Etiam a ipsum erat. Cras ut gravida mauris. Vestibulum id elementum dui. Vestibulum
-                accumsan dui sed
-                mi molestie, eu mollis tortor scelerisque. Suspendisse potenti.
-                <br><br>
-                Pellentesque laoreet sodales congue. Maecenas feugiat, ex non cursus aliquet, felis diam dignissim
-                felis, a tristique
-                massa ipsum id ante. Cras sollicitudin ut enim feugiat pretium. In eget ex varius, dapibus nibh vitae,
-                feugiat eros. Nam
-                pulvinar nisl ut libero lacinia, a dignissim metus luctus. Donec venenatis elit libero, at fringilla est
-                elementum a.
-                Duis interdum leo sollicitudin rhoncus scelerisque. Integer ac pellentesque risus. Quisque est quam,
-                eleifend fringilla
-                tortor ut, suscipit fermentum lectus.
-                <br><br>
-                Etiam placerat nisl at auctor mollis. Nunc viverra sapien eget nibh cursus, at fringilla purus eleifend.
-                Praesent
-                finibus, elit feugiat ornare iaculis, nibh mi rhoncus magna, nec facilisis sapien ipsum at diam. Quisque
-                fermentum
-                maximus cursus. Integer ullamcorper vulputate metus eget varius. Vivamus fermentum volutpat ex, id
-                vestibulum nisl
-                congue eu. Donec gravida metus eu lobortis laoreet.
-                <br><br>
-                Quisque id ipsum quis leo varius malesuada non eget lorem. Cras vulputate fermentum massa a lobortis.
-                Phasellus
-                pulvinar, nulla tincidunt facilisis fermentum, purus tortor accumsan est, rutrum luctus est sapien quis
-                erat. In purus
-                odio, ullamcorper vitae ex ut, fringilla sollicitudin erat. Mauris pellentesque cursus turpis, et luctus
-                dolor dictum
-                id. Praesent nec est cursus, gravida orci ac, condimentum dui. Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit.
-                Nullam cursus fermentum turpis, quis facilisis nibh. Fusce vitae purus feugiat nibh scelerisque
-                tristique. Pellentesque
-                ligula nulla, faucibus sit amet accumsan eget, interdum in massa. Aenean maximus maximus sem, accumsan
-                rutrum neque
-                bibendum in. Duis quis massa ut quam ullamcorper rhoncus.
-            </p>
+                    <div class="certificate-subtitle mt-4">
+                        Dengan bangga diberikan kepada:
+                    </div>
+
+                    <div class="recipient-name">
+                        KUPA COCHANK
+                    </div>
+
+                    <div class="certificate-content mt-4">
+                        <p>Sebagai penghargaan atas komitmen dan kedisiplinan menjalani pengobatan anemia selama
+                            <strong> 90 hari</strong>.
+                        </p>
+                        <p>Terima kasih telah menjadi inspirasi dalam menjaga kesehatan.</p>
+                        <br>
+                        <p>Teruslah melangkah menuju hidup yang lebih sehat!</p>
+                    </div>
+
+                    <p class="date-content">31 Desember 2025</p>
+
+                    <div class="signature">
+                        <div>
+                            <p>(Pemberi Sertifikat)</p>
+                        </div>
+                    </div>
+
+                    <div class="row d-flex justify-content-center align-items-center mt-4">
+                        <div class="col-auto">
+                            <img src="" class="mx-auto d-block" width="50" height="50" />
+                        </div>
+                        <div class="col-auto">
+                            <img src="" class="mx-auto d-block" width="50" height="50" />
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
         </div>
+
+
+        {{-- DONT REPLACE THIS PART --}}
+        @include('utils.layout.footer')
     </div>
 
 
-    {{-- DONT REPLACE THIS PART --}}
-    @include('utils.layout.footer')
-</div>
-
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 @endsection
