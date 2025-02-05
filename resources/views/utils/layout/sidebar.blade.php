@@ -113,7 +113,7 @@
                         <i class="fa fa-tachometer-alt mr-3"></i> Dashboard
                     </a>
                     <a href="{{ route('riwayat_konsumsi') }}"
-                        class="block py-2 px-2 hover:bg-blue-600 {{ Route::currentRouteName() == 'riwayat_konsumsi' ? 'bg-blue-600 font-bold' : '' }}"><i
+                        class="block py-2 px-4 hover:bg-blue-600 {{ Route::currentRouteName() == 'riwayat_konsumsi' ? 'bg-blue-600 font-bold' : '' }}"><i
                             class="fa fa-history mr-3"></i> Riwayat
                         Konsumsi</a>
                     <a href="{{ route('tingkat_pengetahuan_ibu_hamil') }}"
