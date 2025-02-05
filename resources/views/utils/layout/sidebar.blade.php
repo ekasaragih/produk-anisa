@@ -28,12 +28,14 @@
 
         <h6 class="mt-4 uppercase text-xs font-semibold opacity-70">Pemantauan</h6>
 
-        <a href="{{ route('monitoring') }}"
-            class="flex items-center px-5 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'monitoring' ? 'bg-blue-600 font-bold' : '' }}">
+        <a href="{{ route('dashboard') }}"
+            class="flex items-center px-5 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'dashboard' ? 'bg-blue-600 font-bold' : '' }}">
             <i class="fa fa-tachometer-alt mr-3"></i> Dashboard
         </a>
-        <a href="/" class="flex items-center px-5 py-3 text-sm rounded-md hover:bg-blue-600">
-            <i class="fa fa-cogs mr-3"></i> Page Lain..
+
+        <a href="{{ route('riwayat_konsumsi') }}"
+            class="flex items-center px-5 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'riwayat_konsumsi' ? 'bg-blue-600 font-bold' : '' }}">
+            <i class="fa fa-history mr-3"></i> Riwayat Konsumsi
         </a>
 
         <a href="{{ route('tingkat_pengetahuan_ibu_hamil') }}"
@@ -106,40 +108,42 @@
 
                 <div class="space-y-1 px-3">
                     <h6 class="mt-4 uppercase text-xs font-semibold opacity-70">Pemantauan</h6>
-                    <a href="{{ route('monitoring') }}"
-                        class="block py-2 px-4 hover:bg-blue-600 {{ Route::currentRouteName() == 'monitoring' ? 'bg-blue-600 font-bold' : '' }}">
+                    <a href="{{ route('dashboard') }}"
+                        class="block py-2 px-4 hover:bg-blue-600 {{ Route::currentRouteName() == 'dashboard' ? 'bg-blue-600 font-bold' : '' }}">
                         <i class="fa fa-tachometer-alt mr-3"></i> Dashboard
                     </a>
-                    <a href="/" class="block py-2 px-4 hover:bg-blue-600"><i class="fa fa-cogs mr-3"></i> Page
-                        Lain..</a>
+                    <a href="{{ route('riwayat_konsumsi') }}"
+                        class="block py-2 px-2 hover:bg-blue-600 {{ Route::currentRouteName() == 'riwayat_konsumsi' ? 'bg-blue-600 font-bold' : '' }}"><i
+                            class="fa fa-history mr-3"></i> Riwayat
+                        Konsumsi</a>
                     <a href="{{ route('tingkat_pengetahuan_ibu_hamil') }}"
-                        class="block py-2 px-4 hover:bg-blue-600 {{ Route::currentRouteName() == 'tingkat_pengetahuan_ibu_hamil' ? 'bg-blue-600 font-bold' : '' }}">
+                        class="block py-2 px-2 hover:bg-blue-600 {{ Route::currentRouteName() == 'tingkat_pengetahuan_ibu_hamil' ? 'bg-blue-600 font-bold' : '' }}">
                         <i class="fa fa-venus mr-3"></i> Edukasi
                     </a>
                     <a href="{{ route('promotive') }}"
-                        class="block py-2 px-4 hover:bg-blue-600 {{ Route::currentRouteName() == 'promotive' ? 'bg-blue-600 font-bold' : '' }}">
+                        class="block mx-0 py-2 px-2 hover:bg-blue-600 {{ Route::currentRouteName() == 'promotive' ? 'bg-blue-600 font-bold' : '' }}">
                         <i class="fa fa-clipboard mr-3"></i> Promotif
                     </a>
                     <a href="{{ route('preventive') }}"
-                        class="block py-2 px-4 hover:bg-blue-600 {{ Route::currentRouteName() == 'preventive' ? 'bg-blue-600 font-bold' : '' }}">
+                        class="block py-2 px-2 hover:bg-blue-600 {{ Route::currentRouteName() == 'preventive' ? 'bg-blue-600 font-bold' : '' }}">
                         <i class="fa fa-clipboard-check mr-3"></i> Preventif
                     </a>
                     <a href="{{ route('input_kadar_hb') }}"
-                        class="block py-2 px-4 hover:bg-blue-600 {{ Route::currentRouteName() == 'input_kadar_hb' ? 'bg-blue-600 font-bold' : '' }}">
+                        class="block py-2 px-2 hover:bg-blue-600 {{ Route::currentRouteName() == 'input_kadar_hb' ? 'bg-blue-600 font-bold' : '' }}">
                         <i class="fa fa-heartbeat mr-3"></i> Input Kadar Hb
                     </a>
                     <a href="{{ route('certificate') }}"
-                        class="block py-2 px-4 hover:bg-blue-600 {{ Route::currentRouteName() == 'certificate' ? 'bg-blue-600 font-bold' : '' }}">
+                        class="block py-2 px-2 hover:bg-blue-600 {{ Route::currentRouteName() == 'certificate' ? 'bg-blue-600 font-bold' : '' }}">
                         <i class="fa fa-certificate mr-3"></i> Sertifikat
                     </a>
                     <a href="{{ route('contact_us') }}"
-                        class="block py-2 px-4 hover:bg-blue-600 {{ Route::currentRouteName() == 'contact_us' ? 'bg-blue-600 font-bold' : '' }}">
+                        class="block py-2 px-2 hover:bg-blue-600 {{ Route::currentRouteName() == 'contact_us' ? 'bg-blue-600 font-bold' : '' }}">
                         <i class="fa fa-phone-alt mr-3"></i> Hubungi Kami
                     </a>
                     <form method="post" action="" id="logout-form" class="mt-auto">
                         @csrf
                         <button type="submit"
-                            class="flex items-center px-3 py-3 w-full text-sm text-left rounded-md hover:bg-red-600">
+                            class="flex items-center px-1 py-2 pt-3 w-full text-sm text-left rounded-md hover:bg-red-600">
                             <i class="fa fa-user mr-3"></i> Keluar dari Akun
                         </button>
                     </form>

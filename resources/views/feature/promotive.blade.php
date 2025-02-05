@@ -5,8 +5,8 @@
 @include('utils.layout.topnav', ['title' => 'Promotif'])
 <div class="container mx-auto py-4 px-2">
 
-    <div class="promotif-container p-4 bg-gray-100 rounded-lg shadow-md h-128 overflow-hidden">
-        <div class="promotif-content h-full overflow-y-auto">
+    <div class="p-4 bg-gray-100 rounded-lg shadow-md h-128 overflow-hidden">
+        <div class="h-full overflow-y-auto">
 
             <!-- Title -->
             <div class="page p-6 bg-white border border-gray-300 rounded-lg">

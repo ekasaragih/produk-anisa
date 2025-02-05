@@ -4,11 +4,11 @@
     <div class="container pb-1">
         <nav aria-label="breadcrumb">
             <div class="mb-2 flex space-x-2">
-                <button class="btn rounded-full bg-blue-700 text-white border-2 border-white p-2" id="backButton"
+                <button class="rounded-xl bg-blue-700 text-white border-2 border-white px-3 py-2" id="backButton"
                     onclick="goBack()">
                     <i class="fa fa-chevron-left" aria-hidden="true"></i>
                 </button>
-                <button class="btn rounded-full bg-pink-400 text-white border-2 border-white p-2" id="forwardButton"
+                <button class="rounded-xl bg-pink-400 text-white border-2 border-white px-3 py-2" id="forwardButton"
                     onclick="goForward()">
                     <i class="fa fa-chevron-right" aria-hidden="true"></i>
                 </button>

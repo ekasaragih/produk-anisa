@@ -21,9 +21,14 @@ class PageController extends Controller
         return view("feature.preventive");
     }
 
-    public function monitoring()
+    public function dashboard()
     {
-        return view("feature.monitoring");
+        return view("feature.dashboard");
+    }
+
+    public function riwayat_konsumsi()
+    {
+        return view("feature.riwayat_konsumsi");
     }
     
     public function certificate()

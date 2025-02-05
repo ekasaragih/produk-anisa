@@ -6,13 +6,18 @@
 @endsection
 
 @section('content')
-@include('utils.layout.topnav', ['title' => 'Hubungi Kami'])
+@include('utils.layout.topnav', ['title' => 'Riwayat Konsumsi'])
 <div class="container mx-auto py-4 px-2">
 
     <div class="p-4 bg-gray-100 rounded-lg shadow-md h-128 overflow-hidden">
         <div class="h-full overflow-y-auto">
         </div>
     </div>
+</div>
+
+
+{{-- DONT REPLACE THIS PART --}}
+@include('utils.layout.footer')
 </div>
 
 
