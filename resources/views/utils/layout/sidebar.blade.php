@@ -5,255 +5,157 @@
     <title>Produk Anisa</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
-    <style>
-        body {
-            font-family: 'Rubik', sans-serif;
-            background: #ffffff;
-        }
-
-        .sidebar {
-            width: 250px;
-            height: 100vh;
-            background: #001A6E;
-            color: white;
-            position: fixed;
-            top: 6px;
-            left: 6px;
-            transition: all 0.3s;
-            padding-top: 20px;
-            border-right: 5px solid #009990;
-            border-radius: 15px;
-        }
-
-        .sidebar a {
-            font-size: 12px;
-            color: white;
-            text-decoration: none;
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            transition: 0.3s;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .sidebar .active {
-            background: #074799 !important;
-            color: white !important;
-            font-weight: bold !important;
-        }
-
-        .sidebar #title {
-            font-size: 15px !important;
-        }
-
-        .sidebar #title:hover {
-            background: none !important;
-            font-size: 16px !important;
-        }
-
-        .sidebar a i {
-            margin-right: 10px;
-        }
-
-        .sidebar a:hover {
-            background: #074799;
-            color: white;
-            font-size: 13px;
-        }
-
-        .content {
-            margin-left: 250px;
-            padding: 20px;
-            transition: margin-left 0.3s ease;
-        }
-
-        /* Mobile Menu (Hidden by Default) */
-        .mobile-menu {
-            display: none;
-            background: #001A6E;
-            color: white;
-            position: absolute;
-            top: 56px;
-            width: 100%;
-            padding: 10px 0;
-            text-align: left;
-            transition: transform 0.3s ease-in-out;
-            transform: translateY(-100%);
-            border-top: 5px solid #009990;
-        }
-
-        #mobileNav {
-            background: #001A6E;
-        }
-
-        .mobile-menu.show {
-            transform: translateY(0);
-        }
-
-        .mobile-menu a {
-            color: white;
-            text-decoration: none;
-            padding: 12px;
-            display: block;
-            /* background: #72BAA9; */
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .mobile-menu a:hover {
-            background: #074799;
-            color: white;
-            font-size: 15px;
-        }
-
-        /* Responsive Adjustments */
-        @media (max-width: 768px) {
-            .sidebar {
-                display: none;
-            }
-
-            .content {
-                margin-left: 0;
-            }
-
-            .mobile-nav {
-                display: flex !important;
-            }
-        }
-    </style>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    @vite('resources/css/app.css')
     @yield('head')
 </head>
 
-<body>
+<body class="font-rubik bg-white">
 
     <!-- Desktop Sidebar -->
-    <nav class="sidebar d-flex flex-column d-none d-md-block">
-        <div class="text-center">
-            <h4><a id="title" href="/">Produk Anisa</a></h4>
-        </div>
+    <nav x-data="{ isOpen: false}" class=" hidden md:flex flex-col w-64 h-screen bg-blue-700 text-white fixed inset-y-0 left-3 top-3 shadow-lg
+        rounded-r-lg border-r-4 rounded-l-lg border-red-500 p-5">
+        <h4 class="text-left text-lg font-bold">
+            <a href="/" id="title">Produk Anisa</a>
+        </h4>
 
-        <a href="{{ route('tingkat_pengetahuan_ibu_hamil') }}"
-            class="{{ Route::currentRouteName() == 'tingkat_pengetahuan_ibu_hamil' ? 'active' : '' }}"><i
-                class="fa fa-venus"></i> Tingkat Pengetahuan Ibu Hamil</a>
-        <a href="{{ route('promotive') }}" class="{{ Route::currentRouteName() == 'promotive' ? 'active' : '' }}"><i
-                class="fa fa-clipboard"></i> Promotif</a>
-        <a href="{{ route('preventive') }}" class="{{ Route::currentRouteName() == 'preventive' ? 'active' : '' }}"><i
-                class="fa fa-clipboard-check"></i> Preventif</a>
+        <hr class="my-3">
 
-        <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 mt-3">Monitoring</h6>
+        <h6 class="mt-4 uppercase text-xs font-semibold opacity-70">Pemantauan</h6>
 
         <a href="{{ route('monitoring') }}"
-            class="ps-4 ms-2 {{ Route::currentRouteName() == 'monitoring' ? 'active' : '' }}"><i
-                class="fa fa-tachometer-alt"></i> Dashboard</a>
-        <a href="/" class="ps-4 ms-2 "><i class="fa fa-cogs"></i> Page Lain..</a>
+            class="flex items-center px-5 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'monitoring' ? 'bg-blue-600 font-bold' : '' }}">
+            <i class="fa fa-tachometer-alt mr-3"></i> Dashboard
+        </a>
+        <a href="/" class="flex items-center px-5 py-3 text-sm rounded-md hover:bg-blue-600">
+            <i class="fa fa-cogs mr-3"></i> Page Lain..
+        </a>
+
+        <a href="{{ route('tingkat_pengetahuan_ibu_hamil') }}"
+            class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'tingkat_pengetahuan_ibu_hamil' ? 'bg-blue-600 font-bold' : '' }}">
+            <i class="fa fa-venus mr-3"></i> Edukasi
+        </a>
+        <a href="{{ route('promotive') }}"
+            class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'promotive' ? 'bg-blue-600 font-bold' : '' }}">
+            <i class="fa fa-clipboard mr-3"></i> Promotif
+        </a>
+        <a href="{{ route('preventive') }}"
+            class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'preventive' ? 'bg-blue-600 font-bold' : '' }}">
+            <i class="fa fa-clipboard-check mr-3"></i> Preventif
+        </a>
+
         <a href="{{ route('input_kadar_hb') }}"
-            class="{{ Route::currentRouteName() == 'input_kadar_hb' ? 'active' : '' }}"><i class="fa fa-heartbeat"></i>
-            Input Kadar Hb</a>
-        <a href="{{ route('certificate') }}" class="{{ Route::currentRouteName() == 'certificate' ? 'active' : '' }}"><i
-                class="fa fa-certificate"></i> Sertifikat</a>
-        <a href="{{ route('contact_us') }}" class="{{ Route::currentRouteName() == 'contact_us' ? 'active' : '' }}"><i
-                class="fa fa-phone-alt"></i> Hubungi Kami</a>
+            class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'input_kadar_hb' ? 'bg-blue-600 font-bold' : '' }}">
+            <i class="fa fa-heartbeat mr-3"></i> Input Kadar Hb
+        </a>
+        <a href="{{ route('certificate') }}"
+            class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'certificate' ? 'bg-blue-600 font-bold' : '' }}">
+            <i class="fa fa-certificate mr-3"></i> Sertifikat
+        </a>
+        <a href="{{ route('contact_us') }}"
+            class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'contact_us' ? 'bg-blue-600 font-bold' : '' }}">
+            <i class="fa fa-phone-alt mr-3"></i> Hubungi Kami
+        </a>
 
-
-        <form role="form" method="post" action="" id="logout-form" class="mt-4">
+        <form method="post" action="" id="logout-form" class="mt-auto">
             @csrf
-            <a href="" onclick="">
-                <i class="fa fa-user me-sm-1"></i>Keluar dari Akun
-            </a>
+            <button type="submit"
+                class="flex items-center px-3 py-3 w-full text-sm text-left rounded-md hover:bg-red-600">
+                <i class="fa fa-user mr-3"></i> Keluar dari Akun
+            </button>
         </form>
-        </div>
     </nav>
 
     <!-- Mobile Navbar -->
-    <nav class="navbar navbar-dark d-md-none" id="mobileNav">
-        <div class="container-fluid">
-            <button class="btn btn-outline-light" id="toggleMenu">
-                <i class="fas fa-bars"></i> Menu
+    <div class="flex md:hidden p-4 bg-blue-700 text-white shadow-md" x-data="{ isOpen: false }"
+        :class="isOpen ? 'flex-col' : 'justify-between items-center'">
+        <a href="/" x-show="!isOpen" class="text-xl font-semibold">Produk Anisa</a>
+
+        <div class="mr-2 md:hidden">
+            <button type="button" @click="isOpen = !isOpen"
+                class="relative inline-flex items-center justify-center rounded-md bg-blue-700 p-2 text-white hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-700"
+                aria-controls="mobile-menu" aria-expanded="false">
+                <span class="sr-only">Open main menu</span>
+
+                <div x-show="!isOpen" class="flex items-center gap-2">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                        aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                    <span>Lihat Menu</span>
+                </div>
+
+                <div x-show="isOpen" class="flex items-center gap-2">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                        aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                    <span>Tutup Menu</span>
+                </div>
             </button>
-        </div>
-    </nav>
 
-    <!-- Mobile Menu (Hidden Initially) -->
-    <div class="mobile-menu" id="mobileMenu">
-        <div class="d-flex justify-content-between align-items-center px-3 py-1">
-            <a href="/" class="text-white fw-bold" style="border: none !important; font-size: 26px;">Produk Anisa</a>
+            <div x-show="isOpen" x-transition @click.away="isOpen = false"
+                class="top-12 left-0 w-full text-white rounded-b-lg">
 
-            <button class="btn text-white" id="closeMenu" aria-label="Close">
-                <i class="fa fa-close" style="font-size: 36px;"></i>
-            </button>
-        </div>
+                <a href="/" class="block py-2 px-4 text-xl font-semibold">Produk Anisa</a>
 
-        <div class="mt-1">
-            <a href="{{ route('tingkat_pengetahuan_ibu_hamil') }}"
-                class="{{ Route::currentRouteName() == 'tingkat_pengetahuan_ibu_hamil' ? 'active' : '' }}"><i
-                    class="fa fa-venus"></i> Tingkat Pengetahuan Ibu Hamil</a>
-            <a href="{{ route('promotive') }}" class="{{ Route::currentRouteName() == 'promotive' ? 'active' : '' }}"><i
-                    class="fa fa-clipboard"></i> Promotif</a>
-            <a href="{{ route('preventive') }}"
-                class="{{ Route::currentRouteName() == 'preventive' ? 'active' : '' }}"><i
-                    class="fa fa-clipboard-check"></i> Preventif</a>
-
-            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 mt-3">Monitoring</h6>
-
-            <a href="{{ route('monitoring') }}"
-                class="ps-4 ms-2 {{ Route::currentRouteName() == 'monitoring' ? 'active' : '' }}"><i
-                    class="fa fa-tachometer-alt"></i> Dashboard</a>
-            <a href="/" class="ps-4 ms-2 "><i class="fa fa-cogs"></i> Page Lain..</a>
-            <a href="{{ route('input_kadar_hb') }}"
-                class="{{ Route::currentRouteName() == 'input_kadar_hb' ? 'active' : '' }}"><i
-                    class="fa fa-heartbeat"></i>
-                Input Kadar Hb</a>
-            <a href="{{ route('certificate') }}"
-                class="{{ Route::currentRouteName() == 'certificate' ? 'active' : '' }}"><i
-                    class="fa fa-certificate"></i> Sertifikat</a>
-            <a href="{{ route('contact_us') }}"
-                class="{{ Route::currentRouteName() == 'contact_us' ? 'active' : '' }}"><i class="fa fa-phone-alt"></i>
-                Hubungi Kami</a>
+                <div class="space-y-1 px-3">
+                    <h6 class="mt-4 uppercase text-xs font-semibold opacity-70">Pemantauan</h6>
+                    <a href="{{ route('monitoring') }}"
+                        class="block py-2 px-4 hover:bg-blue-600 {{ Route::currentRouteName() == 'monitoring' ? 'bg-blue-600 font-bold' : '' }}">
+                        <i class="fa fa-tachometer-alt mr-3"></i> Dashboard
+                    </a>
+                    <a href="/" class="block py-2 px-4 hover:bg-blue-600"><i class="fa fa-cogs mr-3"></i> Page
+                        Lain..</a>
+                    <a href="{{ route('tingkat_pengetahuan_ibu_hamil') }}"
+                        class="block py-2 px-4 hover:bg-blue-600 {{ Route::currentRouteName() == 'tingkat_pengetahuan_ibu_hamil' ? 'bg-blue-600 font-bold' : '' }}">
+                        <i class="fa fa-venus mr-3"></i> Edukasi
+                    </a>
+                    <a href="{{ route('promotive') }}"
+                        class="block py-2 px-4 hover:bg-blue-600 {{ Route::currentRouteName() == 'promotive' ? 'bg-blue-600 font-bold' : '' }}">
+                        <i class="fa fa-clipboard mr-3"></i> Promotif
+                    </a>
+                    <a href="{{ route('preventive') }}"
+                        class="block py-2 px-4 hover:bg-blue-600 {{ Route::currentRouteName() == 'preventive' ? 'bg-blue-600 font-bold' : '' }}">
+                        <i class="fa fa-clipboard-check mr-3"></i> Preventif
+                    </a>
+                    <a href="{{ route('input_kadar_hb') }}"
+                        class="block py-2 px-4 hover:bg-blue-600 {{ Route::currentRouteName() == 'input_kadar_hb' ? 'bg-blue-600 font-bold' : '' }}">
+                        <i class="fa fa-heartbeat mr-3"></i> Input Kadar Hb
+                    </a>
+                    <a href="{{ route('certificate') }}"
+                        class="block py-2 px-4 hover:bg-blue-600 {{ Route::currentRouteName() == 'certificate' ? 'bg-blue-600 font-bold' : '' }}">
+                        <i class="fa fa-certificate mr-3"></i> Sertifikat
+                    </a>
+                    <a href="{{ route('contact_us') }}"
+                        class="block py-2 px-4 hover:bg-blue-600 {{ Route::currentRouteName() == 'contact_us' ? 'bg-blue-600 font-bold' : '' }}">
+                        <i class="fa fa-phone-alt mr-3"></i> Hubungi Kami
+                    </a>
+                    <form method="post" action="" id="logout-form" class="mt-auto">
+                        @csrf
+                        <button type="submit"
+                            class="flex items-center px-3 py-3 w-full text-sm text-left rounded-md hover:bg-red-600">
+                            <i class="fa fa-user mr-3"></i> Keluar dari Akun
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 
-
-
     <!-- Content -->
-    <div class="content" id="featureContent">
+    <div class="md:ml-64 ml-0 p-4 min-h-screen transition-all" id="featureContent">
         @yield("content")
     </div>
 
 
-
-    {{-- Script --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-        const toggleMenu = document.getElementById("toggleMenu");
-        const mobileMenu = document.getElementById("mobileMenu");
-        const closeMenu = document.getElementById("closeMenu");
-        const featureContent = document.getElementById("featureContent");
-
-        toggleMenu.addEventListener("click", () => {
-            if (mobileMenu.style.display === "none" || mobileMenu.style.display === "") {
-                mobileMenu.style.display = "block";
-                featureContent.style.marginTop = "30rem"; 
-                mobileMenu.style.transform = "none"; 
-                mobileMenu.style.top = "0px";
-            } else {
-                mobileMenu.style.display = "none";
-                featureContent.style.marginTop = "0rem";
-            }
-        });
-
-        // Close the mobile menu when the "X" button is clicked
-        closeMenu.addEventListener("click", () => {
-            mobileMenu.style.display = "none";
-            featureContent.style.marginTop = "0rem";
-        });
-
-    </script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
 </body>
 
 </html>
