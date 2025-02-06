@@ -155,13 +155,12 @@
             </div>
         </div>
     </div>
-</div>
 
 
 
 
-{{-- DONT REPLACE THIS PART --}}
-@include('utils.layout.footer')
+    {{-- DONT REPLACE THIS PART --}}
+    @include('utils.layout.footer')
 </div>
 
 <div id="questionnaire-modal" tabindex="-1" aria-hidden="true"

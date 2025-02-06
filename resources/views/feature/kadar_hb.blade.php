@@ -24,9 +24,14 @@
 @include('utils.layout.topnav', ['title' => 'Pantau Kadar Hb'])
 <div class="container mx-auto pb-8 px-4 min-h-screen">
     <div class="page p-8 bg-white rounded-2xl shadow-lg border border-gray-200 animate-fade-in">
-
+        <h2
+            class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-pink-500 mb-6">
+            Pantau Kadar Hb
+        </h2>
     </div>
+    @include('utils.layout.footer')
 </div>
+
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

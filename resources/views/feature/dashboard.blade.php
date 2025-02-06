@@ -24,7 +24,6 @@
 @include('utils.layout.topnav', ['title' => 'Dashboard'])
 <div class="container mx-auto pb-8 px-4 min-h-screen">
     <div class="page p-8 bg-white rounded-2xl shadow-lg border border-gray-200 animate-fade-in">
-        <!-- Header Section -->
         <div class="text-left mb-6">
             <h2
                 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-pink-500 mb-6">
@@ -32,17 +31,13 @@
             <p class="text-gray-600">Selamat datang, User.</p>
         </div>
 
-        <!-- Grid Layout for Features -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Pengingat Alarm -->
             <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-pink-500">
                 <h3 class="text-lg font-semibold text-pink-600">Pengingat Alarm</h3>
                 <p class="text-gray-600">Atur jadwal minum obat dengan alarm dan notifikasi.</p>
 
-                <!-- Live Clock -->
                 <div class="text-gray-700 font-semibold text-xl mt-2" id="liveClock"></div>
 
-                <!-- Alarm Notification -->
                 <div id="alarmNotification"
                     class="hidden bg-blue-100 border border-blue-400 text-blue-700 px-4 py-2 rounded-md mt-3">
                     <p id="alarmMessage">Alarm akan berbunyi dalam beberapa menit lagi.</p>
@@ -52,7 +47,6 @@
                         Taken</button>
                 </div>
 
-                <!-- Button to manage alarms -->
                 <button class="mt-3 bg-pink-500 text-white px-4 py-2 rounded-md"
                     onclick="window.location.href='/alarm'">
                     Atur Pengingat
@@ -69,7 +63,6 @@
                 </div>
             </div>
 
-            <!-- Progress Mingguan -->
             <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-green-500">
                 <h3 class="text-lg font-semibold text-green-600">Progress Mingguan</h3>
                 <p class="text-gray-600">Seberapa konsisten Anda dalam minum tablet.</p>
@@ -80,14 +73,12 @@
                 </div>
             </div>
 
-            <!-- Tombol Sudah Diminum -->
             <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-yellow-500">
                 <h3 class="text-lg font-semibold text-yellow-600">Tandai sebagai Sudah Diminum</h3>
                 <p class="text-gray-600">Tekan tombol untuk mencatat konsumsi tablet.</p>
                 <button class="mt-3 bg-yellow-500 text-white px-4 py-2 rounded-md">Sudah Diminum ✅</button>
             </div>
 
-            <!-- Pengaturan Dosis -->
             <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-purple-500">
                 <h3 class="text-lg font-semibold text-purple-600">Pengaturan Dosis</h3>
                 <p class="text-gray-600">Atur dosis harian sesuai kebutuhan Anda.</p>
@@ -97,7 +88,6 @@
                 </select>
             </div>
 
-            <!-- Emergency Contact -->
             <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-red-500">
                 <h3 class="text-lg font-semibold text-red-600">Emergency Contact</h3>
                 <p class="text-gray-600 mb-4">Hubungi tenaga medis jika ada masalah.</p>
@@ -105,7 +95,10 @@
             </div>
         </div>
     </div>
+    @include('utils.layout.footer')
 </div>
+
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>

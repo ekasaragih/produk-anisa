@@ -28,7 +28,9 @@
             class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-pink-500 mb-6">
             Hubungi Kami</h2>
     </div>
+    @include('utils.layout.footer')
 </div>
+
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

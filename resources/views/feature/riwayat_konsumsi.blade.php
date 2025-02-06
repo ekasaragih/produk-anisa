@@ -28,11 +28,11 @@
             class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-pink-500 mb-6">
             Riwayat Konsumsi</h2>
     </div>
-</div>
 
 
-{{-- DONT REPLACE THIS PART --}}
-@include('utils.layout.footer')
+
+    {{-- DONT REPLACE THIS PART --}}
+    @include('utils.layout.footer')
 </div>
 
 
