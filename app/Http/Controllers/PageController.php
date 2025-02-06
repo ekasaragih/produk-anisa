@@ -26,6 +26,12 @@ class PageController extends Controller
         return view("feature.dashboard");
     }
 
+    public function alarm()
+    {
+        return view("feature.alarm");
+    }
+
+
     public function riwayat_konsumsi()
     {
         return view("feature.riwayat_konsumsi");

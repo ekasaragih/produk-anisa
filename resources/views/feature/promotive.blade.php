@@ -1,18 +1,35 @@
 @extends('utils.layout.sidebar')
 
+@section('head')
+<style>
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-in {
+        animation: fade-in 1s ease-out;
+    }
+</style>
+@endsection
+
 @section('content')
 @include('utils.layout.topnav', ['title' => 'Promotif'])
 <div class="container mx-auto pb-8 px-4 min-h-screen">
     <div class="page p-8 bg-white rounded-2xl shadow-lg border border-gray-200 animate-fade-in">
         <div class="h-full overflow-y-auto space-y-8">
 
-            <!-- Title -->
-            <div class="p-6 bg-white border border-pink-300 rounded-2xl shadow-sm">
-                <h2
-                    class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-pink-500 text-center">
-                    Edukasi Tentang Anemia Pada Ibu Hamil
-                </h2>
-            </div>
+            <h2
+                class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-pink-500 mb-6">
+                Edukasi Tentang Anemia Pada Ibu Hamil
+            </h2>
 
             <!-- 1 -->
             <div class="p-6 bg-white border border-blue-300 rounded-2xl shadow-sm">

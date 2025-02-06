@@ -16,6 +16,7 @@ Route::get('/', [PageController::class, 'tingkat_pengetahuan_ibu_hamil'])->name(
 Route::get('/promotive', [PageController::class, 'promotive'])->name('promotive');
 Route::get('/preventive', [PageController::class, 'preventive'])->name('preventive');
 Route::get('/dashboard', [PageController::class, 'dashboard'])->name('dashboard');
+Route::get('/alarm', [PageController::class, 'alarm'])->name('alarm');
 Route::get('/riwayat_konsumsi', [PageController::class, 'riwayat_konsumsi'])->name('riwayat_konsumsi');
 Route::get('/certificate', [PageController::class, 'certificate'])->name('certificate');
 Route::get('/kadar_hb', [PageController::class, 'kadar_hb'])->name('kadar_hb');

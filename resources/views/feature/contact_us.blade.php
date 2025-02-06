@@ -2,16 +2,31 @@
 
 @section('head')
 <style>
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-in {
+        animation: fade-in 1s ease-out;
+    }
 </style>
 @endsection
 
 @section('content')
 @include('utils.layout.topnav', ['title' => 'Hubungi Kami'])
-<div class="container mx-auto py-4 px-2">
-
-    <div class="p-4 bg-gray-100 rounded-lg shadow-md h-128 overflow-hidden">
-        <div class="h-full overflow-y-auto">
-        </div>
+<div class="container mx-auto pb-8 px-4 min-h-screen">
+    <div class="page p-8 bg-white rounded-2xl shadow-lg border border-gray-200 animate-fade-in">
+        <h2
+            class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-pink-500 mb-6">
+            Hubungi Kami</h2>
     </div>
 </div>
 
