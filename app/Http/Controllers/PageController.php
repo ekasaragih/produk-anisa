@@ -36,9 +36,9 @@ class PageController extends Controller
         return view("feature.certificate");
     }
 
-    public function input_kadar_hb()
+    public function kadar_hb()
     {
-        return view("feature.input_kadar_hb");
+        return view("feature.kadar_hb");
     }
 
     public function contact_us()

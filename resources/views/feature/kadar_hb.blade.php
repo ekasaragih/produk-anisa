@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-@include('utils.layout.topnav', ['title' => 'Input Kadar Hb'])
+@include('utils.layout.topnav', ['title' => 'Pantau Kadar Hb'])
 <div class="container mx-auto py-4 px-2">
 
     <div class="p-4 bg-gray-100 rounded-lg shadow-md h-128 overflow-hidden">

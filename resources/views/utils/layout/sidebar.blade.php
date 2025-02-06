@@ -51,9 +51,9 @@
             <i class="fa fa-clipboard-check mr-3"></i> Preventif
         </a>
 
-        <a href="{{ route('input_kadar_hb') }}"
-            class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'input_kadar_hb' ? 'bg-blue-600 font-bold' : '' }}">
-            <i class="fa fa-heartbeat mr-3"></i> Input Kadar Hb
+        <a href="{{ route('kadar_hb') }}"
+            class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'kadar_hb' ? 'bg-blue-600 font-bold' : '' }}">
+            <i class="fa fa-heartbeat mr-3"></i> Kadar Hb
         </a>
         <a href="{{ route('certificate') }}"
             class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'certificate' ? 'bg-blue-600 font-bold' : '' }}">
@@ -128,9 +128,9 @@
                         class="block py-2 px-2 hover:bg-blue-600 {{ Route::currentRouteName() == 'preventive' ? 'bg-blue-600 font-bold' : '' }}">
                         <i class="fa fa-clipboard-check mr-3"></i> Preventif
                     </a>
-                    <a href="{{ route('input_kadar_hb') }}"
-                        class="block py-2 px-2 hover:bg-blue-600 {{ Route::currentRouteName() == 'input_kadar_hb' ? 'bg-blue-600 font-bold' : '' }}">
-                        <i class="fa fa-heartbeat mr-3"></i> Input Kadar Hb
+                    <a href="{{ route('kadar_hb') }}"
+                        class="block py-2 px-2 hover:bg-blue-600 {{ Route::currentRouteName() == 'kadar_hb' ? 'bg-blue-600 font-bold' : '' }}">
+                        <i class="fa fa-heartbeat mr-3"></i> Kadar Hb
                     </a>
                     <a href="{{ route('certificate') }}"
                         class="block py-2 px-2 hover:bg-blue-600 {{ Route::currentRouteName() == 'certificate' ? 'bg-blue-600 font-bold' : '' }}">

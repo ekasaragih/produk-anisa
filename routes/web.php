@@ -18,5 +18,5 @@ Route::get('/preventive', [PageController::class, 'preventive'])->name('preventi
 Route::get('/dashboard', [PageController::class, 'dashboard'])->name('dashboard');
 Route::get('/riwayat_konsumsi', [PageController::class, 'riwayat_konsumsi'])->name('riwayat_konsumsi');
 Route::get('/certificate', [PageController::class, 'certificate'])->name('certificate');
-Route::get('/input_kadar_hb', [PageController::class, 'input_kadar_hb'])->name('input_kadar_hb');
+Route::get('/kadar_hb', [PageController::class, 'kadar_hb'])->name('kadar_hb');
 Route::get('/contact_us', [PageController::class, 'contact_us'])->name('contact_us');
