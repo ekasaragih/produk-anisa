@@ -8,7 +8,7 @@
                     onclick="goBack()">
                     <i class="fa fa-chevron-left" aria-hidden="true"></i>
                 </button>
-                <button class="rounded-xl bg-pink-400 text-white border-2 border-white px-3 py-2" id="forwardButton"
+                <button class="rounded-xl bg-teal-400 text-white border-2 border-white px-3 py-2" id="forwardButton"
                     onclick="goForward()">
                     <i class="fa fa-chevron-right" aria-hidden="true"></i>
                 </button>
@@ -16,7 +16,7 @@
             <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5 text-lg">
                 <li class="breadcrumb-item text-black">
                     <a href="javascript:;" class="cursor-auto">Halaman / <span
-                            class="breadcrumb-item text-pink-500 font-semibold" aria-current="page">{{ $title
+                            class="breadcrumb-item text-teal-500 font-semibold" aria-current="page">{{ $title
                             }}</span>
                     </a>
                 </li>

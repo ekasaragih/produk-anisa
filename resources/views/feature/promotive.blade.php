@@ -27,7 +27,7 @@
         <div class="h-full overflow-y-auto space-y-8">
 
             <h2
-                class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-pink-500 mb-6">
+                class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500 mb-6">
                 Edukasi Tentang Anemia Pada Ibu Hamil
             </h2>
 

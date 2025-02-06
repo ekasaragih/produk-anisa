@@ -19,7 +19,7 @@
 
     <!-- Desktop Sidebar -->
     <nav x-data="{ isOpen: false}" class=" hidden md:flex flex-col w-64 h-screen bg-blue-700 text-white fixed inset-y-0 left-3 top-3 shadow-lg
-        rounded-r-lg border-r-4 rounded-l-lg border-red-500 p-5">
+        rounded-r-lg border-r-4 rounded-l-lg border-teal-500 p-5">
         <h4 class="text-left text-lg font-bold">
             <a href="/" id="title">Produk Anisa</a>
         </h4>

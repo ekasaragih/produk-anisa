@@ -26,66 +26,76 @@
     <div class="page p-8 bg-white rounded-2xl shadow-lg border border-gray-200 animate-fade-in">
         <div class="text-left mb-6">
             <h2
-                class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-pink-500 mb-6">
+                class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500 mb-6">
                 Dashboard Anda</h2>
             <p class="text-gray-600">Selamat datang, User.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-pink-500">
-                <h3 class="text-lg font-semibold text-pink-600">Pengingat Alarm</h3>
-                <p class="text-gray-600">Atur jadwal minum obat dengan alarm dan notifikasi.</p>
-
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-blue-500">
+                <h3 class="text-lg font-semibold text-blue-600">Waktu saat ini</h3>
                 <div class="text-gray-700 font-semibold text-xl mt-2" id="liveClock"></div>
+            </div>
 
+            <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-blue-500 text-sm">
+                <h3 class="text-lg font-semibold text-blue-600">Alarm</h3>
+
+                <p id="alarmMessage">Alarm akan berbunyi dalam beberapa menit lagi.</p>
                 <div id="alarmNotification"
-                    class="hidden bg-blue-100 border border-blue-400 text-blue-700 px-4 py-2 rounded-md mt-3">
-                    <p id="alarmMessage">Alarm akan berbunyi dalam beberapa menit lagi.</p>
+                    class="hidden text-xs bg-blue-100 border border-blue-400 text-blue-700 px-4 py-2 rounded-md mt-3">
                     <button class="bg-gray-500 text-white px-3 py-1 rounded-md mt-2"
                         onclick="snoozeAlarm()">Snooze</button>
-                    <button class="bg-green-500 text-white px-3 py-1 rounded-md mt-2" onclick="markAsTaken()">Mark as
-                        Taken</button>
+                    <button class="bg-teal-500 text-white px-3 py-1 rounded-md mt-2" onclick="markAsTaken()">Sudah
+                        diminum</button>
                 </div>
-
-                <button class="mt-3 bg-pink-500 text-white px-4 py-2 rounded-md"
-                    onclick="window.location.href='/alarm'">
-                    Atur Pengingat
-                </button>
             </div>
 
-            <!-- Ringkasan Hari Ini -->
             <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-blue-500">
                 <h3 class="text-lg font-semibold text-blue-600">Ringkasan Hari Ini</h3>
-                <p class="text-gray-600">Jumlah tablet yang perlu diminum dan progres harian.</p>
-                <div class="flex justify-between mt-3">
-                    <span class="text-xl font-bold text-gray-800">2/3 Tablet</span>
-                    <progress class="w-1/2" value="2" max="3"></progress>
+                <div>
+                    <p class="text-base font-bold text-gray-800 underline">2/3 Tablet <span>sudah diminum</span></p>
                 </div>
+                <p class="text-gray-600 text-xs mt-1">Sudahkah minum obat hari ini? Catat konsumsi
+                    tabletmu.</p>
+                <button class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-md text-sm">Sudah Diminum ✅</button>
             </div>
 
-            <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-green-500">
-                <h3 class="text-lg font-semibold text-green-600">Progress Mingguan</h3>
+            <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-blue-500">
+                <h3 class="text-lg font-semibold text-blue-600">Dosis Setiap Hari</h3>
+                <p class="text-gray-600 text-sm">Dosis yang harus Anda minum setiap hari adalah <b>4 Tablet Fe.</b></p>
+                <button class="mt-3 bg-blue-500 text-white px-4 py-2 text-sm rounded-md">Atur dosis</button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mt-4">
+            <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-teal-500">
+                <h3 class="text-lg font-semibold text-teal-600">Progress Mingguan</h3>
                 <p class="text-gray-600">Seberapa konsisten Anda dalam minum tablet.</p>
                 <div class="mt-3">
                     <div class="w-full bg-gray-200 rounded-full h-2.5">
-                        <div class="bg-green-500 h-2.5 rounded-full" style="width: 75%"></div>
+                        <div class="bg-teal-500 h-2.5 rounded-full" style="width: 75%"></div>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-yellow-500">
-                <h3 class="text-lg font-semibold text-yellow-600">Tandai sebagai Sudah Diminum</h3>
-                <p class="text-gray-600">Tekan tombol untuk mencatat konsumsi tablet.</p>
-                <button class="mt-3 bg-yellow-500 text-white px-4 py-2 rounded-md">Sudah Diminum ✅</button>
+            <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-teal-500">
+                <h3 class="text-lg font-semibold text-teal-600">Progress Bulanan</h3>
+                <p class="text-gray-600">Seberapa konsisten Anda dalam minum tablet.</p>
+                <div class="mt-3">
+                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                        <div class="bg-teal-500 h-2.5 rounded-full" style="width: 75%"></div>
+                    </div>
+                </div>
             </div>
 
+
             <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-purple-500">
-                <h3 class="text-lg font-semibold text-purple-600">Pengaturan Dosis</h3>
-                <p class="text-gray-600">Atur dosis harian sesuai kebutuhan Anda.</p>
-                <select class="mt-3 p-2 border rounded-md">
-                    <option>1 Tablet per Hari</option>
-                    <option>2 Tablet per Hari</option>
-                </select>
+                <h3 class="text-lg font-semibold text-purple-600">Atur Pengingat Alarm</h3>
+                <p class="text-gray-600">Atur jadwal minum obat dengan alarm dan notifikasi.</p>
+                <button class="mt-3 bg-purple-500 text-white px-4 py-2 rounded-md"
+                    onclick="window.location.href='/alarm'">
+                    Atur Pengingat
+                </button>
             </div>
 
             <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-red-500">
@@ -111,7 +121,7 @@
     function updateClock() {
         const now = new Date();
         const timeString = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-        document.getElementById('liveClock').textContent = `Waktu Saat Ini: ${timeString}`;
+        document.getElementById('liveClock').textContent = `${timeString}`;
     }
     setInterval(updateClock, 1000);
     updateClock();

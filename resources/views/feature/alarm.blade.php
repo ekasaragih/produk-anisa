@@ -25,12 +25,12 @@
 <div class="container mx-auto pb-8 px-4 min-h-screen">
     <div class="page p-8 bg-white rounded-2xl shadow-lg border border-gray-200 animate-fade-in">
         <h2
-            class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-pink-500 mb-6">
+            class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500 mb-6">
             Alarm</h2>
         <p class="text-gray-600 mb-4">Atur pengingat obat Anda dengan mudah.</p>
 
         <!-- Tombol Tambah Alarm -->
-        <button id="add-alarm-btn" class="bg-pink-500 text-white px-4 py-2 rounded-md">+ Tambah Alarm</button>
+        <button id="add-alarm-btn" class="bg-teal-500 text-white px-4 py-2 rounded-md">+ Tambah Alarm</button>
 
         <!-- Form Tambah Alarm (Hidden by Default) -->
         <div id="alarm-form" class="mt-4 hidden bg-gray-100 p-4 rounded-md">
@@ -70,7 +70,7 @@
                     <div>
                         <button class="bg-yellow-500 text-white px-3 py-1 rounded-md">Edit</button>
                         <button class="bg-red-500 text-white px-3 py-1 rounded-md">Hapus</button>
-                        <button class="bg-green-500 text-white px-3 py-1 rounded-md">Aktifkan</button>
+                        <button class="bg-teal-500 text-white px-3 py-1 rounded-md">Aktifkan</button>
                     </div>
                 </li>
             </ul>

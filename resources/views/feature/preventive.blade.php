@@ -25,7 +25,7 @@
 <div class="container mx-auto pb-8 px-4 min-h-screen">
     <div class="page p-8 bg-white rounded-2xl shadow-lg border border-gray-200 animate-fade-in">
         <h2
-            class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-pink-500 mb-6">
+            class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500 mb-6">
             Pencegahan Anemia pada Kehamilan</h2>
         <p class="text-base leading-relaxed text-gray-700 mb-6">Anemia dalam kehamilan dapat dicegah melalui pola
             konsumsi gizi yang baik. Pemenuhan mikronutrien seperti asam folat, zat besi, dan vitamin D sangat
@@ -43,7 +43,7 @@
             pada ibu hamil.</p>
 
         <button id="questionnaire-btn" data-modal-target="questionnaire-modal" data-modal-toggle="questionnaire-modal"
-            class="my-2 bg-gradient-to-r from-blue-500 to-pink-400 hover:pink-teal-400 hover:to-blue-500 text-white font-bold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300">
+            class="my-2 bg-gradient-to-r from-blue-500 to-teal-400 hover:from-teal-400 hover:to-blue-500 text-white font-bold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300">
             <i class="fa fa-edit mr-2"></i>Isi Kuesioner
         </button>
 
@@ -54,7 +54,7 @@
         </h3>
         <div class="relative overflow-x-auto rounded-lg shadow-md">
             <table class="table-auto w-full text-sm text-left border-collapse bg-white shadow-inner rounded-lg">
-                <thead class="bg-gradient-to-r from-blue-500 to-pink-400 text-white text-md">
+                <thead class="bg-gradient-to-r from-blue-500 to-teal-400 text-white text-md">
                     <tr>
                         <th class="border px-4 py-3">IMT Sebelum Hamil</th>
                         <th class="border px-4 py-3">Pertambahan BB Total</th>
