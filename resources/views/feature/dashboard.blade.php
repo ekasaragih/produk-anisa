@@ -37,7 +37,7 @@
                 <h3 class="text-lg font-semibold text-blue-600 flex items-center">
                     ⏰ <span class="ml-2">Waktu saat ini</span>
                 </h3>
-                <div class="md:text-[2rem] text-xl mt-4 font-bold font-mono text-green-800 bg-clip-text drop-shadow-lg animate-pulse"
+                <div class="md:text-[2rem] text-xl mt-8 font-bold font-mono text-blue-800 bg-clip-text drop-shadow-lg animate-pulse"
                     id="liveClock"></div>
             </div>
 
