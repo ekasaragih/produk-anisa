@@ -98,6 +98,13 @@
                 <canvas id="monthlyProgressChart"></canvas>
             </div>
 
+            <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-green-500">
+                <h3 class="text-lg font-semibold text-green-600">Masukkan Kadar HB</h3>
+                <p class="text-gray-600 mb-4">Periksa kadar hemoglobin Anda untuk memastikan kesehatan darah tetap optimal.</p>
+                <button id="openModal" class="mt-3 bg-green-500 text-white px-4 py-2 rounded-md">
+                    Periksa HB 🩺
+                </button>
+            </div>
 
             <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-purple-500">
                 <h3 class="text-lg font-semibold text-purple-600">Atur Pengingat Alarm</h3>
@@ -113,6 +120,8 @@
                 <p class="text-gray-600 mb-4">Hubungi tenaga medis jika ada masalah.</p>
                 <a href="/contact_us" class="mt-3 bg-red-500 text-white px-4 py-2 rounded-md">Hubungi Medis 📞</a>
             </div>
+
+            
         </div>
     </div>
     @include('utils.layout.footer')
@@ -169,6 +178,32 @@
     </div>
 </div>
 
+ <!-- Modal HB -->
+ <div id="modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden flex items-center justify-center modal-bg">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-96 relative">
+            <h2 class="text-lg font-semibold text-green-600 mb-4">Form Kadar HB</h2>
+
+            <!-- Form -->
+            <form id="hbForm">
+                <label class="block mb-2 text-sm">Kadar HB:</label>
+                <input type="number" id="kadarHb" class="w-full p-2 border rounded-md mb-3" required>
+
+                <label class="block mb-2 text-sm">Tanggal Cek:</label>
+                <input type="date" id="tanggalCek" class="w-full p-2 border rounded-md mb-3" required>
+
+                <label class="block mb-2 text-sm">Tempat/Lokasi:</label>
+                <input type="text" id="lokasiCek" class="w-full p-2 border rounded-md mb-4" required>
+
+                <div class="flex justify-between">
+                    <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-md">
+                        Simpan
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
 <div id="successFeedback" class="fixed inset-0 flex justify-center items-center hidden">
     <div class="bg-green-500 text-white p-4 rounded-lg shadow-lg flex items-center space-x-2">
         <span class="text-xl">✅</span>
@@ -181,6 +216,18 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+        /* Apply transition to background dimming */
+        .modal-bg {
+            transition: backdrop-filter 0.3s ease, background-color 0.3s ease;
+        }
+
+        .dimmed {
+            backdrop-filter: blur(4px);
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+    </style>
 
 <script>
     // TO-DO: Change alarm audio
@@ -294,4 +341,37 @@
         }, 2000);
     });
 </script>
+
+<script>
+        const openModal = document.getElementById("openModal");
+        const modal = document.getElementById("modal");
+
+        // Function to show modal with dimming effect
+        function openModalFunc() {
+            modal.classList.remove("hidden");
+            modal.classList.add("dimmed");
+        }
+
+        // Function to close modal and restore background
+        function closeModalFunc() {
+            modal.classList.remove("dimmed");
+            setTimeout(() => modal.classList.add("hidden"), 300); // Delay hiding for smooth transition
+        }
+
+        openModal.addEventListener("click", openModalFunc);
+
+        // Close modal when clicking outside modal content
+        modal.addEventListener("click", (event) => {
+            if (event.target === modal) {
+                closeModalFunc();
+            }
+        });
+
+        // Handle form submission
+        document.getElementById("hbForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+            alert("Data berhasil disimpan!");
+            closeModalFunc();
+        });
+    </script>
 @endsection
