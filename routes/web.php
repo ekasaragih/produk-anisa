@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HbRecordController;
+
 
 // Authentication
 Route::get('/auth/login', [AuthController::class, 'showLogin'])->name('user.login');
@@ -32,5 +34,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
+
+    Route::post('/hb/store', [HbRecordController::class, 'store'])->name('hb.store');
 
 });

@@ -17,15 +17,6 @@
     .animate-fade-in {
         animation: fade-in 1s ease-out;
     }
-
-    .modal-bg {
-        transition: backdrop-filter 0.3s ease, background-color 0.3s ease;
-    }
-
-    .dimmed {
-        backdrop-filter: blur(4px);
-        background-color: rgba(0, 0, 0, 0.6);
-    }
 </style>
 @endsection
 
@@ -141,8 +132,9 @@
                         optimal.
                     </p>
                 </div>
-                <button id="openModal" class="mt-auto bg-green-500 text-white px-4 py-2 rounded-md self-start">
-                    Periksa HB 🩺
+                <button data-modal-target="add-hb-record-modal" data-modal-toggle="add-hb-record-modal"
+                    class="mt-auto bg-green-500 text-white px-4 py-2 rounded-md self-start">
+                    Masukkan Data HB 🩺
                 </button>
             </div>
 
@@ -222,27 +214,56 @@
 </div>
 
 <!-- Modal HB -->
-<div id="modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden flex items-center justify-center modal-bg">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-96 relative">
-        <h2 class="text-lg font-semibold text-green-600 mb-4">Form Kadar HB</h2>
+<div id="add-hb-record-modal" tabindex="-1" aria-hidden="true"
+    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
 
-        <!-- Form -->
-        <form id="hbForm">
-            <label class="block mb-2 text-sm">Kadar HB:</label>
-            <input type="number" id="kadarHb" class="w-full p-2 border rounded-md mb-3" required>
-
-            <label class="block mb-2 text-sm">Tanggal Cek:</label>
-            <input type="date" id="tanggalCek" class="w-full p-2 border rounded-md mb-3" required>
-
-            <label class="block mb-2 text-sm">Tempat/Lokasi:</label>
-            <input type="text" id="lokasiCek" class="w-full p-2 border rounded-md mb-4" required>
-
-            <div class="flex justify-between">
-                <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-md">
-                    Simpan
+    <div class="modal-overlay fixed inset-0 bg-gray-500 opacity-50 z-40"></div>
+    <div class="relative p-4 w-full max-w-2xl max-h-full z-50">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    Tambah Record Kadar Hb
+                </h3>
+                <button type="button"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-hide="add-hb-record-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
                 </button>
             </div>
-        </form>
+            <div class="p-4 md:p-5 space-y-4">
+                <form id="hbForm" method="POST" action="{{ route('hb.store') }}">
+                    @csrf
+                    <label class="block mb-2 text-sm">Kadar HB (g/dL):</label>
+                    <input type="number" id="kadarHb" name="kadar_hb" class="w-full p-2 border rounded-md mb-3"
+                        step="0.1" required>
+
+                    <label class="block mb-2 text-sm">Tanggal Cek:</label>
+                    <input type="date" id="tanggalCek" name="tanggal_cek" class="w-full p-2 border rounded-md mb-3"
+                        required>
+
+                    <label class="block mb-2 text-sm">Tempat/Lokasi:</label>
+                    <input type="text" id="lokasiCek" name="tempat_lokasi" class="w-full p-2 border rounded-md mb-4"
+                        required>
+
+                    <!-- Indikasi Anemia (Readonly) -->
+                    <label class="block mb-2 text-sm">Indikasi Anemia:</label>
+                    <input type="text" id="indicatedAnemia" name="indicated_anemia"
+                        class="w-full p-2 border rounded-md mb-4 bg-gray-100" readonly>
+
+                    <div class="flex justify-between">
+                        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-md">
+                            Simpan
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
     </div>
 </div>
 
@@ -374,35 +395,10 @@
 </script>
 
 <script>
-    const openModal = document.getElementById("openModal");
-        const modal = document.getElementById("modal");
-
-        // Function to show modal with dimming effect
-        function openModalFunc() {
-            modal.classList.remove("hidden");
-            modal.classList.add("dimmed");
-        }
-
-        // Function to close modal and restore background
-        function closeModalFunc() {
-            modal.classList.remove("dimmed");
-            setTimeout(() => modal.classList.add("hidden"), 300); // Delay hiding for smooth transition
-        }
-
-        openModal.addEventListener("click", openModalFunc);
-
-        // Close modal when clicking outside modal content
-        modal.addEventListener("click", (event) => {
-            if (event.target === modal) {
-                closeModalFunc();
-            }
-        });
-
-        // Handle form submission
-        document.getElementById("hbForm").addEventListener("submit", function (event) {
-            event.preventDefault();
-            alert("Data berhasil disimpan!");
-            closeModalFunc();
-        });
+    document.getElementById('kadarHb').addEventListener('input', function() {
+        const kadarHb = parseFloat(this.value);
+        const result = kadarHb < 11 ? 'Anemia' : 'Tidak Anemia';
+        document.getElementById('indicatedAnemia').value = result;
+    });
 </script>
 @endsection
