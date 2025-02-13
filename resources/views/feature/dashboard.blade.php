@@ -97,15 +97,17 @@
                         📅 <span class="ml-2">Ringkasan Hari Ini</span>
                     </h3>
                     <div>
-                        <p class="text-base font-bold text-gray-800 underline mb-4">2/3 Tablet <span>sudah
-                                diminum</span></p>
+                        <p class="text-base font-bold text-gray-800 underline mb-4">
+                            {{ $totalTabletHarian }}/{{ $dosisHarian ?: 'Dosis Belum Diatur' }} Tablet
+                            <span>sudah diminum</span>
+                        </p>
                     </div>
                     <p class="text-gray-600 text-xs mt-1">Sudahkah minum obat hari ini? Catat konsumsi tabletmu.</p>
                 </div>
                 <button class="mt-auto bg-blue-500 text-white px-4 py-2 rounded-md text-sm self-start"
                     data-modal-target="add-medicine-consumption-modal"
-                    data-modal-toggle="add-medicine-consumption-modal">Sudah
-                    Diminum ✅
+                    data-modal-toggle="add-medicine-consumption-modal">
+                    Sudah Diminum ✅
                 </button>
             </div>
 
@@ -115,8 +117,9 @@
                     <h3 class="text-lg font-semibold text-blue-600 flex items-center">
                         💊 <span class="ml-2">Dosis Setiap Hari</span>
                     </h3>
-                    <p class="text-gray-600 text-sm mb-3">Dosis yang harus Anda minum setiap hari adalah <b>4 Tablet
-                            Fe.</b>
+                    <p class="text-gray-600 text-sm mb-3">
+                        Dosis yang harus Anda minum setiap hari adalah
+                        <b>{{ auth()->user()->profile->dosis_obat_fe ?? 'Belum diatur' }} Tablet Fe.</b>
                     </p>
                 </div>
                 <button class="mt-auto bg-blue-500 text-white px-4 py-2 text-sm rounded-md self-start"
@@ -231,6 +234,7 @@
     </div>
 </div>
 
+{{-- Modal Edit Dosis Obat --}}
 <div id="edit-dosis-modal" tabindex="-1" aria-hidden="true"
     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
 
@@ -243,7 +247,7 @@
                 </h3>
                 <button type="button"
                     class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                    data-modal-hide="add-hb-record-modal">
+                    data-modal-hide="edit-dosis-modal">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -253,11 +257,13 @@
                 </button>
             </div>
             <div class="p-4 md:p-5 space-y-4">
-                <form method="POST" action="">
+                <form method="POST" action="{{ route('profile.updateDosis') }}">
                     @csrf
-                    <label class="block mb-2 text-sm">Dosis:</label>
-                    <input type="number" id="kadarHb" name="kadar_hb" class="w-full p-2 border rounded-md mb-3"
-                        required>
+                    @method('PATCH')
+
+                    <label class="block mb-2 text-sm">Dosis per hari:</label>
+                    <input type="number" name="dosis_obat_fe" value="{{ auth()->user()->profile->dosis_obat_fe ?? '' }}"
+                        class="w-full p-2 border rounded-md mb-3" required>
 
                     <div class="flex justify-between">
                         <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-md">

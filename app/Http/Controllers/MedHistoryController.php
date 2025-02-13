@@ -10,7 +10,12 @@ class MedHistoryController extends Controller
 {
     public function riwayat_konsumsi()
     {
-        return view("feature.riwayat_konsumsi");
+        $history = MedHistory::where('user_id', Auth::id())
+            ->selectRaw('DATE(date) as tanggal, COUNT(*) as jumlah')
+            ->groupBy('tanggal')
+            ->get();
+
+        return view("feature.riwayat_konsumsi", compact('history'));
     }
 
     public function store(Request $request)

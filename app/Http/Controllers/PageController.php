@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\HbRecord;
+use App\Models\MedHistory;
 use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
@@ -30,7 +31,13 @@ class PageController extends Controller
                         ->latest('tanggal_cek')
                         ->first();
 
-        return view('feature.dashboard', compact('user', 'latestHb'));
+        $totalTabletHarian = MedHistory::where('user_id', $user->id)
+            ->whereDate('date', today())
+            ->sum('tablet_amount');
+
+        $dosisHarian = $user->profile->dosis_obat_fe ?? 0;
+
+        return view('feature.dashboard', compact('user', 'latestHb', 'totalTabletHarian', 'dosisHarian'));
     }
 
     public function alarm()

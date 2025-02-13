@@ -54,4 +54,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(Profile::class);
     }
+
+    public function medHistories()
+    {
+        return $this->hasMany(MedHistory::class);
+    }
+
 }
