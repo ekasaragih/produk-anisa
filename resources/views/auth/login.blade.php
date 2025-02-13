@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Produk Anisa</title>
+    <title>Produk Anisa</title>
     @vite('resources/css/app.css')
 </head>
 
@@ -33,17 +33,20 @@
                 </div>
 
                 <h2 class="text-2xl font-semibold text-center text-gray-700">Masuk</h2>
-
-                <form class="mt-4">
+                @if(session('success'))
+                <p class="text-green-500 text-center">{{ session('success') }}</p>
+                @endif
+                <form action="{{ route('login') }}" method="POST" class="mt-4">
+                    @csrf
                     <div>
                         <label class="block text-sm font-medium text-gray-600">Email</label>
-                        <input type="email"
+                        <input type="email" name="email"
                             class="w-full px-4 py-2 mt-1 border rounded-lg border-teal-500 focus:ring focus:ring-teal-300 transition duration-300 ease-in-out focus:outline-none"
                             placeholder="Masukkan email anda" required>
                     </div>
                     <div class="mt-4">
                         <label class="block text-sm font-medium text-gray-600">Kata Sandi</label>
-                        <input type="password"
+                        <input type="password" name="password"
                             class="w-full px-4 py-2 mt-1 border rounded-lg border-teal-500 focus:ring focus:ring-teal-300 transition duration-300 ease-in-out focus:outline-none"
                             placeholder="Masukkan kata sandi" required>
                     </div>

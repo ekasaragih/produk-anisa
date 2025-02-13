@@ -5,8 +5,10 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\AuthController;
 
 Route::get('/auth/login', [AuthController::class, 'showLogin'])->name('user.login');
-Route::post('/auth/login', [AuthController::class, 'login']);
 Route::get('/auth/register', [AuthController::class, 'register']);
+
+Route::post('/register', [AuthController::class, 'store'])->name('register');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/auth/logout', [AuthController::class, 'logout'])->name('user.logout');
 
 

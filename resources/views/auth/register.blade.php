@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Produk Anisa</title>
+    <title>Produk Anisa</title>
     @vite('resources/css/app.css')
 </head>
 
@@ -34,28 +34,47 @@
 
                 <h2 class="text-2xl font-semibold text-center text-gray-700">Masuk</h2>
 
-                <form class="mt-4">
+                <form action="{{ route('register') }}" method="POST" class="mt-4">
+                    @csrf
                     <div>
                         <label class="block text-sm font-medium text-gray-600">Nama Lengkap</label>
-                        <input type="text"
+                        <input type="text" name="full_name"
                             class="w-full px-4 py-2 mt-1 border rounded-lg border-teal-500 focus:ring focus:ring-teal-300 transition duration-300 ease-in-out focus:outline-none"
-                            placeholder="Masukkan email anda" required>
+                            placeholder="Masukkan nama lengkap anda" required>
                     </div>
-                    <div>
+                    <div class="mt-4">
+                        <label class="block text-sm font-medium text-gray-600">Username</label>
+                        <input type="text" name="username"
+                            class="w-full px-4 py-2 mt-1 border rounded-lg border-teal-500 focus:ring focus:ring-teal-300 transition duration-300 ease-in-out focus:outline-none"
+                            placeholder="Masukkan nama lengkap anda" required>
+                    </div>
+                    <div class="mt-4">
+                        <label class="block text-sm font-medium text-gray-600">No. HP</label>
+                        <input type="text" name="phone_num"
+                            class="w-full px-4 py-2 mt-1 border rounded-lg border-teal-500 focus:ring focus:ring-teal-300 transition duration-300 ease-in-out focus:outline-none"
+                            placeholder="Masukkan nomor HP anda" required>
+                    </div>
+                    <div class="mt-4">
+                        <label class="block text-sm font-medium text-gray-600">Tanggal Lahir</label>
+                        <input type="date" name="dob"
+                            class="w-full px-4 py-2 mt-1 border rounded-lg border-teal-500 focus:ring focus:ring-teal-300 transition duration-300 ease-in-out focus:outline-none"
+                            placeholder="Masukkan tanggal lahir anda" required>
+                    </div>
+                    <div class="mt-4">
                         <label class="block text-sm font-medium text-gray-600">Email</label>
-                        <input type="email"
+                        <input type="email" name="email"
                             class="w-full px-4 py-2 mt-1 border rounded-lg border-teal-500 focus:ring focus:ring-teal-300 transition duration-300 ease-in-out focus:outline-none"
                             placeholder="Masukkan email anda" required>
                     </div>
                     <div class="mt-4">
                         <label class="block text-sm font-medium text-gray-600">Kata Sandi</label>
-                        <input type="password"
+                        <input type="password" name="password"
                             class="w-full px-4 py-2 mt-1 border rounded-lg border-teal-500 focus:ring focus:ring-teal-300 transition duration-300 ease-in-out focus:outline-none"
                             placeholder="Masukkan kata sandi" required>
                     </div>
                     <div class="mt-4">
                         <label class="block text-sm font-medium text-gray-600">Konfirmasi Kata Sandi</label>
-                        <input type="password"
+                        <input type="password" name="password_confirmation"
                             class="w-full px-4 py-2 mt-1 border rounded-lg border-teal-500 focus:ring focus:ring-teal-300 transition duration-300 ease-in-out focus:outline-none"
                             placeholder="Masukkan kata sandi" required>
                     </div>
