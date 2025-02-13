@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/profile/update-dosis', [ProfileController::class, 'updateDosis'])->name('profile.updateDosis');
 
     Route::get('/kadar_hb', [HbRecordController::class, 'kadar_hb'])->name('kadar_hb');
     Route::post('/hb/store', [HbRecordController::class, 'store'])->name('hb.store');

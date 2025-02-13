@@ -56,4 +56,18 @@ class ProfileController extends Controller
 
         return redirect()->route('profile')->with('success', 'Profil berhasil diperbarui!');
     }
+
+    public function updateDosis(Request $request)
+    {
+        $request->validate([
+            'dosis_obat_fe' => 'required|integer|min:1',
+        ]);
+
+        $profile = Profile::where('user_id', Auth::id())->firstOrFail();
+        $profile->update([
+            'dosis_obat_fe' => $request->dosis_obat_fe,
+        ]);
+
+        return redirect()->back()->with('success', 'Dosis berhasil diperbarui!');
+    }
 }

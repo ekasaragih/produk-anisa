@@ -22,7 +22,8 @@ class Profile extends Model
         'bb_sebelum_hamil', 
         'bb_sekarang', 
         'kadar_hb', 
-        'masalah_kehamilan'
+        'masalah_kehamilan',
+        'dosis_obat_fe',
     ];
 
     // Relasi ke User
