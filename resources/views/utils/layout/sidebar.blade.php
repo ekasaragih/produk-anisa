@@ -82,8 +82,8 @@
             class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'tingkat_pengetahuan_ibu_hamil' ? 'bg-blue-600 font-bold' : '' }}">
             <i class="fa fa-venus mr-3"></i> Edukasi
         </a>
-        <a href="{{ route('promotive') }}"
-            class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'promotive' ? 'bg-blue-600 font-bold' : '' }}">
+        <a href="{{ route('promotive_guest') }}"
+            class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'promotive_guest' ? 'bg-blue-600 font-bold' : '' }}">
             <i class="fa fa-clipboard mr-3"></i> Promotif
         </a>
 

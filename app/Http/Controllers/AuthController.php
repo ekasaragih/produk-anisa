@@ -58,6 +58,6 @@ class AuthController extends Controller
 
     public function logout() {
         Auth::logout();
-        return redirect()->route('user.login');
+        return redirect()->route('tingkat_pengetahuan_ibu_hamil');
     }
 }
