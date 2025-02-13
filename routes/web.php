@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AuthController;
 
 // Authentication
@@ -28,4 +29,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/certificate', [PageController::class, 'certificate'])->name('certificate');
     Route::get('/kadar_hb', [PageController::class, 'kadar_hb'])->name('kadar_hb');
     Route::get('/contact_us', [PageController::class, 'contact_us'])->name('contact_us');
+
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 });

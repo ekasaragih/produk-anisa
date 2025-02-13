@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Profile;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 
@@ -32,13 +33,19 @@ class AuthController extends Controller
             'password' => 'required|min:6|confirmed'
         ]);
 
-        User::create([
+        $user = User::create([
             'full_name' => $request->full_name,
             'username' => $request->username,
             'email' => $request->email,
             'phone_num' => $request->phone_num,
             'dob' => $request->dob,
             'password' => Hash::make($request->password)
+        ]);
+
+        Profile::create([
+            'user_id' => $user->id,
+            'nama' => $user->full_name,
+            'usia' => $user->dob ? Profile::calculateAge($user->dob) : null,
         ]);
 
         return redirect()->route('user.login')->with('success', 'Pendaftaran berhasil! Silakan login.');
