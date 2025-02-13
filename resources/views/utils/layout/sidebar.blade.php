@@ -26,8 +26,10 @@
 
         <hr class="my-3">
 
-        <h6 class="mt-4 uppercase text-xs font-semibold opacity-70">Pemantauan</h6>
 
+
+        @if(auth()->check())
+        <h6 class="mt-4 uppercase text-xs font-semibold opacity-70">Pemantauan</h6>
         <a href="{{ route('dashboard') }}"
             class="flex items-center px-5 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'dashboard' ? 'bg-blue-600 font-bold' : '' }}">
             <i class="fa fa-tachometer-alt mr-3"></i> Dashboard
@@ -38,14 +40,16 @@
             <i class="fa fa-history mr-3"></i> Riwayat Konsumsi
         </a>
 
-        <a href="{{ route('tingkat_pengetahuan_ibu_hamil') }}"
-            class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'tingkat_pengetahuan_ibu_hamil' ? 'bg-blue-600 font-bold' : '' }}">
+        <a href="{{ route('edukasi') }}"
+            class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'edukasi' ? 'bg-blue-600 font-bold' : '' }}">
             <i class="fa fa-venus mr-3"></i> Edukasi
         </a>
+
         <a href="{{ route('promotive') }}"
             class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'promotive' ? 'bg-blue-600 font-bold' : '' }}">
             <i class="fa fa-clipboard mr-3"></i> Promotif
         </a>
+
         <a href="{{ route('preventive') }}"
             class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'preventive' ? 'bg-blue-600 font-bold' : '' }}">
             <i class="fa fa-clipboard-check mr-3"></i> Preventif
@@ -55,22 +59,41 @@
             class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'kadar_hb' ? 'bg-blue-600 font-bold' : '' }}">
             <i class="fa fa-heartbeat mr-3"></i> Kadar Hb
         </a>
+
         <a href="{{ route('certificate') }}"
             class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'certificate' ? 'bg-blue-600 font-bold' : '' }}">
             <i class="fa fa-certificate mr-3"></i> Sertifikat
         </a>
+
         <a href="{{ route('contact_us') }}"
             class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'contact_us' ? 'bg-blue-600 font-bold' : '' }}">
             <i class="fa fa-phone-alt mr-3"></i> Hubungi Kami
         </a>
 
-        <form method="post" action="" id="logout-form" class="mt-auto">
+        <form method="post" action="{{ route('user.logout') }}" id="logout-form" class="mt-auto">
             @csrf
             <button type="submit"
                 class="flex items-center px-3 py-3 w-full text-sm text-left rounded-md hover:bg-red-600">
                 <i class="fa fa-user mr-3"></i> Keluar dari Akun
             </button>
         </form>
+        @else
+        <a href="{{ route('tingkat_pengetahuan_ibu_hamil') }}"
+            class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'tingkat_pengetahuan_ibu_hamil' ? 'bg-blue-600 font-bold' : '' }}">
+            <i class="fa fa-venus mr-3"></i> Edukasi
+        </a>
+        <a href="{{ route('promotive') }}"
+            class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'promotive' ? 'bg-blue-600 font-bold' : '' }}">
+            <i class="fa fa-clipboard mr-3"></i> Promotif
+        </a>
+
+        <div class="mt-auto">
+            <a href="{{ route('user.login') }}"
+                class="flex items-center px-3 py-3 w-full text-sm text-left rounded-md hover:bg-red-600">
+                <i class="fa fa-user mr-3"></i> Masuk ke Akun Saya
+            </a>
+        </div>
+        @endif
     </nav>
 
     <!-- Mobile Navbar -->

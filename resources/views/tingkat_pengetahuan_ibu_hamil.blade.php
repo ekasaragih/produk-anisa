@@ -24,6 +24,14 @@
 @include('utils.layout.topnav', ['title' => 'Tingkat Pengetahuan Ibu Hamil'])
 <div class="container mx-auto pb-8 px-4 min-h-screen">
     <div class="page p-8 bg-white rounded-2xl shadow-lg border border-gray-200 animate-fade-in">
+        @guest
+        <div class="p-4 text-center bg-yellow-100 border border-yellow-400 text-yellow-700 rounded-lg mb-3">
+            <p>Kamu belum login. <a href="{{ route('user.login') }}" class="text-blue-600 font-bold">Login</a> untuk
+                melihat
+                lebih banyak.</p>
+        </div>
+        @endguest
+
         <h2
             class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-l from-blue-600 to-teal-500 mb-6">
             Tingkat Pengetahuan Ibu Hamil</h2>
