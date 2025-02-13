@@ -17,6 +17,15 @@
     .animate-fade-in {
         animation: fade-in 1s ease-out;
     }
+
+    .modal-bg {
+        transition: backdrop-filter 0.3s ease, background-color 0.3s ease;
+    }
+
+    .dimmed {
+        backdrop-filter: blur(4px);
+        background-color: rgba(0, 0, 0, 0.6);
+    }
 </style>
 @endsection
 
@@ -24,14 +33,30 @@
 @include('utils.layout.topnav', ['title' => 'Dashboard'])
 <div class="container mx-auto pb-8 px-4 min-h-screen">
     <div class="page p-8 bg-white rounded-2xl shadow-lg border border-gray-200 animate-fade-in">
-        <div class="text-left mb-6">
-            <h2
-                class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-l from-blue-600 to-teal-400 mb-6">
-                Dashboard Anda</h2>
-            <p class="text-gray-600">Selamat datang, User.</p>
+        <div
+            class="bg-white shadow-md rounded-lg p-6 border-l-4 border-pink-500 flex flex-col items-center sm:flex-row sm:items-start mb-3">
+            <div class="flex-shrink-0">
+                <img src="https://i.pinimg.com/736x/cd/8e/0f/cd8e0fcdd99d49b5408d8c4c58422621.jpg" alt="User Avatar"
+                    class="w-24 h-24 rounded-full border">
+            </div>
+            <div class="mt-4 sm:mt-0 sm:ml-4 text-left w-full">
+                <h2 class="text-base font-semibold text-gray-800">Selamat datang,
+                    <span class="text-pink-600">{{ $user->full_name }}</span> 🎉
+                </h2>
+                <p class="text-gray-600 text-sm">Kelola akun dan perbarui informasi profilmu.</p>
+                <a href=""
+                    class="mt-3 inline-flex items-center bg-pink-500 text-white px-4 py-2 rounded-md text-sm hover:bg-pink-600 transition-all">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M5.121 17.804A5.002 5.002 0 0112 14h0a5.002 5.002 0 016.879 3.804M15 10a3 3 0 11-6 0 3 3 0 016 0z">
+                        </path>
+                    </svg>
+                    Kelola Profil
+                </a>
+            </div>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
             <!-- Waktu Saat Ini -->
             <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-blue-500">
                 <h3 class="text-lg font-semibold text-blue-600 flex items-center">
@@ -61,27 +86,36 @@
             </div>
 
             <!-- Ringkasan Hari Ini -->
-            <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-blue-500">
-                <h3 class="text-lg font-semibold text-blue-600 flex items-center">
-                    📅 <span class="ml-2">Ringkasan Hari Ini</span>
-                </h3>
-                <div>
-                    <p class="text-base font-bold text-gray-800 underline">2/3 Tablet <span>sudah diminum</span></p>
+            <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-blue-500 flex flex-col h-full">
+                <div class="flex-grow mb-2">
+                    <h3 class="text-lg font-semibold text-blue-600 flex items-center">
+                        📅 <span class="ml-2">Ringkasan Hari Ini</span>
+                    </h3>
+                    <div>
+                        <p class="text-base font-bold text-gray-800 underline mb-4">2/3 Tablet <span>sudah
+                                diminum</span></p>
+                    </div>
+                    <p class="text-gray-600 text-xs mt-1">Sudahkah minum obat hari ini? Catat konsumsi tabletmu.</p>
                 </div>
-                <p class="text-gray-600 text-xs mt-1">Sudahkah minum obat hari ini? Catat konsumsi tabletmu.</p>
-                <button class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-md text-sm"
+                <button class="mt-auto bg-blue-500 text-white px-4 py-2 rounded-md text-sm self-start"
                     data-modal-target="add-medicine-consumption-modal"
                     data-modal-toggle="add-medicine-consumption-modal">Sudah
-                    Diminum ✅</button>
+                    Diminum ✅
+                </button>
             </div>
 
             <!-- Dosis Setiap Hari -->
-            <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-blue-500">
-                <h3 class="text-lg font-semibold text-blue-600 flex items-center">
-                    💊 <span class="ml-2">Dosis Setiap Hari</span>
-                </h3>
-                <p class="text-gray-600 text-sm">Dosis yang harus Anda minum setiap hari adalah <b>4 Tablet Fe.</b></p>
-                <button class="mt-3 bg-blue-500 text-white px-4 py-2 text-sm rounded-md">Atur dosis 📝</button>
+            <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-blue-500 flex flex-col h-full">
+                <div class="flex-grow">
+                    <h3 class="text-lg font-semibold text-blue-600 flex items-center">
+                        💊 <span class="ml-2">Dosis Setiap Hari</span>
+                    </h3>
+                    <p class="text-gray-600 text-sm mb-3">Dosis yang harus Anda minum setiap hari adalah <b>4 Tablet
+                            Fe.</b>
+                    </p>
+                </div>
+                <button class="mt-auto bg-blue-500 text-white px-4 py-2 text-sm rounded-md self-start">Atur dosis
+                    📝</button>
             </div>
         </div>
 
@@ -100,31 +134,37 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 mt-4">
-            <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-green-500">
-                <h3 class="text-lg font-semibold text-green-600">Masukkan Kadar HB</h3>
-                <p class="text-gray-600 mb-4">Periksa kadar hemoglobin Anda untuk memastikan kesehatan darah tetap
-                    optimal.</p>
-                <button id="openModal" class="mt-3 bg-green-500 text-white px-4 py-2 rounded-md">
+            <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-green-500 flex flex-col h-full">
+                <div class="flex-grow">
+                    <h3 class="text-lg font-semibold text-green-600">Masukkan Kadar HB</h3>
+                    <p class="text-gray-600 mb-4">Periksa kadar hemoglobin Anda untuk memastikan kesehatan darah tetap
+                        optimal.
+                    </p>
+                </div>
+                <button id="openModal" class="mt-auto bg-green-500 text-white px-4 py-2 rounded-md self-start">
                     Periksa HB 🩺
                 </button>
             </div>
 
-            <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-purple-500">
-                <h3 class="text-lg font-semibold text-purple-600">Atur Pengingat Alarm</h3>
-                <p class="text-gray-600">Atur jadwal minum obat dengan alarm dan notifikasi.</p>
-                <button class="mt-3 bg-purple-500 text-white px-4 py-2 rounded-md"
+            <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-purple-500 flex flex-col h-full">
+                <div class="flex-grow">
+                    <h3 class="text-lg font-semibold text-purple-600">Atur Pengingat Alarm</h3>
+                    <p class="text-gray-600 mb-4">Atur jadwal minum obat dengan alarm dan notifikasi.</p>
+                </div>
+                <button class="mt-auto bg-purple-500 text-white px-4 py-2 rounded-md self-start"
                     onclick="window.location.href='/alarm'">
                     Atur Pengingat 📢
                 </button>
             </div>
 
-            <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-red-500">
-                <h3 class="text-lg font-semibold text-red-600">Emergency Contact</h3>
-                <p class="text-gray-600 mb-4">Hubungi tenaga medis jika ada masalah.</p>
-                <a href="/contact_us" class="mt-3 bg-red-500 text-white px-4 py-2 rounded-md">Hubungi Medis 📞</a>
+            <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-red-500 flex flex-col h-full">
+                <div class="flex-grow">
+                    <h3 class="text-lg font-semibold text-red-600">Emergency Contact</h3>
+                    <p class="text-gray-600 mb-4">Hubungi tenaga medis jika ada masalah.</p>
+                </div>
+                <a href="/contact_us" class="mt-auto bg-red-500 text-white px-4 py-2 rounded-md self-start">Hubungi
+                    Medis 📞</a>
             </div>
-
-
         </div>
     </div>
     @include('utils.layout.footer')
@@ -219,18 +259,6 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<style>
-    /* Apply transition to background dimming */
-    .modal-bg {
-        transition: backdrop-filter 0.3s ease, background-color 0.3s ease;
-    }
-
-    .dimmed {
-        backdrop-filter: blur(4px);
-        background-color: rgba(0, 0, 0, 0.6);
-    }
-</style>
 
 <script>
     // TO-DO: Change alarm audio
