@@ -12,7 +12,18 @@ class HbRecordController extends Controller
     public function kadar_hb()
     {
         $hbRecords = HbRecord::orderBy('tanggal_cek', 'desc')->get();
-        return view('feature.kadar_hb', compact('hbRecords'));
+        $latestHb = HbRecord::orderBy('tanggal_cek', 'desc')->first();
+        $hbRecordCount = $hbRecords->count();
+
+        $recentHbRecords = HbRecord::orderBy('tanggal_cek', 'desc')
+                               ->take(3)
+                               ->pluck('indicated_anemia')
+                               ->toArray();
+        
+        $stillAnemia = count($recentHbRecords) === 3 && 
+                   array_unique($recentHbRecords) === ['Anemia'];
+
+        return view('feature.kadar_hb', compact('hbRecords', 'latestHb', 'hbRecordCount', 'stillAnemia'));
     }
 
     public function store(Request $request)

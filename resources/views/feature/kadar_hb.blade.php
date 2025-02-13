@@ -41,14 +41,55 @@
         <div class="flex flex-col md:flex-row gap-6 justify-between items-start mt-6">
             <!-- Chart Section -->
             <div class="w-full md:w-1/2 bg-white p-5 rounded-lg shadow-lg">
-                <h3 class="text-lg font-bold text-gray-700 mb-4">Grafik Kadar Hb</h3>
+                <h3 class="text-lg font-bold text-gray-700 mb-4">Rekomendasi Berdasarkan Kadar Hb</h3>
+
+                @if($latestHb)
+                @if($latestHb->indicated_anemia === 'Anemia')
+                <div class="p-4 mb-4 text-red-800 border border-red-300 rounded-lg bg-red-50" role="alert">
+                    <strong class="font-bold text-2xl">Perhatian! 🚨</strong>
+                    <p class="text-sm mt-2">
+                        Anda terindikasi anemia ({{ $latestHb->kadar_hb }} g/dL pada {{
+                        \Carbon\Carbon::parse($latestHb->tanggal_cek)->format('d M Y') }}).
+                        <br><br>
+                        <span class="text-base font-semibold">Rekomendasi:</span>
+                    <ul class="list-disc list-inside mt-2">
+                        <li>💊 Konsumsi tablet Fe secara teratur.</li>
+                        <li>📅 Periksa ulang kadar Hb dalam 2 minggu.</li>
+                        <li>🥦 Konsumsi makanan tinggi zat besi (bayam, hati, daging merah).</li>
+                    </ul>
+                    </p>
+                    @if($hbRecordCount > 3 && $stillAnemia)
+                    <p class="mt-3 text-red-700 font-semibold">
+                        ⚠️ Anda mengalami anemia terus-menerus dalam beberapa pemeriksaan terakhir.
+                        Segera konsultasikan ke dokter atau bidan untuk penanganan lebih lanjut.
+                    </p>
+                    @endif
+                </div>
+                @else
+                <div class="p-4 mb-4 text-green-800 border border-green-300 rounded-lg bg-green-50" role="alert">
+                    <strong class="font-bold">Selamat! ❤️</strong>
+                    <p class="text-sm mt-2">
+                        Kadar Hb Anda normal ({{ $latestHb->kadar_hb }} g/dL pada {{
+                        \Carbon\Carbon::parse($latestHb->tanggal_cek)->format('d M Y') }}).
+                        Teruskan pola hidup sehat, konsumsi makanan bergizi, dan lakukan pemeriksaan Hb rutin!
+                    </p>
+                </div>
+                @endif
+                @else
+                <div class="p-4 mb-4 text-blue-800 border border-blue-300 rounded-lg bg-blue-50" role="alert">
+                    <strong class="font-bold">Belum Ada Data 📊</strong>
+                    <p class="text-sm mt-2">Silakan tambahkan data pemeriksaan kadar Hb pertama Anda.</p>
+                </div>
+                @endif
+
+                <h3 class="text-lg font-bold text-gray-700 my-6">Grafik Kadar Hb</h3>
                 <canvas id="hbChart" class="h-72"></canvas>
             </div>
 
             <!-- Table Section -->
             <div class="w-full md:w-1/2 bg-white p-5 rounded-lg shadow-lg">
                 <h3 class="text-lg font-bold text-gray-700 mb-4">Riwayat Pemeriksaan Hb</h3>
-                <div class="max-h-72 overflow-y-auto rounded-lg">
+                <div class="overflow-y-auto rounded-lg">
                     <table id="hbRecordsTable" class="table-auto w-full text-sm text-left">
                         <thead class="bg-gradient-to-r from-teal-500 to-blue-500 text-white sticky top-0 z-10">
                             <tr>
@@ -144,7 +185,7 @@
         $('#hbRecordsTable').DataTable({
             responsive: true,
             lengthChange: true,
-            pageLength: 5,
+            pageLength: 10,
             ordering: true,
             order: [[0, 'desc']],
             language: {
@@ -213,6 +254,25 @@
                     }
                 }
             }
+        }
+    });
+</script>
+
+<script>
+    document.getElementById('kadarHb').addEventListener('input', function () {
+        const hbValue = parseFloat(this.value);
+        const anemiaInput = document.getElementById('indicatedAnemia');
+
+        if (!isNaN(hbValue)) {
+            if (hbValue < 11) {
+                anemiaInput.value = "Anemia";
+                anemiaInput.style.color = "red";
+            } else {
+                anemiaInput.value = "Tidak Anemia";
+                anemiaInput.style.color = "green";
+            }
+        } else {
+            anemiaInput.value = "";
         }
     });
 </script>
