@@ -44,7 +44,7 @@
                     <span class="text-pink-600">{{ $user->full_name }}</span> 🎉
                 </h2>
                 <p class="text-gray-600 text-sm">Kelola akun dan perbarui informasi profilmu.</p>
-                <a href=""
+                <a href="{{ route('profile') }}"
                     class="mt-3 inline-flex items-center bg-pink-500 text-white px-4 py-2 rounded-md text-sm hover:bg-pink-600 transition-all">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round"

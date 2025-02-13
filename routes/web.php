@@ -31,4 +31,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/contact_us', [PageController::class, 'contact_us'])->name('contact_us');
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::put('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
+
 });

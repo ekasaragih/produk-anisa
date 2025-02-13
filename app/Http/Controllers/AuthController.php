@@ -45,7 +45,6 @@ class AuthController extends Controller
         Profile::create([
             'user_id' => $user->id,
             'nama' => $user->full_name,
-            'usia' => $user->dob ? Profile::calculateAge($user->dob) : null,
         ]);
 
         return redirect()->route('user.login')->with('success', 'Pendaftaran berhasil! Silakan login.');

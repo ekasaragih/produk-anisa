@@ -15,7 +15,6 @@ class Profile extends Model
     protected $fillable = [
         'user_id', 
         'nama', 
-        'usia', 
         'pendidikan', 
         'pekerjaan', 
         'hamil_ke',
@@ -32,9 +31,4 @@ class Profile extends Model
         return $this->belongsTo(User::class);
     }
 
-    // Set usia otomatis berdasarkan DOB user
-    public static function calculateAge($dob)
-    {
-        return Carbon::parse($dob)->age;
-    }
 }
