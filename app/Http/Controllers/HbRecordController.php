@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\Auth;
 
 class HbRecordController extends Controller
 {
+    
+    public function kadar_hb()
+    {
+        $hbRecords = HbRecord::orderBy('tanggal_cek', 'desc')->get();
+        return view('feature.kadar_hb', compact('hbRecords'));
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([

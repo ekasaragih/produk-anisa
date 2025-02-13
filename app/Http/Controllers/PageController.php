@@ -33,7 +33,6 @@ class PageController extends Controller
         return view("feature.alarm");
     }
 
-
     public function riwayat_konsumsi()
     {
         return view("feature.riwayat_konsumsi");
@@ -42,11 +41,6 @@ class PageController extends Controller
     public function certificate()
     {
         return view("feature.certificate");
-    }
-
-    public function kadar_hb()
-    {
-        return view("feature.kadar_hb");
     }
 
     public function contact_us()

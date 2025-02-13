@@ -29,12 +29,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/alarm', [PageController::class, 'alarm'])->name('alarm');
     Route::get('/riwayat_konsumsi', [PageController::class, 'riwayat_konsumsi'])->name('riwayat_konsumsi');
     Route::get('/certificate', [PageController::class, 'certificate'])->name('certificate');
-    Route::get('/kadar_hb', [PageController::class, 'kadar_hb'])->name('kadar_hb');
+    
     Route::get('/contact_us', [PageController::class, 'contact_us'])->name('contact_us');
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
 
+    Route::get('/kadar_hb', [HbRecordController::class, 'kadar_hb'])->name('kadar_hb');
     Route::post('/hb/store', [HbRecordController::class, 'store'])->name('hb.store');
 
 });

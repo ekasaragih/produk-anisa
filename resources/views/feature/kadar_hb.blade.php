@@ -1,6 +1,8 @@
 @extends('utils.layout.sidebar')
 
 @section('head')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
 <style>
     @keyframes fade-in {
         from {
@@ -29,44 +31,49 @@
             Riwayat Pemeriksaan Hb
         </h2>
 
-        <!-- Chart Container -->
-        <div class="w-full max-w-3xl mx-auto">
-            <canvas id="hbChart"></canvas>
-        </div>
-
-        <!-- Table -->
-        <div class="relative overflow-x-auto rounded-lg shadow-md mt-3">
-            <table class="table-auto w-full text-sm text-left border-collapse bg-white shadow-inner rounded-lg">
-                <thead class="bg-gradient-to-l from-blue-500 to-teal-400 text-white text-md">
-                    <tr>
-                        <th class="border p-2">Tanggal</th>
-                        <th class="border p-2">Kadar Hb</th>
-                        <th class="border p-2">Keluhan</th>
-                        <th class="border p-2">Saran Dokter</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="border p-2">2025-02-01</td>
-                        <td class="border p-2">12.5</td>
-                        <td class="border p-2">Pusing ringan</td>
-                        <td class="border p-2">Lanjutkan konsumsi tablet Fe</td>
-                    </tr>
-                    <tr>
-                        <td class="border p-2">2025-01-15</td>
-                        <td class="border p-2">11.8</td>
-                        <td class="border p-2">Mudah lelah</td>
-                        <td class="border p-2">Perbanyak makan sayur dan daging merah</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
         <!-- Button to Add Data -->
         <button data-modal-target="add-hb-record-modal" data-modal-toggle="add-hb-record-modal"
-            class="mt-6 bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded-md">
+            class="mt-3 bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded-md">
             Masukkan Data Hb
         </button>
+
+        <!-- Container for Chart and Table -->
+        <div class="flex flex-col md:flex-row gap-6 justify-between items-start mt-6">
+            <!-- Chart Section -->
+            <div class="w-full md:w-1/2 bg-white p-5 rounded-lg shadow-lg">
+                <h3 class="text-lg font-bold text-gray-700 mb-4">Grafik Kadar Hb</h3>
+                <canvas id="hbChart" class="h-72"></canvas>
+            </div>
+
+            <!-- Table Section -->
+            <div class="w-full md:w-1/2 bg-white p-5 rounded-lg shadow-lg">
+                <h3 class="text-lg font-bold text-gray-700 mb-4">Riwayat Pemeriksaan Hb</h3>
+                <div class="max-h-72 overflow-y-auto rounded-lg">
+                    <table id="hbRecordsTable" class="table-auto w-full text-sm text-left">
+                        <thead class="bg-gradient-to-r from-teal-500 to-blue-500 text-white sticky top-0 z-10">
+                            <tr>
+                                <th class="p-3 border">Tanggal</th>
+                                <th class="p-3 border">Kadar Hb (g/dL)</th>
+                                <th class="p-3 border">Tempat/Lokasi</th>
+                                <th class="p-3 border">Indikasi Anemia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($hbRecords as $record)
+                            <tr class="hover:bg-blue-50">
+                                <td class="p-3 border">{{ \Carbon\Carbon::parse($record->tanggal_cek)->format('d M Y')
+                                    }}</td>
+                                <td class="p-3 border">{{ $record->kadar_hb }}</td>
+                                <td class="p-3 border">{{ $record->tempat_lokasi }}</td>
+                                <td class="p-3 border">{{ $record->indicated_anemia }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
     </div>
     @include('utils.layout.footer')
 </div>
@@ -127,33 +134,85 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 
 <script>
-    // Dummy data for Chart
-    const chartData = {
-        labels: ["2025-01-01", "2025-01-15", "2025-02-01"],
-        datasets: [{
-            label: "Kadar Hb",
-            data: [11.5, 11.8, 12.5],
-            borderColor: "#4b7795",
-            backgroundColor: "rgba(75, 119, 149, 0.2)",
-            fill: true,
-            tension: 0.3
-        }]
-    };
+    $(document).ready(function() {
+        $('#hbRecordsTable').DataTable({
+            responsive: true,
+            lengthChange: true,
+            pageLength: 5,
+            ordering: true,
+            order: [[0, 'desc']],
+            language: {
+                search: "Cari:",
+                lengthMenu: "Tampilkan _MENU_ data",
+                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                paginate: {
+                    first: "Pertama",
+                    last: "Terakhir",
+                    next: "Berikutnya",
+                    previous: "Sebelumnya"
+                }
+            }
+        });
+    });
+</script>
 
-    // Render Chart
+<script>
+    const chartLabels = @json($hbRecords->pluck('tanggal_cek')->map(function($date) {
+        return \Carbon\Carbon::parse($date)->format('d M Y');
+    }));
+
+    const chartData = @json($hbRecords->pluck('kadar_hb'));
+
     const ctx = document.getElementById("hbChart").getContext("2d");
     new Chart(ctx, {
         type: "line",
-        data: chartData,
+        data: {
+            labels: chartLabels,
+            datasets: [{
+                label: "Kadar Hb",
+                data: chartData,
+                borderColor: "#3BAFDA",
+                backgroundColor: "rgba(59, 175, 218, 0.2)",
+                pointBackgroundColor: "#2CA58D",
+                pointBorderColor: "#2CA58D", 
+                pointHoverBackgroundColor: "#FFED8B",
+                pointHoverBorderColor: "#FFB347",
+                fill: true,
+                tension: 0.3
+            }]
+        },
         options: {
             responsive: true,
-            plugins: { legend: { display: true } },
-            scales: { y: { beginAtZero: false } }
+            plugins: {
+                legend: {
+                    display: true,
+                    labels: {
+                        color: "#4B5563"
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: "#4B5563"
+                    }
+                },
+                y: {
+                    beginAtZero: false,
+                    ticks: {
+                        color: "#4B5563"
+                    },
+                    grid: {
+                        color: "rgba(0, 0, 0, 0.1)"
+                    }
+                }
+            }
         }
     });
 </script>
