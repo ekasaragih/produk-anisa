@@ -34,9 +34,23 @@
                 <h2 class="text-base font-semibold text-gray-800">Selamat datang,
                     <span class="text-pink-600">{{ $user->full_name }}</span> 🎉
                 </h2>
-                <p class="text-gray-600 text-sm">Kelola akun dan perbarui informasi profilmu.</p>
+
+                <p class="text-gray-600 text-sm pt-3">Status Kesehatan Terbaru:</p>
+                <div class="font-bold text-lg
+                            @if($latestHb && $latestHb->indicated_anemia == 'Anemia') text-red-500 
+                            @else text-green-500 @endif">
+                    @if($latestHb)
+                    {{ $latestHb->indicated_anemia }}
+                    ({{ $latestHb->kadar_hb }} g/dL pada {{ \Carbon\Carbon::parse($latestHb->tanggal_cek)->format('d M
+                    Y') }})
+                    @else
+                    Belum ada data Hb terbaru.
+                    @endif
+                </div>
+
+                <p class="text-gray-600 text-sm pt-3">Kelola akun dan perbarui informasi profilmu.</p>
                 <a href="{{ route('profile') }}"
-                    class="mt-3 inline-flex items-center bg-pink-500 text-white px-4 py-2 rounded-md text-sm hover:bg-pink-600 transition-all">
+                    class="mt-2 inline-flex items-center bg-pink-500 text-white px-4 py-2 rounded-md text-sm hover:bg-pink-600 transition-all">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M5.121 17.804A5.002 5.002 0 0112 14h0a5.002 5.002 0 016.879 3.804M15 10a3 3 0 11-6 0 3 3 0 016 0z">
@@ -385,6 +399,25 @@
         setTimeout(() => {
             successFeedback.classList.add("hidden");
         }, 2000);
+    });
+</script>
+
+<script>
+    document.getElementById('kadarHb').addEventListener('input', function () {
+        const hbValue = parseFloat(this.value);
+        const anemiaInput = document.getElementById('indicatedAnemia');
+
+        if (!isNaN(hbValue)) {
+            if (hbValue < 11) {
+                anemiaInput.value = "Anemia";
+                anemiaInput.style.color = "red";
+            } else {
+                anemiaInput.value = "Tidak Anemia";
+                anemiaInput.style.color = "green";
+            }
+        } else {
+            anemiaInput.value = "";
+        }
     });
 </script>
 

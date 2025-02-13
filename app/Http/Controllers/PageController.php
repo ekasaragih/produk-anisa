@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\HbRecord;
 use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
@@ -25,7 +26,11 @@ class PageController extends Controller
     public function dashboard()
     {
         $user = Auth::user();
-        return view("feature.dashboard", compact("user"));
+        $latestHb = HbRecord::where('user_id', $user->id)
+                        ->latest('tanggal_cek')
+                        ->first();
+
+        return view('feature.dashboard', compact('user', 'latestHb'));
     }
 
     public function alarm()
