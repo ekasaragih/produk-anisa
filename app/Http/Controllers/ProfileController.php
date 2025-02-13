@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Profile;
 use App\Models\User;
 use Carbon\Carbon;
+use App\Models\HbRecord;
 use Illuminate\Support\Facades\App;
 
 class ProfileController extends Controller
@@ -20,9 +21,20 @@ class ProfileController extends Controller
         Carbon::setLocale('id');
 
         $usia = $user->dob ? now()->year - Carbon::parse($user->dob)->year : null;
-        $lastUpdated = $profile->updated_at ? Carbon::parse($profile->updated_at)->translatedFormat('d F Y, H:i') : null;
 
-        return view('feature.profile', compact('profile', 'usia', 'lastUpdated'));
+        $lastUpdated = $profile->updated_at 
+            ? Carbon::parse($profile->updated_at)->translatedFormat('d F Y, H:i') 
+            : null;
+
+        $latestHb = HbRecord::where('user_id', $user->id)
+            ->orderBy('tanggal_cek', 'desc')
+            ->first();
+
+        $kadarHbInfo = $latestHb 
+            ? $latestHb->kadar_hb . ' g/dL pada ' . Carbon::parse($latestHb->tanggal_cek)->translatedFormat('d M Y') 
+            : 'Belum ada data';
+
+        return view('feature.profile', compact('profile', 'usia', 'lastUpdated', 'kadarHbInfo'));
     }
 
     public function update(Request $request, $id) {

@@ -37,11 +37,6 @@ class PageController extends Controller
     {
         return view("feature.alarm");
     }
-
-    public function riwayat_konsumsi()
-    {
-        return view("feature.riwayat_konsumsi");
-    }
     
     public function certificate()
     {

@@ -111,9 +111,9 @@
 
                 <div class="bg-white shadow-md rounded-lg p-6 border-l-4 border-teal-500">
                     <p class="text-lg font-semibold text-gray-800">Kadar HB:</p>
-                    <p class="text-gray-600 view-mode">{{ $profile->kadar_hb ?? 'Belum diisi' }}</p>
-                    <input type="number" step="0.1" name="kadar_hb" value="{{ old('kadar_hb', $profile->kadar_hb) }}"
-                        class="hidden edit-mode border rounded-lg p-2 w-full">
+                    <p class="text-gray-600 view-mode">{{ $kadarHbInfo }}</p>
+                    <input type="text" name="kadar_hb" value="{{ $kadarHbInfo }}" readonly
+                        class="hidden edit-mode border rounded-lg p-2 w-full bg-gray-100 text-gray-500">
                 </div>
 
                 <div class="bg-white shadow-md rounded-lg p-6 border-l-4 border-indigo-500">
