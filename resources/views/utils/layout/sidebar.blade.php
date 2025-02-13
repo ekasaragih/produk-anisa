@@ -128,7 +128,7 @@
                 class="top-12 left-0 w-full text-white rounded-b-lg">
 
                 <a href="/" class="block py-2 px-4 text-xl font-semibold">Produk Anisa</a>
-
+                @if(auth()->check())
                 <div class="space-y-1 px-3">
                     <h6 class="mt-4 uppercase text-xs font-semibold opacity-70">Pemantauan</h6>
                     <a href="{{ route('dashboard') }}"
@@ -139,8 +139,8 @@
                         class="block py-2 px-4 hover:bg-blue-600 {{ Route::currentRouteName() == 'riwayat_konsumsi' ? 'bg-blue-600 font-bold' : '' }}"><i
                             class="fa fa-history mr-3"></i> Riwayat
                         Konsumsi</a>
-                    <a href="{{ route('tingkat_pengetahuan_ibu_hamil') }}"
-                        class="block py-2 px-2 hover:bg-blue-600 {{ Route::currentRouteName() == 'tingkat_pengetahuan_ibu_hamil' ? 'bg-blue-600 font-bold' : '' }}">
+                    <a href="{{ route('edukasi') }}"
+                        class="block py-2 px-2 hover:bg-blue-600 {{ Route::currentRouteName() == 'edukasi' ? 'bg-blue-600 font-bold' : '' }}">
                         <i class="fa fa-venus mr-3"></i> Edukasi
                     </a>
                     <a href="{{ route('promotive') }}"
@@ -163,7 +163,7 @@
                         class="block py-2 px-2 hover:bg-blue-600 {{ Route::currentRouteName() == 'contact_us' ? 'bg-blue-600 font-bold' : '' }}">
                         <i class="fa fa-phone-alt mr-3"></i> Hubungi Kami
                     </a>
-                    <form method="post" action="" id="logout-form" class="mt-auto">
+                    <form method="post" action="{{ route('user.logout') }}" id="logout-form" class="mt-auto">
                         @csrf
                         <button type="submit"
                             class="flex items-center px-1 py-2 pt-3 w-full text-sm text-left rounded-md hover:bg-red-600">
@@ -171,6 +171,26 @@
                         </button>
                     </form>
                 </div>
+                @else
+                <div class="space-y-1 px-3">
+                    <a href="{{ route('tingkat_pengetahuan_ibu_hamil') }}"
+                        class="block py-2 px-2 hover:bg-blue-600 {{ Route::currentRouteName() == 'tingkat_pengetahuan_ibu_hamil' ? 'bg-blue-600 font-bold' : '' }}">
+                        <i class="fa fa-venus mr-3"></i> Edukasi
+                    </a>
+                    <a href="{{ route('promotive_guest') }}"
+                        class="block mx-0 py-2 px-2 hover:bg-blue-600 {{ Route::currentRouteName() == 'promotive_guest' ? 'bg-blue-600 font-bold' : '' }}">
+                        <i class="fa fa-clipboard mr-3"></i> Promotif
+                    </a>
+
+                    <div class="mt-auto">
+                        <a href="{{ route('user.login') }}"
+                            class="flex items-center px-3 py-3 w-full text-sm text-left rounded-md hover:bg-red-600">
+                            <i class="fa fa-user mr-3"></i> Masuk ke Akun Saya
+                        </a>
+                    </div>
+                </div>
+                @endif
+
             </div>
         </div>
     </div>
