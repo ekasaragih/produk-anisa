@@ -39,6 +39,161 @@
             Edit/Lengkapi Profil
         </button>
 
+        <!-- Pencapaian !-->
+        <div class="max-w-6xl mx-auto space-y-6">
+        <h1 class="text-3xl font-bold text-center mb-8">Ringkasan Pencapaian</h1>
+
+        <!-- Ringkasan Pencapaian -->
+        <div class="bg-white shadow-lg rounded-xl p-6">
+            <h2 class="text-xl font-semibold mb-4">🏆 1. Ringkasan Pencapaian</h2>
+            <p>Total Badge yang Diperoleh: 7 dari 10 badge</p>
+            <p>Sertifikat yang Dimiliki: Sertifikat “Tantangan 90 Hari Konsumsi Fe”</p>
+            <p>Level Kesehatan: Level 3 – Pejuang Sehat</p>
+        </div>
+
+        <!-- Koleksi Badge -->
+        <div class="bg-white shadow-lg rounded-xl p-6">
+            <h2 class="text-xl font-semibold mb-4">🏅 2. Koleksi Badge atau Medali Virtual</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                <div class="flex items-center space-x-4 bg-gray-50 p-4 rounded-lg">
+                    <span class="text-4xl">🏆</span>
+                    <span>Juara 90 Hari – Konsumsi Fe 90 Hari</span>
+                </div>
+                <div class="flex items-center space-x-4 bg-gray-50 p-4 rounded-lg">
+                    <span class="text-4xl">💪</span>
+                    <span>Pejuang Fe (30 Hari)</span>
+                </div>
+                <div class="flex items-center space-x-4 bg-gray-50 p-4 rounded-lg">
+                    <span class="text-4xl">🌿</span>
+                    <span>Master Nutrisi (Ikuti 5 Tips)</span>
+                </div>
+                <div class="flex items-center space-x-4 bg-gray-50 p-4 rounded-lg">
+                    <span class="text-4xl">🩸</span>
+                    <span>Detektor Dini (3x Cek Hb)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sertifikat yang Dimiliki -->
+        <div class="bg-white shadow-lg rounded-xl p-6">
+            <h2 class="text-xl font-semibold mb-4">📜 3. Sertifikat yang Dimiliki</h2>
+            <ul class="space-y-2">
+                <li>Sertifikat Tantangan 90 Hari Konsumsi Fe (Diterbitkan: 13 Februari 2025) <a href="#" class="text-blue-500 underline hover:text-blue-700">🔽 Unduh Sertifikat</a></li>
+                <li>Sertifikat Bebas Anemia 2 Bulan (Diterbitkan: 20 Januari 2025) <a href="#" class="text-blue-500 underline hover:text-blue-700">🔽 Unduh Sertifikat</a></li>
+            </ul>
+        </div>
+
+        <!-- Riwayat Pencapaian Hb -->
+        <div class="bg-white shadow-lg rounded-xl p-6">
+            <h2 class="text-xl font-semibold mb-4">📊 4. Riwayat Pencapaian Hb</h2>
+            <p>Hb Tertinggi: 13.2 g/dL (10 Januari 2025)</p>
+            <p>Hb Terendah: 9.5 g/dL (15 November 2024)</p>
+            <p>Total Pemeriksaan Hb: 12 kali</p>
+        </div>
+
+        <!-- Tantangan yang Sedang Berlangsung -->
+        <div class="bg-white shadow-lg rounded-xl p-6">
+            <h2 class="text-xl font-semibold mb-4">🎯 5. Tantangan yang Sedang Berlangsung</h2>
+            <div class="mb-4">
+                <p class="mb-2">🚀 Tantangan Konsumsi Fe 90 Hari – 75/90 Hari Terpenuhi</p>
+                <div class="w-full bg-gray-200 rounded-full h-4">
+                    <div class="bg-green-500 h-4 rounded-full animate-pulse" style="width: 83.33%"></div>
+                </div>
+            </div>
+            <div>
+                <p class="mb-2">🥦 Tantangan Nutrisi Seimbang (5 Tips) – 3/5 Tips Dibaca</p>
+                <div class="w-full bg-gray-200 rounded-full h-4">
+                    <div class="bg-blue-500 h-4 rounded-full animate-pulse" style="width: 60%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tips & Motivasi Khusus -->
+        <div class="bg-white shadow-lg rounded-xl p-6">
+            <h2 class="text-xl font-semibold mb-4">📝 6. Tips & Motivasi Khusus</h2>
+            <p class="mb-2">“Selamat! Anda sudah 1 bulan bebas anemia. Pertahankan pola makan sehat!”</p>
+            <p>“Ayo, tinggal 15 hari lagi untuk menyelesaikan tantangan konsumsi Fe 90 hari!”</p>
+        </div>
+    </div>
+
+        <!-- Medali !-->
+        <div class="mt-5 max-w-6xl w-full p-6">
+        <h1 class="text-3xl font-bold text-center mb-8">Medali</h1>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <!-- Badge Cards -->
+            <div class="bg-white shadow-lg rounded-xl p-6 flex flex-col items-center">
+                <div class="text-blue-500 text-5xl mb-4">
+                    <i class="fas fa-medal"></i>
+                </div>
+                <h2 class="text-xl font-semibold">Pejuang Fe (30 Hari)</h2>
+                <p>Rutin mengonsumsi tablet Fe selama 30 hari.</p>
+            </div>
+
+            <div class="bg-white shadow-lg rounded-xl p-6 flex flex-col items-center">
+                <div class="text-green-500 text-5xl mb-4">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h2 class="text-xl font-semibold">Streak Sehat (7 Hari)</h2>
+                <p>Menjaga kadar Hb normal selama 7 hari berturut-turut.</p>
+            </div>
+
+            <div class="bg-white shadow-lg rounded-xl p-6 flex flex-col items-center">
+                <div class="text-yellow-500 text-5xl mb-4">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h2 class="text-xl font-semibold">Bintang Pagi (Log Tepat Waktu)</h2>
+                <p>Mencatat konsumsi tablet tepat waktu selama 14 hari.</p>
+            </div>
+
+            <div class="bg-white shadow-lg rounded-xl p-6 flex flex-col items-center">
+                <div class="text-purple-500 text-5xl mb-4">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h2 class="text-xl font-semibold">Pahlawan Hb (Bebas Anemia)</h2>
+                <p>Menjaga kadar Hb normal selama 1 bulan penuh.</p>
+            </div>
+
+            <div class="bg-white shadow-lg rounded-xl p-6 flex flex-col items-center">
+                <div class="text-pink-500 text-5xl mb-4">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h2 class="text-xl font-semibold">Detektor Dini (Rutin Cek Hb)</h2>
+                <p>Melakukan pencatatan kadar Hb minimal 3 kali dalam sebulan.</p>
+            </div>
+
+            <div class="bg-white shadow-lg rounded-xl p-6 flex flex-col items-center">
+                <div class="text-red-500 text-5xl mb-4">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <h2 class="text-xl font-semibold">Juara 90 Hari (Tantangan Selesai)</h2>
+                <p>Menyelesaikan tantangan konsumsi tablet Fe selama 90 hari.</p>
+            </div>
+
+            <div class="bg-white shadow-lg rounded-xl p-6 flex flex-col items-center">
+                <div class="text-indigo-500 text-5xl mb-4">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <h2 class="text-xl font-semibold">Ibu Teladan (Tanpa Absen</h2>
+                <p>Tidak pernah melewatkan konsumsi tablet selama 1 bulan penuh.</p>
+            </div>
+
+            <div class="bg-white shadow-lg rounded-xl p-6 flex flex-col items-center">
+                <div class="text-teal-500 text-5xl mb-4">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h2 class="text-xl font-semibold">Pelacak Kesehatan (Pengguna Aktif)</h2>
+                <p>Rutin mencatat log kesehatan selama 30 hari.</p>
+            </div>
+
+            <div class="bg-white shadow-lg rounded-xl p-6 flex flex-col items-center">
+                <div class="text-orange-500 text-5xl mb-4">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h2 class="text-xl font-semibold">Penjaga Kesehatan (Bebas Anemia 2 Bulan)</h2>
+                <p>Menjaga kadar Hb normal selama 60 hari berturut-turut.</p>
+            </div>
+        </div>
+
         <!-- Form Update Profile -->
         <form id="profileForm" action="{{ route('profile.update', $profile->id) }}" method="POST">
             @csrf
