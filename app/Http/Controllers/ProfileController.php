@@ -28,7 +28,6 @@ class ProfileController extends Controller
             ? Carbon::parse($profile->updated_at)->translatedFormat('d F Y, H:i') 
             : null;
 
-
         // --- 1. Ambil informasi kadar Hb terbaru ---
         $latestHb = HbRecord::where('user_id', $user->id)
             ->orderBy('tanggal_cek', 'desc')
@@ -70,21 +69,87 @@ class ProfileController extends Controller
 
         $progressFe90 = ($daysCompleted / $totalDays) * 100;
 
-
-        // --- 4. Koleksi Badge atau Medali Virtual ---
+        // Calculate badge statuses
         $badges = [
-            ['name' => 'Juara 90 Hari – Konsumsi Fe 90 Hari', 'unlocked' => $daysCompleted >= 90, 'icon' => '🏆'],
-            ['name' => 'Pejuang Fe (30 Hari)', 'unlocked' => $daysCompleted >= 30, 'icon' => '💪'],
-            ['name' => 'Detektor Dini (3x Cek Hb)', 'unlocked' => $totalPemeriksaanHb >= 3, 'icon' => '🩸'],
+            [
+                'name' => 'Juara 90 Hari',
+                'description' => 'Konsumsi Fe 90 Hari',
+                'icon' => '🏆',
+                'unlocked' => $daysCompleted >= 90,
+                'date_earned' => $daysCompleted >= 90 ? Carbon::now()->format('d M Y') : null,
+                'requirement' => 'Konsumsi Fe setiap hari selama 90 hari.'
+            ],
+            [
+                'name' => 'Pejuang 30 Hari',
+                'description' => 'Konsumsi Fe 30 Hari',
+                'icon' => '💪',
+                'unlocked' => $daysCompleted >= 30,
+                'date_earned' => $daysCompleted >= 30 ? Carbon::now()->format('d M Y') : null,
+                'requirement' => 'Konsumsi Fe setiap hari selama 30 hari.'
+            ],
+            [
+                'name' => 'Master Nutrisi',
+                'description' => 'Baca 5 Tips Nutrisi',
+                'icon' => '🌿',
+                'unlocked' => false, // This would need to be implemented based on article reading tracking
+                'date_earned' => null,
+                'requirement' => 'Baca minimal 5 artikel tips nutrisi.'
+            ],
+            [
+                'name' => 'Detektor Dini',
+                'description' => '3x Cek Hb',
+                'icon' => '🩸',
+                'unlocked' => $totalPemeriksaanHb >= 3,
+                'date_earned' => $totalPemeriksaanHb >= 3 ? Carbon::now()->format('d M Y') : null,
+                'requirement' => 'Lakukan pemeriksaan Hb sebanyak 3 kali.'
+            ],
+            [
+                'name' => 'Bebas Anemia 1 Minggu',
+                'description' => 'Hb ≥11 g/dL selama 7 hari',
+                'icon' => '🥇',
+                'unlocked' => false, // This would need to be implemented based on Hb tracking
+                'date_earned' => null,
+                'requirement' => 'Jaga Hb ≥11 g/dL selama 7 hari berturut-turut.'
+            ],
+            [
+                'name' => 'Bebas Anemia 1 Bulan',
+                'description' => 'Hb ≥11 g/dL selama 30 hari',
+                'icon' => '❤️',
+                'unlocked' => false, // This would need to be implemented based on Hb tracking
+                'date_earned' => null,
+                'requirement' => 'Jaga Hb ≥11 g/dL selama 30 hari berturut-turut.'
+            ]
         ];
 
-        // --- 5. Sertifikat yang Dimiliki (contoh sertifikat hardcoded) ---
+        // Calculate badge statistics
+        $totalBadges = count($badges);
+        $earnedBadges = count(array_filter($badges, fn($badge) => $badge['unlocked']));
+        $latestBadge = collect($badges)->where('unlocked', true)->sortByDesc('date_earned')->first();
+        $nextBadge = collect($badges)->where('unlocked', false)->first();
+
+        // Calculate active challenge progress
+        $activeChallenge = [
+            'fe_90_days' => [
+                'name' => 'Tantangan Konsumsi Fe 90 Hari',
+                'progress' => $daysCompleted,
+                'total' => 90,
+                'percentage' => ($daysCompleted / 90) * 100
+            ],
+            'anemia_free_week' => [
+                'name' => 'Tantangan Bebas Anemia 1 Minggu',
+                'progress' => 0, // This would need to be implemented based on Hb tracking
+                'total' => 7,
+                'percentage' => 0
+            ]
+        ];
+
+        // --- 4. Koleksi Badge atau Medali Virtual ---
         $certificates = [
             ['title' => 'Tantangan 90 Hari Konsumsi Fe', 'date' => '13 Februari 2025', 'download_link' => '#'],
             ['title' => 'Bebas Anemia 2 Bulan', 'date' => '20 Januari 2025', 'download_link' => '#'],
         ];
 
-        // --- 6. Motivasi berdasarkan pencapaian ---
+        // --- 5. Motivasi berdasarkan pencapaian ---
         $motivations = [];
 
         if ($daysWithMedication >= 10) {
@@ -106,7 +171,6 @@ class ProfileController extends Controller
             $motivations[] = "Ayo, tinggal $remainingDays hari lagi untuk menyelesaikan tantangan konsumsi Fe 90 hari! 💊🔥";
         }
 
-
         return view('feature.profile', compact(
             'profile',
             'usia',
@@ -117,7 +181,12 @@ class ProfileController extends Controller
             'totalPemeriksaanHb', 
             'daysCompleted', 
             'progressFe90', 
-            'badges', 
+            'badges',
+            'totalBadges',
+            'earnedBadges',
+            'latestBadge',
+            'nextBadge',
+            'activeChallenge',
             'certificates', 
             'motivations'
         ));
