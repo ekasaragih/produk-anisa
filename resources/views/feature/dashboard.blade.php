@@ -24,6 +24,7 @@
 @include('utils.layout.topnav', ['title' => 'Dashboard'])
 <div class="container mx-auto pb-8 px-4 min-h-screen">
     <div class="page p-8 bg-white rounded-2xl shadow-lg border border-gray-200 animate-fade-in">
+
         <div
             class="bg-white shadow-md rounded-lg p-6 border-l-4 border-pink-500 flex flex-col items-center sm:flex-row sm:items-start mb-3">
             <div class="flex-shrink-0">
@@ -61,7 +62,7 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6">
             <!-- Waktu Saat Ini -->
             <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-blue-500">
                 <h3 class="text-lg font-semibold text-blue-600 flex items-center">
@@ -69,25 +70,6 @@
                 </h3>
                 <div class="md:text-[2rem] text-xl mt-8 font-bold font-mono text-blue-800 bg-clip-text drop-shadow-lg animate-pulse"
                     id="liveClock"></div>
-            </div>
-
-            <!-- Alarm -->
-            <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-blue-500 text-sm">
-                <h3 class="text-lg font-semibold text-blue-600 flex items-center">
-                    🔔 <span class="ml-2">Alarm</span>
-                </h3>
-                <p id="alarmMessage">Alarm akan berbunyi dalam beberapa menit lagi.</p>
-                <div id="alarmNotification"
-                    class="hidden text-xs bg-blue-100 border border-blue-400 text-blue-700 px-4 py-2 rounded-md mt-3">
-                    <div class="flex flex-wrap gap-2 items-center justify-center">
-                        <button
-                            class="bg-gray-500 hover:bg-gray-600 text-white px-2 py-1 sm:px-3 sm:py-1.5 text-xs sm:text-sm rounded-md transition"
-                            onclick="snoozeAlarm()">Snooze</button>
-                        <button
-                            class="bg-teal-500 hover:bg-teal-600 text-white px-2 py-1 sm:px-3 sm:py-1.5 text-xs sm:text-sm rounded-md transition"
-                            onclick="markAsTaken()">Diminum</button>
-                    </div>
-                </div>
             </div>
 
             <!-- Ringkasan Hari Ini -->
@@ -340,8 +322,6 @@
 </div>
 
 <script>
-    // TO-DO: Change alarm audio
-    // TO-DO: Fix function snooze/turn off alarm - audio is not off after click either of the buttons
     function updateClock() {
         const now = new Date();
         const timeString = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
@@ -349,30 +329,6 @@
     }
     setInterval(updateClock, 1000);
     updateClock();
-
-    let alarmTimeout;
-    function showAlarmNotification(time) {
-        document.getElementById('alarmMessage').textContent = `Anda harus minum obat pada ${time}`;
-        document.getElementById('alarmNotification').classList.remove('hidden');
-        
-        // let alarmSound = new Audio('https://www.fesliyanstudios.com/play-mp3/4383');
-        alarmSound.play();
-        alarmTimeout = setInterval(() => alarmSound.play(), 600000);
-    }
-
-    function snoozeAlarm() {
-        clearInterval(alarmTimeout);
-        document.getElementById('alarmNotification').classList.add('hidden');
-        setTimeout(() => showAlarmNotification('10 menit lagi'), 600000);
-    }
-
-    function markAsTaken() {
-        clearInterval(alarmTimeout);
-        document.getElementById('alarmNotification').classList.add('hidden');
-        alert('Obat telah diminum, alarm dimatikan.');
-    }
-
-    setTimeout(() => showAlarmNotification('11:00 AM'), 5000);
 </script>
 
 <script>
@@ -423,32 +379,6 @@
                 scales: { y: { beginAtZero: true, max: 7 } }
             }
         });
-    });
-</script>
-
-<script>
-    document.getElementById("medicationForm").addEventListener("submit", function(event) {
-        event.preventDefault();
-
-        // Ambil nilai input
-        let tabletAmount = parseInt(document.getElementById("tablet-amount").value);
-        let consumedTablets = document.getElementById("consumed-tablets");
-
-        // Update jumlah tablet yang diminum hari ini
-        let currentCount = parseInt(consumedTablets.innerText);
-        consumedTablets.innerText = currentCount + tabletAmount;
-
-        // Tutup modal
-        closeModal();
-
-        // Tampilkan feedback animasi
-        let successFeedback = document.getElementById("successFeedback");
-        successFeedback.classList.remove("hidden");
-
-        // Hilangkan feedback setelah 2 detik
-        setTimeout(() => {
-            successFeedback.classList.add("hidden");
-        }, 2000);
     });
 </script>
 

@@ -46,6 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/alarms/{id}', [AlarmController::class, 'show']);
     Route::delete('/alarms/{id}', [AlarmController::class, 'destroy']);
     Route::put('/alarms/{id}', [AlarmController::class, 'update']);
+    Route::get('/upcoming', [AlarmController::class, 'upcomingAlarms']);
     Route::post('/alarms/toggle/{id}', [AlarmController::class, 'toggleActive']);
 
 });

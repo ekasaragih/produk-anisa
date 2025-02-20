@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Alarm;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class AlarmController extends Controller
@@ -93,5 +94,37 @@ class AlarmController extends Controller
         $alarm->save();
 
         return response()->json(['message' => 'Status alarm diperbarui!', 'aktif' => $alarm->aktif]);
+    }
+
+    public function upcomingAlarms()
+    {
+        // Ambil user yang sedang login
+        $user = Auth::user();
+        
+        if (!$user) {
+            return response()->json(['message' => 'User not authenticated'], 401);
+        }
+
+        // Set zona waktu ke Indonesia (WIB)
+        $now = Carbon::now('Asia/Jakarta');
+        $fiveMinutesLater = $now->copy()->addMinutes(5);
+        $today = $now->toDateString(); // Format YYYY-MM-DD
+        $currentDay = $now->translatedFormat('l'); // Hari dalam bahasa Indonesia
+
+        $alarms = Alarm::where('user_id', $user->id) // Hanya alarm milik user yang login
+            ->where('aktif', 'yes')
+            ->where(function ($query) use ($today, $currentDay) {
+                $query->where('tanggal', $today) // Alarm berdasarkan tanggal spesifik
+                    ->orWhere('hari', 'LIKE', "%$currentDay%") // Alarm berdasarkan hari
+                    ->orWhere('hari', 'LIKE', "%Setiap Hari%"); // Alarm harian
+            })
+            ->whereBetween('jam', [$now->format('H:i:s'), $fiveMinutesLater->format('H:i:s')])
+            ->get();
+
+        if ($alarms->isEmpty()) {
+            return response()->json(['message' => 'No upcoming alarms'], 200);
+        }
+
+        return response()->json($alarms);
     }
 }
