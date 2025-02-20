@@ -82,9 +82,70 @@
             <ul id="alarm-list" class="mt-2 space-y-2"></ul>
         </div>
     </div>
+
+    @include('utils.layout.footer')
 </div>
 
-@include('utils.layout.footer')
+<!-- Modal Edit Alarm -->
+<div id="edit-alarm-modal" tabindex="-1" aria-hidden="true"
+    class="hidden fixed inset-0 z-50 flex items-center justify-center">
+    <div class="modal-overlay fixed inset-0 bg-gray-500 opacity-50 z-40"></div>
+    <div class="relative p-4 w-full max-w-2xl bg-white rounded-lg shadow-lg z-50">
+        <div class="flex items-center justify-between p-4 border-b rounded-t">
+            <h3 class="text-xl font-semibold text-gray-900">Edit Alarm</h3>
+            <button type="button" id="close-edit-alarm-modal"
+                class="text-gray-400 hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex justify-center items-center">
+                <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M1 1l6 6m0 0l6 6M7 7l6-6M7 7L1 13" />
+                </svg>
+                <span class="sr-only">Tutup</span>
+            </button>
+        </div>
+        <div class="p-4 overflow-y-auto max-h-[70vh]">
+            <form id="edit-alarm-form">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="id" id="edit-id">
+
+                <label class="block mt-2 text-gray-700">Tanggal:</label>
+                <input type="date" name="tanggal" id="edit-tanggal" class="w-full p-2 border rounded-md">
+
+                <label class="block mt-2 text-gray-700">Nama Alarm:</label>
+                <input type="text" name="nama_alarm" id="edit-nama" class="w-full p-2 border rounded-md">
+
+                <label class="block mt-2 text-gray-700">Jam:</label>
+                <input type="time" name="jam" id="edit-jam" class="w-full p-2 border rounded-md">
+
+                <label class="block mt-2 text-gray-700">Hari:</label>
+                <select name="hari" id="edit-hari" class="w-full p-2 border rounded-md">
+                    <option value="">Pilih Hari (Opsional)</option>
+                    <option>Setiap Hari</option>
+                    <option>Senin</option>
+                    <option>Selasa</option>
+                    <option>Rabu</option>
+                    <option>Kamis</option>
+                    <option>Jumat</option>
+                    <option>Sabtu</option>
+                    <option>Minggu</option>
+                </select>
+
+                <label class="block mt-2 text-gray-700">Deskripsi:</label>
+                <input type="text" name="deskripsi" id="edit-deskripsi" class="w-full p-2 border rounded-md">
+
+                <label class="block mt-2 text-gray-700">Snooze (menit):</label>
+                <input type="number" name="snooze" id="edit-snooze" class="w-full p-2 border rounded-md" min="1">
+
+                <label class="block mt-2 text-gray-700">Max Snooze:</label>
+                <input type="number" name="max_snooze" id="edit-max-snooze" class="w-full p-2 border rounded-md"
+                    min="1">
+
+                <button type="submit" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-md">Simpan Perubahan</button>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -98,6 +159,7 @@
     });
 </script>
 
+{{-- Function post to db --}}
 <script>
     $(document).ready(function() {
         $('#new-alarm-form').on('submit', function(event) {
@@ -133,6 +195,7 @@
     });
 </script>
 
+{{-- Function fetch, aktif/nonaktif alarm, dan delete --}}
 <script>
     $(document).ready(function () {
         fetchAlarms();
@@ -153,7 +216,7 @@
                                 <span class="text-gray-500 text-sm italic">${alarm.deskripsi ? alarm.deskripsi : 'Tidak ada deskripsi'}</span>
                             </div>
                             <div class="flex gap-2">
-                                <button class="bg-yellow-500 text-white px-3 py-1 rounded-md" onclick="editAlarm(${alarm.id})">Ubah</button>
+                                <button class="bg-yellow-500 text-white px-3 py-1 rounded-md" data-modal-target="edit-alarm-modal" data-modal-toggle="edit-alarm-modal" onclick="showEditAlarmModal(${alarm.id})">Ubah</button>
                                 <button class="bg-red-500 text-white px-3 py-1 rounded-md" onclick="deleteAlarm(${alarm.id})">Hapus</button>
                                 <button class="bg-teal-500 text-white px-3 py-1 rounded-md" onclick="toggleAlarm(${alarm.id})">
                                     ${alarm.aktif === 'yes' ? 'Nonaktifkan' : 'Aktifkan'}
@@ -212,6 +275,54 @@
                 }
             });
         };
+
+        window.showEditAlarmModal = function (id) {
+            $.ajax({
+                url: `/alarms/${id}`,
+                type: 'GET',
+                success: function (alarm) {
+                    $('#edit-id').val(alarm.id);
+                    $('#edit-tanggal').val(alarm.tanggal);
+                    $('#edit-nama').val(alarm.nama_alarm);
+                    $('#edit-jam').val(alarm.jam);
+                    $('#edit-hari').val(alarm.hari);
+                    $('#edit-deskripsi').val(alarm.deskripsi);
+                    $('#edit-snooze').val(alarm.snooze);
+                    $('#edit-max-snooze').val(alarm.max_snooze);
+                    
+                    $('#edit-alarm-modal').removeClass('hidden');
+                },
+                error: function () {
+                    Swal.fire('Error!', 'Gagal mengambil data alarm!', 'error');
+                }
+            });
+        };
+
+
+        $('#close-edit-alarm-modal').on('click', function () {
+            $('#edit-alarm-modal').addClass('hidden');
+        });
+
+        $('#edit-alarm-form').on('submit', function (e) {
+            e.preventDefault();
+            var id = $('#edit-id').val();
+            var formData = $(this).serialize();
+
+            $.ajax({
+                url: `/alarms/${id}`,
+                type: 'PUT',
+                data: formData,
+                success: function (response) {
+                    Swal.fire('Berhasil!', response.message, 'success');
+                    $('#edit-alarm-modal').addClass('hidden');
+                    fetchAlarms();
+                },
+                error: function () {
+                    Swal.fire('Error!', 'Gagal mengupdate alarm!', 'error');
+                }
+            });
+        });
     });
 </script>
+
 @endsection

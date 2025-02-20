@@ -14,6 +14,12 @@ class AlarmController extends Controller
         $alarms = Alarm::where('user_id', $userId)->get();
         return response()->json($alarms);
     }
+
+    public function show($id)
+    {
+        $alarm = Alarm::findOrFail($id);
+        return response()->json($alarm);
+    }
     
     public function store(Request $request)
     {
@@ -45,6 +51,33 @@ class AlarmController extends Controller
         return response()->json(['message' => 'Alarm berhasil ditambahkan'], 201);
     }
 
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'tanggal' => 'required|date',
+            'nama_alarm' => 'required|string|max:255',
+            'jam' => 'required',
+            'hari' => 'nullable|string',
+            'deskripsi' => 'nullable|string',
+            'snooze' => 'required|integer|min:1',
+            'max_snooze' => 'required|integer|min:1',
+        ]);
+
+        $alarm = Alarm::findOrFail($id);
+        $alarm->update([
+            'tanggal' => $request->tanggal,
+            'nama_alarm' => $request->nama_alarm,
+            'jam' => $request->jam,
+            'hari' => $request->hari,
+            'deskripsi' => $request->deskripsi,
+            'snooze' => $request->snooze,
+            'max_snooze' => $request->max_snooze,
+        ]);
+
+        return response()->json(['message' => 'Alarm berhasil diperbarui!']);
+    }
+
+
     public function destroy($id)
     {
         $alarm = Alarm::findOrFail($id);
@@ -53,7 +86,6 @@ class AlarmController extends Controller
         return response()->json(['message' => 'Alarm berhasil dihapus!']);
     }
 
-    // Toggle Active Status
     public function toggleActive($id)
     {
         $alarm = Alarm::findOrFail($id);

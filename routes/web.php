@@ -43,7 +43,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/alarm', [PageController::class, 'alarm'])->name('alarm');
     Route::post('/alarms', [AlarmController::class, 'store']);
     Route::get('/alarms', [AlarmController::class, 'index']);
+    Route::get('/alarms/{id}', [AlarmController::class, 'show']);
     Route::delete('/alarms/{id}', [AlarmController::class, 'destroy']);
+    Route::put('/alarms/{id}', [AlarmController::class, 'update']);
     Route::post('/alarms/toggle/{id}', [AlarmController::class, 'toggleActive']);
 
 });
