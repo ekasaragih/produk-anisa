@@ -190,7 +190,7 @@
                 <form method="POST" action="{{ route('riwayat_konsumsi.store') }}">
                     @csrf
                     <label class="block text-sm text-gray-600">Obat yang diminum:</label>
-                    <input type="text" name="medicine_name" class="w-full border rounded p-2 mb-2" required>
+                    <input type="text" name="medicine_name" class="w-full border rounded p-2 mb-2">
 
                     <label class="block text-sm text-gray-600">Jumlah Tablet:</label>
                     <input type="number" name="tablet_amount" class="w-full border rounded p-2 mb-2" required>
@@ -313,13 +313,15 @@
     </div>
 </div>
 
-
 <div id="successFeedback" class="fixed inset-0 flex justify-center items-center hidden">
     <div class="bg-green-500 text-white p-4 rounded-lg shadow-lg flex items-center space-x-2">
         <span class="text-xl">✅</span>
         <p class="text-sm">Obat telah dicatat!</p>
     </div>
 </div>
+
+
+
 
 <script>
     function updateClock() {
@@ -336,51 +338,54 @@
         const weeklyCtx = document.getElementById("weeklyProgressChart").getContext("2d");
         const monthlyCtx = document.getElementById("monthlyProgressChart").getContext("2d");
 
-        // Data dummy untuk progress mingguan
-        const weeklyData = {
-            labels: ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"],
-            datasets: [{
-                label: "Tablet Diminum",
-                data: [1, 1, 0, 1, 1, 0, 1], // Data jumlah tablet diminum per hari
-                backgroundColor: "rgba(56, 178, 172, 0.5)", 
-                borderColor: "rgba(56, 178, 172, 1)",
-                borderWidth: 1
-            }]
-        };
+        // Data untuk progress mingguan dari PHP ke JavaScript
+        const weeklyLabels = @json(array_keys($weeklyProgress->toArray())); 
+        const weeklyData = @json(array_values($weeklyProgress->toArray())); 
 
-        // Data dummy untuk progress bulanan
-        const monthlyData = {
-            labels: ["Minggu 1", "Minggu 2", "Minggu 3", "Minggu 4"],
-            datasets: [{
-                label: "Tablet Diminum",
-                data: [6, 7, 5, 7], // Data jumlah tablet diminum per minggu
-                backgroundColor: "rgba(56, 178, 172, 0.5)",
-                borderColor: "rgba(56, 178, 172, 1)",
-                borderWidth: 1
-            }]
-        };
+        // Data untuk progress bulanan dari PHP ke JavaScript
+        const monthlyLabels = @json(array_map(fn($w) => "Minggu " . $w, array_keys($monthlyProgress->toArray())));
+        const monthlyData = @json(array_values($monthlyProgress->toArray()));
 
         // Render chart mingguan
         new Chart(weeklyCtx, {
             type: "bar",
-            data: weeklyData,
+            data: {
+                labels: weeklyLabels,
+                datasets: [{
+                    label: "Tablet Diminum",
+                    data: weeklyData,
+                    backgroundColor: "rgba(56, 178, 172, 0.5)", 
+                    borderColor: "rgba(56, 178, 172, 1)",
+                    borderWidth: 1
+                }]
+            },
             options: {
                 responsive: true,
-                scales: { y: { beginAtZero: true, max: 2 } }
+                scales: { y: { beginAtZero: true } }
             }
         });
 
         // Render chart bulanan
         new Chart(monthlyCtx, {
             type: "bar",
-            data: monthlyData,
+            data: {
+                labels: monthlyLabels,
+                datasets: [{
+                    label: "Tablet Diminum",
+                    data: monthlyData,
+                    backgroundColor: "rgba(56, 178, 172, 0.5)",
+                    borderColor: "rgba(56, 178, 172, 1)",
+                    borderWidth: 1
+                }]
+            },
             options: {
                 responsive: true,
-                scales: { y: { beginAtZero: true, max: 7 } }
+                scales: { y: { beginAtZero: true } }
             }
         });
     });
 </script>
+
 
 <script>
     document.getElementById('kadarHb').addEventListener('input', function () {

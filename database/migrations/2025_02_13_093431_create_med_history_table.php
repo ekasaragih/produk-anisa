@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('med_history', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('medicine_name');
+            $table->string('medicine_name')->nullable();
             $table->integer('tablet_amount');
             $table->integer('remaining_tablets');
             $table->time('time');

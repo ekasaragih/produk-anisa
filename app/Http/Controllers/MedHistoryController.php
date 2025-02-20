@@ -38,7 +38,7 @@ class MedHistoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'medicine_name' => 'required|string',
+            'medicine_name' => 'string',
             'tablet_amount' => 'required|integer|min:1',
             'remaining_tablets' => 'required|integer|min:0',
             'medicine_time' => 'required',
