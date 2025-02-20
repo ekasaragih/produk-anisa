@@ -4,9 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Alarm;
+use Illuminate\Support\Facades\Auth;
 
 class AlarmController extends Controller
 {
+    public function index()
+    {
+        $userId = Auth::id();
+        $alarms = Alarm::where('user_id', $userId)->get();
+        return response()->json($alarms);
+    }
+    
     public function store(Request $request)
     {
         $request->validate([
@@ -23,6 +31,7 @@ class AlarmController extends Controller
         $tanggal = $request->hari ? null : $request->tanggal;
 
         Alarm::create([
+            'user_id' => Auth::id(),
             'tanggal' => $tanggal,
             'nama_alarm' => $request->nama_alarm,
             'jam' => $request->jam,
@@ -34,5 +43,23 @@ class AlarmController extends Controller
         ]);
 
         return response()->json(['message' => 'Alarm berhasil ditambahkan'], 201);
+    }
+
+    public function destroy($id)
+    {
+        $alarm = Alarm::findOrFail($id);
+        $alarm->delete();
+
+        return response()->json(['message' => 'Alarm berhasil dihapus!']);
+    }
+
+    // Toggle Active Status
+    public function toggleActive($id)
+    {
+        $alarm = Alarm::findOrFail($id);
+        $alarm->aktif = $alarm->aktif === 'yes' ? 'no' : 'yes';
+        $alarm->save();
+
+        return response()->json(['message' => 'Status alarm diperbarui!', 'aktif' => $alarm->aktif]);
     }
 }

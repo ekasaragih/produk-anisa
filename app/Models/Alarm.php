@@ -12,6 +12,7 @@ class Alarm extends Model
     protected $table = 'alarms';
     
     protected $fillable = [
+        'user_id',
         'tanggal', 
         'nama_alarm',
         'jam', 

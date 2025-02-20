@@ -1,6 +1,7 @@
 @extends('utils.layout.sidebar')
 
 @section('head')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <style>
     @keyframes fade-in {
         from {
@@ -78,16 +79,7 @@
         <!-- Daftar Alarm -->
         <div class="mt-4">
             <h3 class="text-lg font-semibold text-gray-700">Daftar Alarm</h3>
-            <ul id="alarm-list" class="mt-2 space-y-2">
-                <li class="p-3 bg-gray-100 rounded-md flex justify-between items-center">
-                    <span class="text-gray-700">Minum Tablet Fe - 08:00 AM</span>
-                    <div>
-                        <button class="bg-yellow-500 text-white px-3 py-1 rounded-md">Edit</button>
-                        <button class="bg-red-500 text-white px-3 py-1 rounded-md">Hapus</button>
-                        <button class="bg-teal-500 text-white px-3 py-1 rounded-md">Aktifkan</button>
-                    </div>
-                </li>
-            </ul>
+            <ul id="alarm-list" class="mt-2 space-y-2"></ul>
         </div>
     </div>
 </div>
@@ -124,6 +116,8 @@
                         text: response.message,
                         icon: 'success',
                         confirmButtonText: 'OK'
+                    }).then(() => {
+                        location.reload();
                     });
                 },
                 error: function(xhr, status, error) {
@@ -136,6 +130,88 @@
                 }
             });
         });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        fetchAlarms();
+
+        function fetchAlarms() {
+            $.ajax({
+                url: '/alarms',
+                type: 'GET',
+                success: function (alarms) {
+                    let alarmList = $('#alarm-list');
+                    alarmList.empty();
+
+                    alarms.forEach(alarm => {
+                        let alarmHtml = `
+                        <li class="p-3 bg-gray-100 rounded-md flex justify-between items-center">
+                            <div class="flex flex-col">
+                                <span class="text-gray-700 font-semibold">${alarm.nama_alarm} - ${alarm.jam}</span>
+                                <span class="text-gray-500 text-sm italic">${alarm.deskripsi ? alarm.deskripsi : 'Tidak ada deskripsi'}</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <button class="bg-yellow-500 text-white px-3 py-1 rounded-md" onclick="editAlarm(${alarm.id})">Ubah</button>
+                                <button class="bg-red-500 text-white px-3 py-1 rounded-md" onclick="deleteAlarm(${alarm.id})">Hapus</button>
+                                <button class="bg-teal-500 text-white px-3 py-1 rounded-md" onclick="toggleAlarm(${alarm.id})">
+                                    ${alarm.aktif === 'yes' ? 'Nonaktifkan' : 'Aktifkan'}
+                                </button>
+                            </div>
+                        </li>
+                        `;
+                        alarmList.append(alarmHtml);
+                    });
+                },
+                error: function () {
+                    Swal.fire('Error!', 'Gagal mengambil data alarm!', 'error');
+                }
+            });
+        }
+
+        let csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+        window.deleteAlarm = function (id) {
+            Swal.fire({
+                title: 'Hapus Alarm?',
+                text: "Apakah kamu yakin ingin menghapus alarm ini?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Hapus',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: `/alarms/${id}`,
+                        type: 'DELETE',
+                        headers: { 'X-CSRF-TOKEN': csrfToken },
+                        success: function (response) {
+                            Swal.fire('Dihapus!', response.message, 'success');
+                            fetchAlarms();
+                        },
+                        error: function () {
+                            Swal.fire('Error!', 'Gagal menghapus alarm!', 'error');
+                        }
+                    });
+                }
+            });
+        };
+
+        window.toggleAlarm = function (id) {
+            $.ajax({
+                url: `/alarms/toggle/${id}`,
+                type: 'POST',
+                headers: { 'X-CSRF-TOKEN': csrfToken },
+                success: function (response) {
+                    Swal.fire('Updated!', response.message, 'success');
+                    fetchAlarms();
+                },
+                error: function () {
+                    Swal.fire('Error!', 'Gagal mengubah status alarm!', 'error');
+                }
+            });
+        };
     });
 </script>
 @endsection
