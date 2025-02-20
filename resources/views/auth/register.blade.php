@@ -84,7 +84,7 @@
                     </button>
                 </form>
                 <p class="mt-4 text-sm text-center text-gray-600">Sudah punya akun?
-                    <a href="/auth/login" class="text-teal-500 hover:underline">Masuk disini.</a>
+                    <a href="/login" class="text-teal-500 hover:underline">Masuk disini.</a>
                 </p>
             </div>
         </div>

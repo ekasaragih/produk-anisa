@@ -8,7 +8,7 @@ use App\Http\Controllers\HbRecordController;
 use App\Http\Controllers\MedHistoryController;
 
 // Authentication
-Route::get('/auth/login', [AuthController::class, 'showLogin'])->name('user.login');
+Route::get('/login', [AuthController::class, 'showLogin'])->name('user.login');
 Route::get('/auth/register', [AuthController::class, 'register']);
 Route::post('/register', [AuthController::class, 'store'])->name('register');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
