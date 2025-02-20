@@ -57,6 +57,8 @@
 </nav>
 <!-- End Navbar -->
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+
 <script>
     function goBack() {
         history.go(-1);
@@ -68,21 +70,42 @@
 </script>
 
 <script>
+    let alarmSound;
+
     document.addEventListener("DOMContentLoaded", function () {
+        unlockAudio();
         fetchUpcomingAlarms();
         setInterval(fetchUpcomingAlarms, 60000);
     });
+
+    function unlockAudio() {
+        let unlock = new Howl({
+            src: ["data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAABCxAgAEABAAZGF0YQAAAAA="], // Silent audio
+            volume: 0
+        });
+
+        unlock.play();
+    }
+
+    function initializeAlarmSound() {
+        if (!alarmSound) {
+            alarmSound = new Howl({
+                src: ["{{ asset('assets/alarm.mp3') }}"],
+                loop: true,
+                volume: 0.7
+            });
+        }
+    }
 
     function fetchUpcomingAlarms() {
         $.ajax({
             url: "/upcoming",
             method: "GET",
-            success: function (response) {                
+            success: function (response) {
                 if (!Array.isArray(response)) {
                     console.warn("No upcoming alarms or invalid response format.");
                     return;
                 }
-
                 displayAlarms(response);
             },
             error: function (xhr, status, error) {
@@ -97,14 +120,13 @@
 
         if (!alarms || alarms.length === 0) {
             console.log("No alarms to display.");
+            if (alarmSound) alarmSound.stop(); // Stop sound if no alarms
             return;
         }
 
+        initializeAlarmSound(); // Ensure sound is initialized
+
         alarms.forEach(alarm => {
-            const now = new Date();
-            const alarmTime = new Date(`${now.toISOString().split('T')[0]}T${alarm.jam}`);
-            
-            const timeDiff = (alarmTime - now) / 60000;
             let alarmElement = document.createElement("div");
             alarmElement.classList.add("bg-red-600", "text-white", "p-4", "rounded-lg", "shadow-lg", "animate-pulse");
 
@@ -112,27 +134,26 @@
                 <div>
                     <strong>⚠️ ALARM PENGINGAT! ⚠️</strong>
                     <p>Waktunya: ${alarm.nama_alarm} - ${alarm.jam}</p>
-                    <p class="text-xs italic mb-3">Alarm "${alarm.nama_alarm}" akan berbunyi ${timeDiff.toFixed(2)} menit</p>
-                    <button class="mt-2 bg-white text-red-500 px-2 py-1 rounded" onclick="dismissAlarm(${alarm.id}, this)">Sudah Minum Obat</button>
-                    <button class="mt-2 bg-white text-yellow-500 px-2 py-1 rounded" onclick="snoozeAlarm(${alarm.id}, this)">Ingatkan Lagi</button>
+                    <button class="mt-2 bg-white text-red-500 px-2 py-1 rounded" onclick="dismissAlarm(${alarm.id})">Sudah Minum Obat</button>
+                    <button class="mt-2 bg-white text-yellow-500 px-2 py-1 rounded" onclick="snoozeAlarm(${alarm.id})">Ingatkan Lagi</button>
                 </div>
             `;
 
             container.appendChild(alarmElement);
-            // playAlarmSound();
+
+            if (!alarmSound.playing()) {
+                alarmSound.play();
+            }
         });
     }
 
-    function snoozeAlarm(id, button) {
+    function snoozeAlarm(id) {
         $.ajax({
             url: `/alarm/${id}/snooze`,
             method: "POST",
-            data: {
-                _token: $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function (response) {
-                console.log(response.message);
-                button.parentElement.parentElement.remove();
+            data: { _token: $('meta[name="csrf-token"]').attr('content') },
+            success: function () {
+                fetchUpcomingAlarms();
             },
             error: function (xhr) {
                 console.error("Error snoozing alarm:", xhr.responseText);
@@ -140,16 +161,13 @@
         });
     }
 
-    function dismissAlarm(id, button) {
+    function dismissAlarm(id) {
         $.ajax({
             url: `/alarm/${id}/dismiss`,
             method: "POST",
-            data: {
-                _token: $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function (response) {
-                console.log(response.message);
-                button.parentElement.parentElement.remove();
+            data: { _token: $('meta[name="csrf-token"]').attr('content') },
+            success: function () {
+                fetchUpcomingAlarms();
             },
             error: function (xhr) {
                 console.error("Error dismissing alarm:", xhr.responseText);
@@ -157,9 +175,4 @@
         });
     }
 
-
-    function playAlarmSound() {
-        let audio = new Audio('/alarm-sound.mp3');
-        audio.play();
-    }
 </script>
