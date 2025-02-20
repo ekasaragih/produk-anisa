@@ -11,6 +11,7 @@ class AlarmController extends Controller
     {
         $request->validate([
             'tanggal' => 'nullable|date',
+            'nama_alarm' => 'required|string',
             'jam' => 'required',
             'hari' => 'nullable|string',
             'deskripsi' => 'nullable|string',
@@ -19,11 +20,11 @@ class AlarmController extends Controller
             'aktif' => 'required|in:yes,no',
         ]);
 
-        // Logika: Jika hari dipilih, tanggal dikosongkan
         $tanggal = $request->hari ? null : $request->tanggal;
 
         Alarm::create([
             'tanggal' => $tanggal,
+            'nama_alarm' => $request->nama_alarm,
             'jam' => $request->jam,
             'hari' => $request->hari,
             'deskripsi' => $request->deskripsi,

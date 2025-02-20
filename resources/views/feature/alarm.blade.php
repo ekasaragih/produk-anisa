@@ -36,14 +36,19 @@
         <div id="alarm-form" class="mt-4 hidden bg-gray-100 p-4 rounded-md">
             <h3 class="text-lg font-semibold text-gray-700">Tambah Alarm</h3>
             <form id="new-alarm-form">
+                @csrf
                 <label class="block mt-2 text-gray-700">Tanggal:</label>
-                <input type="date" class="w-full p-2 border rounded-md">
+                <input type="date" name="tanggal" class="w-full p-2 border rounded-md">
+
+                <label class="block mt-2 text-gray-700">Nama Alarm:</label>
+                <input type="text" name="nama_alarm" class="w-full p-2 border rounded-md">
 
                 <label class="block mt-2 text-gray-700">Jam:</label>
-                <input type="time" class="w-full p-2 border rounded-md">
+                <input type="time" name="jam" class="w-full p-2 border rounded-md" required>
 
                 <label class="block mt-2 text-gray-700">Hari:</label>
-                <select class="w-full p-2 border rounded-md">
+                <select name="hari" class="w-full p-2 border rounded-md">
+                    <option value="">Pilih Hari (Opsional)</option>
                     <option>Setiap Hari</option>
                     <option>Senin</option>
                     <option>Selasa</option>
@@ -55,7 +60,16 @@
                 </select>
 
                 <label class="block mt-2 text-gray-700">Deskripsi:</label>
-                <input type="text" class="w-full p-2 border rounded-md" placeholder="Contoh: Minum tablet Fe">
+                <input type="text" name="deskripsi" class="w-full p-2 border rounded-md"
+                    placeholder="Contoh: Minum tablet Fe">
+
+                <label class="block mt-2 text-gray-700">Snooze (menit):</label>
+                <input type="number" name="snooze" class="w-full p-2 border rounded-md" min="1" value="5">
+
+                <label class="block mt-2 text-gray-700">Max Snooze:</label>
+                <input type="number" name="max_snooze" class="w-full p-2 border rounded-md" min="1" value="3">
+
+                <input type="hidden" name="aktif" value="yes">
 
                 <button type="submit" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded-md">Simpan Alarm</button>
             </form>
@@ -89,6 +103,39 @@
 <script>
     document.getElementById('add-alarm-btn').addEventListener('click', function() {
         document.getElementById('alarm-form').classList.toggle('hidden');
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#new-alarm-form').on('submit', function(event) {
+            event.preventDefault();
+
+            let formData = $(this).serialize();
+
+            $.ajax({
+                url: '/alarms',
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                success: function(response) {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: response.message,
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    });
+                },
+                error: function(xhr, status, error) {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: xhr.responseText || 'Something went wrong!',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            });
+        });
     });
 </script>
 @endsection
