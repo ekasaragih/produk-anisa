@@ -20,6 +20,8 @@ class Alarm extends Model
         'deskripsi', 
         'snooze', 
         'max_snooze', 
-        'aktif'
+        'aktif',
+        'dismissed_at',
+        'snooze_until',
     ];
 }

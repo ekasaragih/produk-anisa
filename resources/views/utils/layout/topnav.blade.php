@@ -77,9 +77,7 @@
         $.ajax({
             url: "/upcoming",
             method: "GET",
-            success: function (response) {
-                console.log("Fetched alarms:", response);
-                
+            success: function (response) {                
                 if (!Array.isArray(response)) {
                     console.warn("No upcoming alarms or invalid response format.");
                     return;
@@ -105,24 +103,56 @@
         alarms.forEach(alarm => {
             const now = new Date();
             const alarmTime = new Date(`${now.toISOString().split('T')[0]}T${alarm.jam}`);
-
+            
             const timeDiff = (alarmTime - now) / 60000;
+            let alarmElement = document.createElement("div");
+            alarmElement.classList.add("bg-red-600", "text-white", "p-4", "rounded-lg", "shadow-lg", "animate-pulse");
 
-            if (timeDiff <= 5 && timeDiff >= 0) {
-                let alarmElement = document.createElement("div");
-                alarmElement.classList.add("bg-red-600", "text-white", "p-4", "rounded-lg", "shadow-lg", "animate-pulse");
+            alarmElement.innerHTML = `
+                <div>
+                    <strong>⚠️ ALARM PENGINGAT! ⚠️</strong>
+                    <p>Waktunya: ${alarm.nama_alarm} - ${alarm.jam}</p>
+                    <p class="text-xs italic mb-3">Alarm "${alarm.nama_alarm}" akan berbunyi ${timeDiff.toFixed(2)} menit</p>
+                    <button class="mt-2 bg-white text-red-500 px-2 py-1 rounded" onclick="dismissAlarm(${alarm.id}, this)">Sudah Minum Obat</button>
+                    <button class="mt-2 bg-white text-yellow-500 px-2 py-1 rounded" onclick="snoozeAlarm(${alarm.id}, this)">Ingatkan Lagi</button>
+                </div>
+            `;
 
-                alarmElement.innerHTML = `
-                    <div>
-                        <strong>⚠️ ALARM PENGINGAT! ⚠️</strong>
-                        <p>Waktunya: ${alarm.nama_alarm} - ${alarm.jam}</p>
-                        <p class="text-xs italic">Alarm "${alarm.nama_alarm}" akan berbunyi ${timeDiff.toFixed(2)} menit</p>
-                        <button class="mt-2 bg-white text-red-500 px-2 py-1 rounded" onclick="dismissAlarm(this)">Dismiss</button>
-                    </div>
-                `;
+            container.appendChild(alarmElement);
+            // playAlarmSound();
+        });
+    }
 
-                container.appendChild(alarmElement);
-                // playAlarmSound();
+    function snoozeAlarm(id, button) {
+        $.ajax({
+            url: `/alarm/${id}/snooze`,
+            method: "POST",
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (response) {
+                console.log(response.message);
+                button.parentElement.parentElement.remove();
+            },
+            error: function (xhr) {
+                console.error("Error snoozing alarm:", xhr.responseText);
+            }
+        });
+    }
+
+    function dismissAlarm(id, button) {
+        $.ajax({
+            url: `/alarm/${id}/dismiss`,
+            method: "POST",
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (response) {
+                console.log(response.message);
+                button.parentElement.parentElement.remove();
+            },
+            error: function (xhr) {
+                console.error("Error dismissing alarm:", xhr.responseText);
             }
         });
     }
@@ -131,9 +161,5 @@
     function playAlarmSound() {
         let audio = new Audio('/alarm-sound.mp3');
         audio.play();
-    }
-
-    function dismissAlarm(button) {
-        button.parentElement.parentElement.remove();
     }
 </script>

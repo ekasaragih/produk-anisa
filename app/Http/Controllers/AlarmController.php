@@ -98,33 +98,71 @@ class AlarmController extends Controller
 
     public function upcomingAlarms()
     {
-        // Ambil user yang sedang login
         $user = Auth::user();
-        
         if (!$user) {
             return response()->json(['message' => 'User not authenticated'], 401);
         }
 
-        // Set zona waktu ke Indonesia (WIB)
         $now = Carbon::now('Asia/Jakarta');
-        $fiveMinutesLater = $now->copy()->addMinutes(5);
-        $today = $now->toDateString(); // Format YYYY-MM-DD
-        $currentDay = $now->translatedFormat('l'); // Hari dalam bahasa Indonesia
+        $fiveMinutesLater = $now->copy()->addMinutes(10);
+        $today = $now->toDateString();
+        $currentDay = $now->translatedFormat('l');
 
-        $alarms = Alarm::where('user_id', $user->id) // Hanya alarm milik user yang login
+        $alarms = Alarm::where('user_id', $user->id)
             ->where('aktif', 'yes')
             ->where(function ($query) use ($today, $currentDay) {
-                $query->where('tanggal', $today) // Alarm berdasarkan tanggal spesifik
-                    ->orWhere('hari', 'LIKE', "%$currentDay%") // Alarm berdasarkan hari
-                    ->orWhere('hari', 'LIKE', "%Setiap Hari%"); // Alarm harian
+                $query->where('tanggal', $today)
+                    ->orWhere('hari', 'LIKE', "%$currentDay%")
+                    ->orWhere('hari', 'LIKE', "%Setiap Hari%");
+            })
+            ->where(function ($query) use ($now) {
+                $query->whereNull('dismissed_at')
+                    ->orWhereDate('dismissed_at', '!=', $now->toDateString());
+            })
+            ->where(function ($query) use ($now) {
+                $query->whereNull('snooze_until')
+                    ->orWhere('snooze_until', '<=', $now);
             })
             ->whereBetween('jam', [$now->format('H:i:s'), $fiveMinutesLater->format('H:i:s')])
             ->get();
 
-        if ($alarms->isEmpty()) {
-            return response()->json(['message' => 'No upcoming alarms'], 200);
-        }
-
         return response()->json($alarms);
     }
+
+    public function dismissAlarm($id)
+    {
+        $user = Auth::user();
+        $alarm = Alarm::where('id', $id)->where('user_id', $user->id)->first();
+
+        if (!$alarm) {
+            return response()->json(['message' => 'Alarm not found'], 404);
+        }
+
+        $alarm->update(['dismissed_at' => Carbon::now('Asia/Jakarta')]);
+
+        return response()->json(['message' => 'Alarm dismissed for today']);
+    }
+
+    public function snoozeAlarm($id)
+    {
+        $user = Auth::user();
+        $alarm = Alarm::where('id', $id)->where('user_id', $user->id)->first();
+
+        if (!$alarm) {
+            return response()->json(['message' => 'Alarm not found'], 404);
+        }
+
+        if ($alarm->max_snooze <= 0) {
+            return response()->json(['message' => 'Snooze limit reached'], 400);
+        }
+
+        $newSnoozeTime = Carbon::now('Asia/Jakarta')->addMinutes($alarm->snooze);
+        $alarm->update([
+            'snooze_until' => $newSnoozeTime,
+            'max_snooze' => $alarm->max_snooze - 1
+        ]);
+
+        return response()->json(['message' => 'Alarm snoozed until ' . $newSnoozeTime->toTimeString()]);
+    }
+
 }
