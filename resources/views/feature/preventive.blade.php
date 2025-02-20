@@ -181,9 +181,7 @@
             </div>
 
             <div class="p-4 md:p-5 overflow-y-auto max-h-[70vh]">
-                <form action="" method="POST">
-                    @csrf
-
+                <form>
                     <!-- Frekuensi Makan Karbohidrat -->
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700">Seberapa sering Anda mengonsumsi nasi,
@@ -304,7 +302,7 @@
 
                     <!-- Tombol Simpan -->
                     <div class="mt-6">
-                        <button type="submit"
+                        <button type="button" data-modal-target="thankyou-modal" data-modal-toggle="thankyou-modal"
                             class="w-full inline-flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                             Simpan kuesioner
                         </button>
@@ -314,6 +312,41 @@
         </div>
     </div>
 </div>
+
+<div id="thankyou-modal" tabindex="-1" aria-hidden="true"
+    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="modal-overlay fixed inset-0 bg-gray-500 opacity-50 z-40"></div>
+    <div class="relative p-4 w-full max-w-2xl max-h-full z-50">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Kuesioner Pola Konsumsi Gizi</h3>
+                <button type="button" id="close-thankyou-modal" data-modal-hide="thankyou-modal"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                    <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M1 1l6 6m0 0l6 6M7 7l6-6M7 7L1 13" />
+                    </svg>
+                    <span class="sr-only">Tutup</span>
+                </button>
+            </div>
+            <div class="p-4 md:p-5 overflow-y-auto max-h-[70vh]">
+                <h2 class="text-xl font-bold mb-2">Terima Kasih!</h2>
+                <p class="mb-4">Terima kasih telah mengisi kuesioner. Berikut beberapa saran pola konsumsi gizi yang
+                    baik untuk ibu
+                    hamil agar terhindar dari anemia:</p>
+                <ul class="list-disc ml-6 mb-4">
+                    <li>Konsumsi makanan kaya zat besi seperti daging merah, hati, dan bayam.</li>
+                    <li>Perbanyak asupan vitamin C dari jeruk, mangga, dan tomat untuk membantu penyerapan zat besi.
+                    </li>
+                    <li>Hindari minum teh atau kopi setelah makan karena dapat menghambat penyerapan zat besi.</li>
+                    <li>Konsumsi suplemen zat besi sesuai anjuran dokter.</li>
+                    <li>Perbanyak makanan kaya asam folat seperti alpukat, brokoli, dan kacang-kacangan.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
