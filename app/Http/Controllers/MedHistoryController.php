@@ -10,17 +10,33 @@ class MedHistoryController extends Controller
 {
     public function riwayat_konsumsi()
     {
-        $history = MedHistory::where('user_id', Auth::id())
+        $userId = Auth::id();
+        $startDate = now()->subDays(30)->toDateString();
+        $endDate = now()->toDateString();
+
+        $history = MedHistory::where('user_id', $userId)
             ->selectRaw('DATE(date) as tanggal, COUNT(*) as jumlah')
             ->groupBy('tanggal')
-            ->get();
+            ->pluck('jumlah', 'tanggal') 
+            ->toArray();
 
-        return view("feature.riwayat_konsumsi", compact('history'));
+        $allDates = [];
+        $currentDate = \Carbon\Carbon::parse($startDate);
+        while ($currentDate->lte($endDate)) {
+            $dateStr = $currentDate->toDateString();
+            $allDates[] = [
+                'tanggal' => $dateStr,
+                'status' => isset($history[$dateStr]) ? 'Minum Obat' : 'Tidak Minum Obat'
+            ];
+            $currentDate->addDay();
+        }
+
+        return view("feature.riwayat_konsumsi", ['history' => $allDates]);
     }
+
 
     public function store(Request $request)
     {
-        // Validasi input
         $request->validate([
             'medicine_name' => 'required|string',
             'tablet_amount' => 'required|integer|min:1',
@@ -29,7 +45,6 @@ class MedHistoryController extends Controller
             'medicine_date' => 'required|date',
         ]);
 
-        // Simpan data ke database
         MedHistory::create([
             'user_id' => Auth::id(),
             'medicine_name' => $request->medicine_name,
@@ -39,7 +54,6 @@ class MedHistoryController extends Controller
             'date' => $request->medicine_date,
         ]);
 
-        // Redirect dengan pesan sukses
         return redirect()->back()->with('success', 'Konsumsi obat berhasil dicatat!');
     }
 }

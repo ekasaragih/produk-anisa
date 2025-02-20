@@ -30,6 +30,12 @@
             class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-l from-blue-600 to-teal-500 mb-6">
             Riwayat Konsumsi
         </h2>
+        <!-- Pesan Informasi -->
+        <div class="mb-4 p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 rounded-lg">
+            <p>Jika kamu sudah minum obat, tapi status masih <strong class="text-red-500">Tidak Minum Obat</strong>,
+                harap isi data konsumsi obat di menu <a href="{{ route('dashboard') }}"
+                    class="underline font-semibold">Dashboard</a>.</p>
+        </div>
 
         <!-- Calendar View -->
         <div id="calendar" class="bg-gray-100 p-4 rounded-lg shadow-md mb-6"></div>
@@ -47,8 +53,10 @@
                 <tbody>
                     @foreach($history as $record)
                     <tr class="border">
-                        <td class="p-2">{{ \Carbon\Carbon::parse($record->tanggal)->translatedFormat('j F Y') }}</td>
-                        <td class="p-2 text-green-500">Patuh</td>
+                        <td class="p-2">{{ \Carbon\Carbon::parse($record['tanggal'])->translatedFormat('j F Y') }}</td>
+                        <td class="p-2 {{ $record['status'] == 'Minum Obat' ? 'text-green-500' : 'text-red-500' }}">
+                            {{ $record['status'] }}
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -87,12 +95,13 @@
             events: [
                 @foreach($history as $record)
                 {
-                    title: 'Minum Obat',
-                    start: '{{ $record->tanggal }}',
-                    color: 'green'
+                    title: "{{ $record['status'] }}",
+                    start: "{{ $record['tanggal'] }}",
+                    color: "{{ $record['status'] == 'Minum Obat' ? 'green' : 'red' }}"
                 },
                 @endforeach
             ]
+
         });
         calendar.render();
     });
