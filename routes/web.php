@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HbRecordController;
 use App\Http\Controllers\MedHistoryController;
+use App\Http\Controllers\AlarmController;
 
 // Authentication
 Route::get('/login', [AuthController::class, 'showLogin'])->name('user.login');
@@ -26,7 +27,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/promotive', [PageController::class, 'promotive'])->name('promotive');
     Route::get('/preventive', [PageController::class, 'preventive'])->name('preventive');
     Route::get('/dashboard', [PageController::class, 'dashboard'])->name('dashboard');
-    Route::get('/alarm', [PageController::class, 'alarm'])->name('alarm');
     Route::get('/certificate', [PageController::class, 'certificate'])->name('certificate');
     Route::get('/contact_us', [PageController::class, 'contact_us'])->name('contact_us');
 
@@ -40,5 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/riwayat_konsumsi', [MedHistoryController::class, 'riwayat_konsumsi'])->name('riwayat_konsumsi');
     Route::post('/riwayat_konsumsi/store', [MedHistoryController::class, 'store'])->name('riwayat_konsumsi.store');
 
+    Route::get('/alarm', [PageController::class, 'alarm'])->name('alarm');
+    Route::post('/alarms', [AlarmController::class, 'store']);
 
 });
