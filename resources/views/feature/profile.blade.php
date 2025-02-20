@@ -171,78 +171,133 @@
                     <h1 class="text-3xl font-bold text-center mb-8">Ringkasan Pencapaian</h1>
 
                     <!-- Ringkasan Pencapaian -->
-                    <div class="bg-white shadow-lg rounded-xl p-6">
-                        <h2 class="text-xl font-semibold mb-4">🏆 1. Ringkasan Pencapaian</h2>
-                        <p>Total Badge yang Diperoleh: 7 dari 10 badge</p>
-                        <p>Sertifikat yang Dimiliki: Sertifikat “Tantangan 90 Hari Konsumsi Fe”</p>
-                        <p>Level Kesehatan: Level 3 – Pejuang Sehat</p>
+                    <div
+                        class="bg-gradient-to-br from-blue-50 to-white shadow-lg rounded-xl p-6 border border-blue-200">
+                        <div class="flex items-center mb-4">
+                            <span class="text-3xl">🏆</span>
+                            <h2 class="text-xl font-semibold text-blue-700 ml-2">Ringkasan Pencapaian</h2>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-white shadow-md p-4 rounded-lg flex items-center">
+                                <span class="text-2xl text-blue-500 mr-3">🩸</span>
+                                <p class="text-gray-700 font-medium">Hb Terbaru: <br><span
+                                        class="text-lg font-semibold">{{ $kadarHbInfo
+                                        }}</span></p>
+                            </div>
+
+                            <div class="bg-white shadow-md p-4 rounded-lg flex items-center">
+                                <span class="text-2xl text-green-500 mr-3">📈</span>
+                                <p class="text-gray-700 font-medium">Hb Tertinggi: <br><span
+                                        class="text-lg font-semibold">{{ $hbTertinggi
+                                        }} g/dL</span></p>
+                            </div>
+
+                            <div class="bg-white shadow-md p-4 rounded-lg flex items-center">
+                                <span class="text-2xl text-red-500 mr-3">📉</span>
+                                <p class="text-gray-700 font-medium">Hb Terendah: <br><span
+                                        class="text-lg font-semibold">{{ $hbTerendah }}
+                                        g/dL</span></p>
+                            </div>
+
+                            <div class="bg-white shadow-md p-4 rounded-lg flex items-center">
+                                <span class="text-2xl text-yellow-500 mr-3">📊</span>
+                                <p class="text-gray-700 font-medium">Total Pemeriksaan: <br><span
+                                        class="text-lg font-semibold">{{
+                                        $totalPemeriksaanHb }} kali</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tantangan Konsumsi Fe 90 Hari -->
+                    <div
+                        class="bg-gradient-to-br from-green-50 to-white shadow-lg rounded-xl p-6 border border-green-200">
+                        <div class="flex items-center mb-4">
+                            <span class="text-3xl">🏅</span>
+                            <h2 class="text-xl font-semibold text-green-700 ml-2">Tantangan Konsumsi Fe 90 Hari</h2>
+                        </div>
+
+                        <p class="text-gray-700 font-medium text-center mb-2">
+                            <span class="text-lg font-bold">{{ $daysCompleted }}</span> / 90 Hari Terpenuhi
+                        </p>
+
+                        <!-- Progress Bar -->
+                        <div class="w-full bg-gray-200 rounded-full h-6 overflow-hidden shadow-inner">
+                            <div class="h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold transition-all duration-500"
+                                style="width: {{ $progressFe90 }}%">
+                                {{ round($progressFe90, 1) }}%
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Koleksi Badge -->
-                    <div class="bg-white shadow-lg rounded-xl p-6">
-                        <h2 class="text-xl font-semibold mb-4">🏅 2. Koleksi Badge atau Medali Virtual</h2>
+                    <div
+                        class="bg-gradient-to-br from-yellow-50 to-white shadow-lg rounded-xl p-6 border border-yellow-200">
+                        <div class="flex items-center mb-4">
+                            <span class="text-3xl">🏅</span>
+                            <h2 class="text-xl font-semibold text-yellow-700 ml-2">Koleksi Badge</h2>
+                        </div>
+
                         <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                            <div class="flex items-center space-x-4 bg-gray-50 p-4 rounded-lg">
-                                <span class="text-4xl">🏆</span>
-                                <span>Juara 90 Hari – Konsumsi Fe 90 Hari</span>
+                            @foreach ($badges as $badge)
+                            <div class="flex flex-col items-center p-4 rounded-lg shadow-md transition-all duration-300 
+                                {{ $badge['unlocked'] ? 'bg-yellow-100 text-yellow-700' : 'bg-gray-200 opacity-50' }}">
+                                <span class="text-4xl">{{ $badge['icon'] }}</span>
+                                <span class="text-sm font-semibold text-center mt-2">{{ $badge['name'] }}</span>
                             </div>
-                            <div class="flex items-center space-x-4 bg-gray-50 p-4 rounded-lg">
-                                <span class="text-4xl">💪</span>
-                                <span>Pejuang Fe (30 Hari)</span>
-                            </div>
-                            <div class="flex items-center space-x-4 bg-gray-50 p-4 rounded-lg">
-                                <span class="text-4xl">🌿</span>
-                                <span>Master Nutrisi (Ikuti 5 Tips)</span>
-                            </div>
-                            <div class="flex items-center space-x-4 bg-gray-50 p-4 rounded-lg">
-                                <span class="text-4xl">🩸</span>
-                                <span>Detektor Dini (3x Cek Hb)</span>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
 
                     <!-- Sertifikat yang Dimiliki -->
-                    <div class="bg-white shadow-lg rounded-xl p-6">
-                        <h2 class="text-xl font-semibold mb-4">📜 3. Sertifikat yang Dimiliki</h2>
-                        <ul class="space-y-2">
-                            <li>Sertifikat Tantangan 90 Hari Konsumsi Fe (Diterbitkan: 13 Februari 2025) <a href="#"
-                                    class="text-blue-500 underline hover:text-blue-700">🔽 Unduh Sertifikat</a></li>
-                            <li>Sertifikat Bebas Anemia 2 Bulan (Diterbitkan: 20 Januari 2025) <a href="#"
-                                    class="text-blue-500 underline hover:text-blue-700">🔽 Unduh Sertifikat</a></li>
+                    <div
+                        class="bg-gradient-to-br from-purple-50 to-white shadow-lg rounded-xl p-6 border border-purple-200">
+                        <div class="flex items-center mb-4">
+                            <span class="text-3xl">📜</span>
+                            <h2 class="text-xl font-semibold text-purple-700 ml-2">Sertifikat yang Dimiliki</h2>
+                        </div>
+
+                        <ul class="space-y-3">
+                            @foreach ($certificates as $certificate)
+                            <li class="bg-white shadow-md p-4 rounded-lg flex justify-between items-center">
+                                <div>
+                                    <p class="text-gray-800 font-medium">{{ $certificate['title'] }}</p>
+
+                                </div>
+
+                                @if ($daysCompleted >= 90)
+                                <!-- Sertifikat Bisa Diunduh -->
+                                <a href="{{ $certificate['download_link'] }}"
+                                    class="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm hover:bg-blue-600 transition-all">
+                                    🔽 Unduh
+                                </a>
+                                @else
+                                <!-- Sertifikat Masih Terkunci -->
+                                <button disabled
+                                    class="bg-gray-300 text-gray-500 px-3 py-1 rounded-lg text-sm cursor-not-allowed opacity-50">
+                                    🔒 Terkunci
+                                </button>
+                                @endif
+                            </li>
+                            @endforeach
                         </ul>
                     </div>
 
-                    <!-- Riwayat Pencapaian Hb -->
-                    <div class="bg-white shadow-lg rounded-xl p-6">
-                        <h2 class="text-xl font-semibold mb-4">📊 4. Riwayat Pencapaian Hb</h2>
-                        <p>Hb Tertinggi: 13.2 g/dL (10 Januari 2025)</p>
-                        <p>Hb Terendah: 9.5 g/dL (15 November 2024)</p>
-                        <p>Total Pemeriksaan Hb: 12 kali</p>
+                    <!-- Motivasi -->
+                    <div
+                        class="bg-gradient-to-br from-pink-50 to-white shadow-lg rounded-xl p-6 border border-pink-200">
+                        <div class="flex items-center mb-4">
+                            <span class="text-3xl">📝</span>
+                            <h2 class="text-xl font-semibold text-pink-700 ml-2">Motivasi</h2>
+                        </div>
+
+                        @foreach ($motivations as $motivation)
+                        <div class="bg-white p-4 rounded-lg shadow-md mb-2">
+                            <p class="text-gray-700 italic">"{{ $motivation }}"</p>
+                        </div>
+                        @endforeach
                     </div>
 
-                    <!-- Tantangan yang Sedang Berlangsung -->
-                    <div class="bg-white shadow-lg rounded-xl p-6">
-                        <h2 class="text-xl font-semibold mb-4">🎯 5. Tantangan yang Sedang Berlangsung</h2>
-                        <div class="mb-4">
-                            <p class="mb-2">🚀 Tantangan Konsumsi Fe 90 Hari – 75/90 Hari Terpenuhi</p>
-                            <div class="w-full bg-gray-200 rounded-full h-4">
-                                <div class="bg-green-500 h-4 rounded-full animate-pulse" style="width: 83.33%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <p class="mb-2">🥦 Tantangan Nutrisi Seimbang (5 Tips) – 3/5 Tips Dibaca</p>
-                            <div class="w-full bg-gray-200 rounded-full h-4">
-                                <div class="bg-blue-500 h-4 rounded-full animate-pulse" style="width: 60%"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tips & Motivasi Khusus -->
-                    <div class="bg-white shadow-lg rounded-xl p-6">
-                        <h2 class="text-xl font-semibold mb-4">📝 6. Tips & Motivasi Khusus</h2>
-                        <p class="mb-2">“Selamat! Anda sudah 1 bulan bebas anemia. Pertahankan pola makan sehat!”</p>
-                        <p>“Ayo, tinggal 15 hari lagi untuk menyelesaikan tantangan konsumsi Fe 90 hari!”</p>
-                    </div>
                 </div>
             </div>
 
