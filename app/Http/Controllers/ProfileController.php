@@ -37,12 +37,22 @@ class ProfileController extends Controller
             ? $latestHb->kadar_hb . ' g/dL pada ' . Carbon::parse($latestHb->tanggal_cek)->translatedFormat('d M Y') 
             : 'Belum ada data';
 
-        // --- 2. Riwayat pencapaian Hb ---
+        // --- Riwayat pencapaian Hb ---
         $hbRecords = HbRecord::where('user_id', $user->id)->get();
-
         $hbTertinggi = $hbRecords->max('kadar_hb') ?? 'Belum ada data';
         $hbTerendah = $hbRecords->min('kadar_hb') ?? 'Belum ada data';
         $totalPemeriksaanHb = $hbRecords->count();
+
+        // --- Tracking konsumsi Fe ---
+        $medRecords = MedHistory::where('user_id', $user->id)->orderBy('date', 'asc')->get();
+        $daysWithMedication = $medRecords->unique('date')->count();
+        $streaks = $medRecords->groupBy('date')->count();
+
+        // Cek streak Hb ≥ 11 g/dL selama 7 & 30 hari
+        $hbNormalStreak7 = $hbRecords->where('kadar_hb', '>=', 11)->sortByDesc('tanggal_cek')->take(7)->count() == 7;
+        $hbNormalStreak30 = $hbRecords->where('kadar_hb', '>=', 11)->sortByDesc('tanggal_cek')->take(30)->count() == 30;
+        $hbNormalStreak60 = $hbRecords->where('kadar_hb', '>=', 11)->sortByDesc('tanggal_cek')->take(60)->count() == 60;
+
 
         // --- 3. Ambil data dari med_history untuk Tantangan Konsumsi Fe 90 Hari ---
         $firstFeRecord = MedHistory::where('user_id', $user->id)
@@ -72,60 +82,106 @@ class ProfileController extends Controller
         // Calculate badge statuses
         $badges = [
             [
-                'name' => 'Juara 90 Hari',
-                'description' => 'Konsumsi Fe 90 Hari',
-                'icon' => '🏆',
-                'unlocked' => $daysCompleted >= 90,
-                'date_earned' => $daysCompleted >= 90 ? Carbon::now()->format('d M Y') : null,
-                'requirement' => 'Konsumsi Fe setiap hari selama 90 hari.'
+                'name' => 'Pejuang Fe (30 Hari)',
+                'description' => 'Rutin mengonsumsi tablet Fe selama 30 hari.',
+                'icon' => '🏅',
+                'unlocked' => $daysWithMedication >= 30,
+                'date_earned' => $daysWithMedication >= 30 ? Carbon::now()->format('d M Y') : null,
+                'requirement' => 'Konsumsi tablet Fe setiap hari selama 30 hari.'
             ],
             [
-                'name' => 'Pejuang 30 Hari',
-                'description' => 'Konsumsi Fe 30 Hari',
+                'name' => 'Streak Sehat (7 Hari)',
+                'description' => 'Menjaga kadar Hb normal selama 7 hari berturut-turut.',
                 'icon' => '💪',
-                'unlocked' => $daysCompleted >= 30,
-                'date_earned' => $daysCompleted >= 30 ? Carbon::now()->format('d M Y') : null,
-                'requirement' => 'Konsumsi Fe setiap hari selama 30 hari.'
+                'unlocked' => $hbNormalStreak7,
+                'date_earned' => $hbNormalStreak7 ? Carbon::now()->format('d M Y') : null,
+                'requirement' => 'Jaga kadar Hb ≥ 11 g/dL selama 7 hari berturut-turut.'
             ],
             [
-                'name' => 'Master Nutrisi',
-                'description' => 'Baca 5 Tips Nutrisi',
-                'icon' => '🌿',
-                'unlocked' => false, // This would need to be implemented based on article reading tracking
-                'date_earned' => null,
-                'requirement' => 'Baca minimal 5 artikel tips nutrisi.'
+                'name' => 'Bintang Pagi (Log Tepat Waktu)',
+                'description' => 'Mencatat konsumsi tablet tepat waktu selama 14 hari.',
+                'icon' => '🌞',
+                'unlocked' => $streaks >= 14,
+                'date_earned' => $streaks >= 14 ? Carbon::now()->format('d M Y') : null,
+                'requirement' => 'Catat konsumsi tablet Fe tepat waktu selama 14 hari berturut-turut.'
             ],
             [
-                'name' => 'Detektor Dini',
-                'description' => '3x Cek Hb',
+                'name' => 'Pahlawan Hb (Bebas Anemia)',
+                'description' => 'Menjaga kadar Hb normal selama 1 bulan penuh.',
+                'icon' => '❤️',
+                'unlocked' => $hbNormalStreak30,
+                'date_earned' => $hbNormalStreak30 ? Carbon::now()->format('d M Y') : null,
+                'requirement' => 'Jaga kadar Hb ≥ 11 g/dL selama 30 hari berturut-turut.'
+            ],
+            [
+                'name' => 'Detektor Dini (Rutin Cek Hb)',
+                'description' => 'Melakukan pencatatan kadar Hb minimal 3 kali dalam sebulan.',
                 'icon' => '🩸',
                 'unlocked' => $totalPemeriksaanHb >= 3,
                 'date_earned' => $totalPemeriksaanHb >= 3 ? Carbon::now()->format('d M Y') : null,
-                'requirement' => 'Lakukan pemeriksaan Hb sebanyak 3 kali.'
+                'requirement' => 'Lakukan pemeriksaan Hb minimal 3 kali dalam satu bulan.'
             ],
             [
-                'name' => 'Bebas Anemia 1 Minggu',
-                'description' => 'Hb ≥11 g/dL selama 7 hari',
-                'icon' => '🥇',
-                'unlocked' => false, // This would need to be implemented based on Hb tracking
-                'date_earned' => null,
-                'requirement' => 'Jaga Hb ≥11 g/dL selama 7 hari berturut-turut.'
+                'name' => 'Juara 90 Hari (Tantangan Selesai)',
+                'description' => 'Menyelesaikan tantangan konsumsi tablet Fe selama 90 hari.',
+                'icon' => '🏆',
+                'unlocked' => $daysWithMedication >= 90,
+                'date_earned' => $daysWithMedication >= 90 ? Carbon::now()->format('d M Y') : null,
+                'requirement' => 'Konsumsi tablet Fe setiap hari selama 90 hari berturut-turut.'
             ],
             [
-                'name' => 'Bebas Anemia 1 Bulan',
-                'description' => 'Hb ≥11 g/dL selama 30 hari',
-                'icon' => '❤️',
-                'unlocked' => false, // This would need to be implemented based on Hb tracking
-                'date_earned' => null,
-                'requirement' => 'Jaga Hb ≥11 g/dL selama 30 hari berturut-turut.'
+                'name' => 'Ibu Teladan (Tanpa Absen)',
+                'description' => 'Tidak pernah melewatkan konsumsi tablet selama 1 bulan penuh.',
+                'icon' => '🤰',
+                'unlocked' => $daysWithMedication >= 30 && $streaks == 30,
+                'date_earned' => ($daysWithMedication >= 30 && $streaks == 30) ? Carbon::now()->format('d M Y') : null,
+                'requirement' => 'Tidak boleh absen konsumsi tablet Fe selama 30 hari.'
+            ],
+            [
+                'name' => 'Pelacak Kesehatan (Pengguna Aktif)',
+                'description' => 'Rutin mencatat log kesehatan selama 30 hari.',
+                'icon' => '📈',
+                'unlocked' => $streaks >= 30,
+                'date_earned' => $streaks >= 30 ? Carbon::now()->format('d M Y') : null,
+                'requirement' => 'Mencatat log kesehatan selama 30 hari berturut-turut.'
+            ],
+            [
+                'name' => 'Penjaga Kesehatan (Bebas Anemia 2 Bulan)',
+                'description' => 'Menjaga kadar Hb normal selama 60 hari berturut-turut.',
+                'icon' => '💎',
+                'unlocked' => $hbNormalStreak60,
+                'date_earned' => $hbNormalStreak60 ? Carbon::now()->format('d M Y') : null,
+                'requirement' => 'Jaga kadar Hb ≥ 11 g/dL selama 60 hari berturut-turut.'
             ]
         ];
 
-        // Calculate badge statistics
+
+         // --- Statistik Badges ---
         $totalBadges = count($badges);
         $earnedBadges = count(array_filter($badges, fn($badge) => $badge['unlocked']));
         $latestBadge = collect($badges)->where('unlocked', true)->sortByDesc('date_earned')->first();
         $nextBadge = collect($badges)->where('unlocked', false)->first();
+
+        // Ambil data Hb dalam 7 hari terakhir
+        $hbRecords = HbRecord::where('user_id', $user->id)
+            ->whereDate('tanggal_cek', '>=', now()->subDays(7))
+            ->orderBy('tanggal_cek', 'asc')
+            ->pluck('kadar_hb')
+            ->toArray();
+
+        // Hitung jumlah hari berturut-turut dengan Hb ≥ 11 g/dL
+        $streak_hb = 0;
+        foreach ($hbRecords as $hb) {
+            if ($hb >= 11) {
+                $streak_hb++;
+            } else {
+                $streak_hb = 0;
+            }
+        }
+
+        // Progress tantangan bebas anemia 1 minggu
+        $anemiaFreeWeekProgress = min($streak_hb, 7);
+        $anemiaFreeWeekPercentage = ($anemiaFreeWeekProgress / 7) * 100;
 
         // Calculate active challenge progress
         $activeChallenge = [
@@ -137,9 +193,9 @@ class ProfileController extends Controller
             ],
             'anemia_free_week' => [
                 'name' => 'Tantangan Bebas Anemia 1 Minggu',
-                'progress' => 0, // This would need to be implemented based on Hb tracking
+                'progress' => $anemiaFreeWeekProgress,
                 'total' => 7,
-                'percentage' => 0
+                'percentage' => $anemiaFreeWeekPercentage
             ]
         ];
 
