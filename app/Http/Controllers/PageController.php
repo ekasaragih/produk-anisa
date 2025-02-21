@@ -56,8 +56,16 @@ class PageController extends Controller
             ->orderBy('minggu')
             ->pluck('total', 'minggu');
 
+        // Hitung total hari unik pengguna minum obat
+            $totalDays = MedHistory::where('user_id', $user->id)
+            ->distinct('date')
+            ->count('date');
+
+            $eligible = $totalDays >= 90; // Jika sudah 90 hari, tampilkan pop-up
+
+
         return view('feature.dashboard', compact(
-            'user', 'latestHb', 'totalTabletHarian', 'dosisHarian', 'weeklyProgress', 'monthlyProgress'
+            'user', 'latestHb', 'totalTabletHarian', 'dosisHarian', 'weeklyProgress', 'monthlyProgress', 'eligible'
         ));
     }
 
@@ -68,7 +76,26 @@ class PageController extends Controller
     
     public function certificate()
     {
-        return view("feature.certificate");
+        $user = Auth::user();
+        
+        // Hitung jumlah hari unik yang telah diminum obat
+        $totalDays = MedHistory::where('user_id', $user->id)
+            ->distinct('date') // Pastikan hanya menghitung hari unik
+            ->count('date');
+
+        $eligible = $totalDays >= 90; // Cek apakah sudah mencapai 90 hari
+
+        return view("feature.certificate", compact('eligible'));
+    }
+    public function checkCertificate()
+    {
+        $user = Auth::user();
+        
+        $totalDays = MedHistory::where('user_id', $user->id)
+            ->distinct('date')
+            ->count('date');
+
+        return response()->json(['eligible' => $totalDays >= 90]);
     }
 
     public function contact_us()

@@ -45,6 +45,11 @@ class MedHistoryController extends Controller
             'medicine_date' => 'required|date',
         ]);
 
+         // Cegah duplikasi pencatatan pada hari yang sama
+         $exists = MedHistory::where('user_id', Auth::id())
+         ->whereDate('date', $request->medicine_date)
+         ->exists();
+
         MedHistory::create([
             'user_id' => Auth::id(),
             'medicine_name' => $request->medicine_name,

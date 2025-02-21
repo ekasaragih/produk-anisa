@@ -303,5 +303,15 @@
             // Close the modal after sharing
             closeModal();
         }
+        
+        document.addEventListener("DOMContentLoaded", function() {
+        fetch("{{ route('check.certificate') }}")
+            .then(response => response.json())
+            .then(data => {
+                if (data.eligible) {
+                    document.getElementById("certificate-nav").style.display = "block";
+                }
+            });
+    });
 </script>
 @endsection

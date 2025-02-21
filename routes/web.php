@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/preventive', [PageController::class, 'preventive'])->name('preventive');
     Route::get('/dashboard', [PageController::class, 'dashboard'])->name('dashboard');
     Route::get('/certificate', [PageController::class, 'certificate'])->name('certificate');
+    Route::get('/check-certificate', [PageController::class, 'checkCertificate'])->name('check.certificate');
     Route::get('/contact_us', [PageController::class, 'contact_us'])->name('contact_us');
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
@@ -50,5 +51,4 @@ Route::middleware('auth')->group(function () {
     Route::post('/alarms/toggle/{id}', [AlarmController::class, 'toggleActive']);
     Route::post('/alarm/{id}/dismiss', [AlarmController::class, 'dismissAlarm']);
     Route::post('/alarm/{id}/snooze', [AlarmController::class, 'snoozeAlarm']);
-
 });

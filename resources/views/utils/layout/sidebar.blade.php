@@ -60,10 +60,13 @@
             <i class="fa fa-heartbeat mr-3"></i> Kadar Hb
         </a>
 
-        <a href="{{ route('certificate') }}"
-            class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'certificate' ? 'bg-blue-600 font-bold' : '' }}">
-            <i class="fa fa-certificate mr-3"></i> Sertifikat
-        </a>
+        <li id="certificate-nav" style="display: none;">
+            <a href="{{ route('certificate') }}"
+                class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 
+                {{ Route::currentRouteName() == 'certificate' ? 'bg-blue-600 font-bold' : '' }}">
+                <i class="fa fa-certificate mr-3"></i> Sertifikat
+            </a>
+        </li>
 
         <a href="{{ route('contact_us') }}"
             class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'contact_us' ? 'bg-blue-600 font-bold' : '' }}">
@@ -207,6 +210,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch("{{ route('check.certificate') }}")
+            .then(response => response.json())
+            .then(data => {
+                if (data.eligible) {
+                    document.getElementById("certificate-nav").style.display = "block";
+                }
+            });
+    });
+</script>
 </body>
 
 </html>

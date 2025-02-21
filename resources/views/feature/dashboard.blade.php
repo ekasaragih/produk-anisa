@@ -22,9 +22,24 @@
 
 @section('content')
 @include('utils.layout.topnav', ['title' => 'Dashboard'])
+@if ($eligible)
+    <div id="certificate-popup" class="mx-auto animate-fade-in">
+        <div class="bg-white p-5 rounded-lg shadow-lg border border-gray-300 text-center">
+            <h2 class="text-lg font-bold text-green-600">🎉 Selamat! 🎉</h2>
+            <p class="mt-2 text-gray-700">Anda telah menyelesaikan program ini selama 90 hari! Klik disini untuk melihat dan download sertifikat pencapaianmu.</p>
+            <a href="{{ route('certificate') }}" 
+               class="mt-3 inline-block px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                Lihat Sertifikat
+            </a>
+            <button onclick="document.getElementById('certificate-popup').style.display='none'" 
+                    class="mt-2 px-3 py-1 bg-gray-400 text-white rounded-lg text-sm hover:bg-gray-500 transition">
+                Tutup
+            </button>
+        </div>
+    </div>
+@endif
 <div class="container mx-auto pb-8 px-4 min-h-screen">
     <div class="page p-8 bg-white rounded-2xl shadow-lg border border-gray-200 animate-fade-in">
-
         <div
             class="bg-white shadow-md rounded-lg p-6 border-l-4 border-pink-500 flex flex-col items-center sm:flex-row sm:items-start mb-3">
             <div class="flex-shrink-0">
@@ -35,7 +50,6 @@
                 <h2 class="text-base font-semibold text-gray-800">Selamat datang,
                     <span class="text-pink-600">{{ $user->full_name }}</span> 🎉
                 </h2>
-
                 <p class="text-gray-600 text-sm pt-3">Status Kesehatan Terbaru:</p>
                 <div class="font-bold text-lg
                             @if($latestHb && $latestHb->indicated_anemia == 'Anemia') text-red-500 
