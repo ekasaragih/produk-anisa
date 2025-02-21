@@ -42,17 +42,32 @@
                     <p class="text-gray-600 text-sm pt-3">Status Kesehatan Terbaru:</p>
                     <div
                         class="font-bold text-lg
-                            @if ($latestHb && $latestHb->indicated_anemia == 'Anemia') text-red-500
-                            @else text-green-500 @endif">
+                        @if ($latestHb && $latestHb->indicated_anemia == 'Anemia') text-red-500
+                        @else text-green-500 @endif">
+
                         @if ($latestHb)
                             {{ $latestHb->indicated_anemia }}
                             ({{ $latestHb->kadar_hb }} g/dL pada
-                            {{ \Carbon\Carbon::parse($latestHb->tanggal_cek)->format('d M
-                                                                                                                                                                                                                        Y') }})
+                            {{ \Carbon\Carbon::parse($latestHb->tanggal_cek)->format('d M Y') }})
+
+                            <!-- Check if it's been more than 30 days since the last record -->
+                            @php
+                                $lastCheckedDate = \Carbon\Carbon::parse($latestHb->tanggal_cek);
+                                $needsCheck = $lastCheckedDate->diffInDays(\Carbon\Carbon::now()) > 30;
+                            @endphp
+
+                            <!-- Show notification if the Hb record is older than 30 days -->
+                            @if ($needsCheck)
+                                <div class="mt-2 p-2 text-red-800 border border-red-300 rounded">
+                                    <strong>Warning:</strong> You haven't checked your Hb levels in over 30 days. Please
+                                    check your Hb as soon as possible.
+                                </div>
+                            @endif
                         @else
                             Belum ada data Hb terbaru.
                         @endif
                     </div>
+
 
                     <p class="text-gray-600 text-sm pt-3">Kelola akun dan perbarui informasi profilmu.</p>
                     <a href="{{ route('profile') }}"
