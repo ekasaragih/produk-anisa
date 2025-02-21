@@ -39,7 +39,7 @@
                 <li class="me-2" role="presentation">
                     <button class="inline-block p-4 border-b-2 rounded-t-lg" id="profile-tab"
                         data-tabs-target="#profile" type="button" role="tab" aria-controls="profile"
-                        aria-selected="false"> Profil </button>
+                        aria-selected="false">Profil</button>
                 </li>
                 <li class="me-2" role="presentation">
                     <button
@@ -73,7 +73,6 @@
                 <form id="profileForm" action="{{ route('profile.update', $profile->id) }}" method="POST">
                     @csrf
                     @method('PUT')
-
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
                         <div class="bg-white shadow-md rounded-lg p-6 border-l-4 border-teal-500">
@@ -124,8 +123,7 @@
                         <div class="bg-white shadow-md rounded-lg p-6 border-l-4 border-teal-500">
                             <p class="text-lg font-semibold text-gray-800">BB Sebelum Hamil:</p>
                             <p class="text-gray-600 view-mode">{{ $profile->bb_sebelum_hamil ?
-                                $profile->bb_sebelum_hamil . '
-                                kg' :
+                                $profile->bb_sebelum_hamil . ' kg' :
                                 'Belum diisi' }}</p>
                             <input type="number" step="0.1" name="bb_sebelum_hamil"
                                 value="{{ old('bb_sebelum_hamil', $profile->bb_sebelum_hamil) }}"
@@ -135,8 +133,7 @@
                         <div class="bg-white shadow-md rounded-lg p-6 border-l-4 border-indigo-500">
                             <p class="text-lg font-semibold text-gray-800">BB Sekarang:</p>
                             <p class="text-gray-600 view-mode">{{ $profile->bb_sekarang ? $profile->bb_sekarang . ' kg'
-                                : 'Belum
-                                diisi' }}</p>
+                                : 'Belum diisi' }}</p>
                             <input type="number" step="0.1" name="bb_sekarang"
                                 value="{{ old('bb_sekarang', $profile->bb_sekarang) }}"
                                 class="hidden edit-mode border rounded-lg p-2 w-full">
@@ -182,29 +179,25 @@
                             <div class="bg-white shadow-md p-4 rounded-lg flex items-center">
                                 <span class="text-2xl text-blue-500 mr-3">🩸</span>
                                 <p class="text-gray-700 font-medium">Hb Terbaru: <br><span
-                                        class="text-lg font-semibold">{{ $kadarHbInfo
-                                        }}</span></p>
+                                        class="text-lg font-semibold">{{ $kadarHbInfo }}</span></p>
                             </div>
 
                             <div class="bg-white shadow-md p-4 rounded-lg flex items-center">
                                 <span class="text-2xl text-green-500 mr-3">📈</span>
                                 <p class="text-gray-700 font-medium">Hb Tertinggi: <br><span
-                                        class="text-lg font-semibold">{{ $hbTertinggi
-                                        }} g/dL</span></p>
+                                        class="text-lg font-semibold">{{ $hbTertinggi }} g/dL</span></p>
                             </div>
 
                             <div class="bg-white shadow-md p-4 rounded-lg flex items-center">
                                 <span class="text-2xl text-red-500 mr-3">📉</span>
                                 <p class="text-gray-700 font-medium">Hb Terendah: <br><span
-                                        class="text-lg font-semibold">{{ $hbTerendah }}
-                                        g/dL</span></p>
+                                        class="text-lg font-semibold">{{ $hbTerendah }} g/dL</span></p>
                             </div>
 
                             <div class="bg-white shadow-md p-4 rounded-lg flex items-center">
                                 <span class="text-2xl text-yellow-500 mr-3">📊</span>
                                 <p class="text-gray-700 font-medium">Total Pemeriksaan: <br><span
-                                        class="text-lg font-semibold">{{
-                                        $totalPemeriksaanHb }} kali</span></p>
+                                        class="text-lg font-semibold">{{ $totalPemeriksaanHb }} kali</span></p>
                             </div>
                         </div>
                     </div>
@@ -262,7 +255,6 @@
                             <li class="bg-white shadow-md p-4 rounded-lg flex justify-between items-center">
                                 <div>
                                     <p class="text-gray-800 font-medium">{{ $certificate['title'] }}</p>
-
                                 </div>
 
                                 @if ($daysCompleted >= 90)
@@ -297,88 +289,85 @@
                         </div>
                         @endforeach
                     </div>
-
                 </div>
             </div>
 
             {{-- Medali Tab --}}
             <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="medali" role="tabpanel"
                 aria-labelledby="medali-tab">
-                <div class="max-w-6xl mx-auto space-y-6">
-                    <h1 class="text-3xl font-bold text-center mb-8">Medali</h1>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                        <!-- Badge Cards -->
-                        <div class="bg-white shadow-lg rounded-xl p-6 flex flex-col items-center">
-                            <div class="text-blue-500 text-5xl mb-4">
-                                <i class="fas fa-medal"></i>
-                            </div>
-                            <h2 class="text-xl font-semibold">Pejuang Fe (30 Hari)</h2>
-                            <p>Rutin mengonsumsi tablet Fe selama 30 hari.</p>
-                        </div>
+                <div class="max-w-6xl mx-auto space-y-8">
+                    <!-- Header Section -->
+                    <div class="text-center">
+                        <h1 class="text-3xl font-bold mb-2">Badge & Medali Saya</h1>
+                        <p class="">Kumpulkan berbagai badge sebagai tanda pencapaian Anda selama perjalanan
+                            kehamilan yang sehat. Raih semuanya!</p>
+                    </div>
 
-                        <div class="bg-white shadow-lg rounded-xl p-6 flex flex-col items-center">
-                            <div class="text-green-500 text-5xl mb-4">
-                                <i class="fas fa-star"></i>
+                    <!-- Badge Statistics -->
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="text-center">
+                                <p class="text-gray <div class=" text-center">
+                                <p class="text-gray-600">Total Badge Diperoleh</p>
+                                <p class="text-2xl font-bold">{{ $earnedBadges }} dari {{ $totalBadges }}</p>
                             </div>
-                            <h2 class="text-xl font-semibold">Streak Sehat (7 Hari)</h2>
-                            <p>Menjaga kadar Hb normal selama 7 hari berturut-turut.</p>
+                            @if($latestBadge)
+                            <div class="text-center">
+                                <p class="text-gray-600">Badge Terkini</p>
+                                <p class="text-2xl font-bold">{{ $latestBadge['name'] }}</p>
+                                <p class="text-sm text-gray-500">{{ $latestBadge['date_earned'] }}</p>
+                            </div>
+                            @endif
+                            @if($nextBadge)
+                            <div class="text-center">
+                                <p class="text-gray-600">Badge Sedang Dikejar</p>
+                                <p class="text-2xl font-bold">{{ $nextBadge['name'] }}</p>
+                            </div>
+                            @endif
                         </div>
+                    </div>
 
-                        <div class="bg-white shadow-lg rounded-xl p-6 flex flex-col items-center">
-                            <div class="text-yellow-500 text-5xl mb-4">
-                                <i class="fas fa-trophy"></i>
+                    <!-- Active Challenges Progress -->
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h2 class="text-xl font-semibold mb-4">Progress Bar Tantangan Aktif</h2>
+                        @foreach($activeChallenge as $challenge)
+                        <div class="mb-4">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-gray-700">{{ $challenge['name'] }}</span>
+                                <span class="text-gray-600">{{ $challenge['progress'] }}/{{ $challenge['total']
+                                    }}</span>
                             </div>
-                            <h2 class="text-xl font-semibold">Bintang Pagi (Log Tepat Waktu)</h2>
-                            <p>Mencatat konsumsi tablet tepat waktu selama 14 hari.</p>
+                            <div class="w-full bg-gray-200 rounded-full h-4">
+                                <div class="bg-blue-600 h-4 rounded-full transition-all duration-500"
+                                    style="width: {{ $challenge['percentage'] }}%"></div>
+                            </div>
                         </div>
+                        @endforeach
+                    </div>
 
-                        <div class="bg-white shadow-lg rounded-xl p-6 flex flex-col items-center">
-                            <div class="text-purple-500 text-5xl mb-4">
-                                <i class="fas fa-heart"></i>
+                    <!-- Badge Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        @foreach($badges as $badge)
+                        <div
+                            class="bg-white rounded-xl shadow-md p-6 {{ $badge['unlocked'] ? 'border-2 border-green-500' : 'opacity-50' }}">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-4xl">{{ $badge['icon'] }}</span>
+                                @if($badge['unlocked'])
+                                <span class="text-green-500 text-sm">✅ Diperoleh - {{ $badge['date_earned'] }}</span>
+                                @else
+                                <span class="text-gray-500 text-sm">🔒 Belum Diperoleh</span>
+                                @endif
                             </div>
-                            <h2 class="text-xl font-semibold">Pahlawan Hb (Bebas Anemia)</h2>
-                            <p>Menjaga kadar Hb normal selama 1 bulan penuh.</p>
-                        </div>
-
-                        <div class="bg-white shadow-lg rounded-xl p-6 flex flex-col items-center">
-                            <div class="text-pink-500 text-5xl mb-4">
-                                <i class="fas fa-brain"></i>
+                            <h3 class="text-lg font-semibold mb-2">{{ $badge['name'] }}</h3>
+                            <p class="text-gray-600 text-sm">{{ $badge['description'] }}</p>
+                            @if(!$badge['unlocked'])
+                            <div class="mt-4 p-2 bg-gray-50 rounded-lg">
+                                <p class="text-sm text-gray-500"><i class="fas fa-info-circle"></i> {{
+                                    $badge['requirement'] }}</p>
                             </div>
-                            <h2 class="text-xl font-semibold">Detektor Dini (Rutin Cek Hb)</h2>
-                            <p>Melakukan pencatatan kadar Hb minimal 3 kali dalam sebulan.</p>
+                            @endif
                         </div>
-
-                        <div class="bg-white shadow-lg rounded-xl p-6 flex flex-col items-center">
-                            <div class="text-red-500 text-5xl mb-4">
-                                <i class="fas fa-rocket"></i>
-                            </div>
-                            <h2 class="text-xl font-semibold">Juara 90 Hari (Tantangan Selesai)</h2>
-                            <p>Menyelesaikan tantangan konsumsi tablet Fe selama 90 hari.</p>
-                        </div>
-
-                        <div class="bg-white shadow-lg rounded-xl p-6 flex flex-col items-center">
-                            <div class="text-indigo-500 text-5xl mb-4">
-                                <i class="fas fa-globe"></i>
-                            </div>
-                            <h2 class="text-xl font-semibold">Ibu Teladan (Tanpa Absen</h2>
-                            <p>Tidak pernah melewatkan konsumsi tablet selama 1 bulan penuh.</p>
-                        </div>
-
-                        <div class="bg-white shadow-lg rounded-xl p-6 flex flex-col items-center">
-                            <div class="text-teal-500 text-5xl mb-4">
-                                <i class="fas fa-lightbulb"></i>
-                            </div>
-                            <h2 class="text-xl font-semibold">Pelacak Kesehatan (Pengguna Aktif)</h2>
-                            <p>Rutin mencatat log kesehatan selama 30 hari.</p>
-                        </div>
-
-                        <div class="bg-white shadow-lg rounded-xl p-6 flex flex-col items-center">
-                            <div class="text-orange-500 text-5xl mb-4">
-                                <i class="fas fa-users"></i>
-                            </div>
-                            <h2 class="text-xl font-semibold">Penjaga Kesehatan (Bebas Anemia 2 Bulan)</h2>
-                            <p>Menjaga kadar Hb normal selama 60 hari berturut-turut.</p>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -389,10 +378,10 @@
 
     <script>
         document.getElementById('editBtn').addEventListener('click', function () {
-        document.querySelectorAll('.view-mode').forEach(el => el.classList.toggle('hidden'));
-        document.querySelectorAll('.edit-mode').forEach(el => el.classList.toggle('hidden'));
-        document.getElementById('saveBtn').classList.toggle('hidden');
-    });
+            document.querySelectorAll('.view-mode').forEach(el => el.classList.toggle('hidden'));
+            document.querySelectorAll('.edit-mode').forEach(el => el.classList.toggle('hidden'));
+            document.getElementById('saveBtn').classList.toggle('hidden');
+        });
     </script>
 
     @endsection
