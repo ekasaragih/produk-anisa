@@ -184,23 +184,53 @@
     }
 
     function notif90() {
-        $.ajax({
-        url: `/notif`,
-        method: 'GET',
-        success: function(response) {
-            // If the alertFlag is true, show the alert
-            if (response.alertFlag) {
-                if(response.alertFlag == 'MILESTONE_ACHIEVED'){
-                   alert("Jumlah konsumsi obat mencapai 90!");
-                }else if (response.alertFlag == 'MILESTONE_NEAR_ACHIEVED'){
-                    alert("Semangat 5 hari lagi gokss!");
-                }
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error("There was an error with the request.");
+        // Check if the notification has already been shown
+        if (localStorage.getItem('notif90Shown') === 'true') {
+            return;
         }
-    });
+
+        $.ajax({
+            url: `/notif`,
+            method: 'GET',
+            success: function(response) {
+                if (response.alertFlag) {
+                    if (response.alertFlag == 'MILESTONE_ACHIEVED') {
+                        Swal.fire({
+                            position: 'top-end',
+                            title: 'Milestone Achieved!',
+                            text: 'Jumlah konsumsi obat mencapai 90 hari!',
+                            icon: 'success',
+                            showConfirmButton: false,
+                            footer: '<a href="/certificate">Klik disini untuk lihat Sertifikat</a>',
+                            width: 400, // Adjust width to make it more rectangular
+                            padding: '10px', // Add padding for better spacing
+                            customClass: {
+                                popup: 'swal-popup-long', // Apply custom class for extra styling if needed
+                            }
+                        });
+
+                        localStorage.setItem('notif90Shown', 'true');
+                    } else if (response.alertFlag == 'MILESTONE_NEAR_ACHIEVED') {
+                        Swal.fire({
+                            title: 'Semangat!',
+                            text: 'sedikit lagi mencapai 90 hari!',
+                            icon: 'info',
+                            confirmButtonText: 'OK',
+                            footer: '<a href="/another-page">Klik disini untuk lihat Sertifikat</a>',
+                            width: 400, // Adjust width to make it more rectangular
+                            padding: '20px', // Add padding for better spacing
+                            customClass: {
+                                popup: 'swal-popup-long', // Apply custom class for extra styling if needed
+                            }
+                        });
+
+                        localStorage.setItem('notif90Shown', 'true');
+                    }
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("There was an error with the request.");
+            }
+        });
     }
 </script>
-
