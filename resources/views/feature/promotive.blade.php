@@ -173,11 +173,14 @@
                             <p class="mt-2 text-gray-700">Cara mengkonsumsi tablet FE</p>
                         </div>
                         <div class="p-4 bg-white shadow-md rounded-xl text-center">
-                            <a href="" target="_blank">
-                                <img src="your-image-source.jpg" class="mx-auto" width="100" height="100" />
-                            </a>
+                            <video id="video1" width="100%" height="auto" controls>
+                                <source src="{{ asset('assets/VID-20241026-WA0001.mp4') }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
                             <p class="mt-2 text-gray-700">Cara mengidentifikasi anemia pada ibu hamil</p>
                         </div>
+
+
                     </div>
                 </div>
             </div>
