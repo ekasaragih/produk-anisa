@@ -25,7 +25,8 @@
 
 <div class="container mx-auto pb-8 px-4 min-h-screen">
     <div class="page p-8 bg-white rounded-2xl shadow-lg border border-gray-200 animate-fade-in">
-        <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-l from-blue-600 to-teal-500 mb-6">
+        <h2
+            class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-l from-blue-600 to-teal-500 mb-6">
             Profil Saya
         </h2>
 
@@ -41,12 +42,14 @@
                         aria-selected="false">Profil</button>
                 </li>
                 <li class="me-2" role="presentation">
-                    <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                    <button
+                        class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
                         id="pencapaian-tab" data-tabs-target="#pencapaian" type="button" role="tab"
                         aria-controls="pencapaian" aria-selected="false">Pencapaian Saya</button>
                 </li>
                 <li class="me-2" role="presentation">
-                    <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                    <button
+                        class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
                         id="medali-tab" data-tabs-target="#medali" type="button" role="tab" aria-controls="medali"
                         aria-selected="false">Medali Saya</button>
                 </li>
@@ -56,7 +59,7 @@
             {{-- Profil Tab --}}
             <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="profile" role="tabpanel"
                 aria-labelledby="profile-tab">
-                <h1 class="text-white text-3xl font-bold text-center mb-8">Data Demografi</h1>
+                <h1 class="text-3xl font-bold text-center mb-8">Data Demografi</h1>
                 @if ($lastUpdated)
                 <p class="text-sm text-gray-500 my-3"><i>Terakhir diperbarui: {{ $lastUpdated }}</i></p>
                 @endif
@@ -162,10 +165,11 @@
             <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="pencapaian" role="tabpanel"
                 aria-labelledby="pencapaian-tab">
                 <div class="max-w-6xl mx-auto space-y-6">
-                    <h1 class="text-white text-3xl font-bold text-center mb-8">Ringkasan Pencapaian</h1>
+                    <h1 class="text-3xl font-bold text-center mb-8">Ringkasan Pencapaian</h1>
 
                     <!-- Ringkasan Pencapaian -->
-                    <div class="bg-gradient-to-br from-blue-50 to-white shadow-lg rounded-xl p-6 border border-blue-200">
+                    <div
+                        class="bg-gradient-to-br from-blue-50 to-white shadow-lg rounded-xl p-6 border border-blue-200">
                         <div class="flex items-center mb-4">
                             <span class="text-3xl">🏆</span>
                             <h2 class="text-xl font-semibold text-blue-700 ml-2">Ringkasan Pencapaian</h2>
@@ -199,7 +203,8 @@
                     </div>
 
                     <!-- Tantangan Konsumsi Fe 90 Hari -->
-                    <div class="bg-gradient-to-br from-green-50 to-white shadow-lg rounded-xl p-6 border border-green-200">
+                    <div
+                        class="bg-gradient-to-br from-green-50 to-white shadow-lg rounded-xl p-6 border border-green-200">
                         <div class="flex items-center mb-4">
                             <span class="text-3xl">🏅</span>
                             <h2 class="text-xl font-semibold text-green-700 ml-2">Tantangan Konsumsi Fe 90 Hari</h2>
@@ -219,7 +224,8 @@
                     </div>
 
                     <!-- Koleksi Badge -->
-                    <div class="bg-gradient-to-br from-yellow-50 to-white shadow-lg rounded-xl p-6 border border-yellow-200">
+                    <div
+                        class="bg-gradient-to-br from-yellow-50 to-white shadow-lg rounded-xl p-6 border border-yellow-200">
                         <div class="flex items-center mb-4">
                             <span class="text-3xl">🏅</span>
                             <h2 class="text-xl font-semibold text-yellow-700 ml-2">Koleksi Badge</h2>
@@ -237,7 +243,8 @@
                     </div>
 
                     <!-- Sertifikat yang Dimiliki -->
-                    <div class="bg-gradient-to-br from-purple-50 to-white shadow-lg rounded-xl p-6 border border-purple-200">
+                    <div
+                        class="bg-gradient-to-br from-purple-50 to-white shadow-lg rounded-xl p-6 border border-purple-200">
                         <div class="flex items-center mb-4">
                             <span class="text-3xl">📜</span>
                             <h2 class="text-xl font-semibold text-purple-700 ml-2">Sertifikat yang Dimiliki</h2>
@@ -269,7 +276,8 @@
                     </div>
 
                     <!-- Motivasi -->
-                    <div class="bg-gradient-to-br from-pink-50 to-white shadow-lg rounded-xl p-6 border border-pink-200">
+                    <div
+                        class="bg-gradient-to-br from-pink-50 to-white shadow-lg rounded-xl p-6 border border-pink-200">
                         <div class="flex items-center mb-4">
                             <span class="text-3xl">📝</span>
                             <h2 class="text-xl font-semibold text-pink-700 ml-2">Motivasi</h2>
@@ -290,15 +298,16 @@
                 <div class="max-w-6xl mx-auto space-y-8">
                     <!-- Header Section -->
                     <div class="text-center">
-                        <h1 class="text-white text-3xl font-bold mb-2">Badge & Medali Saya</h1>
-                        <p class="text-white">Kumpulkan berbagai badge sebagai tanda pencapaian Anda selama perjalanan kehamilan yang sehat. Raih semuanya!</p>
+                        <h1 class="text-3xl font-bold mb-2">Badge & Medali Saya</h1>
+                        <p class="">Kumpulkan berbagai badge sebagai tanda pencapaian Anda selama perjalanan
+                            kehamilan yang sehat. Raih semuanya!</p>
                     </div>
 
                     <!-- Badge Statistics -->
                     <div class="bg-white rounded-xl shadow-md p-6">
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div class="text-center">
-                                <p class="text-gray <div class="text-center">
+                                <p class="text-gray <div class=" text-center">
                                 <p class="text-gray-600">Total Badge Diperoleh</p>
                                 <p class="text-2xl font-bold">{{ $earnedBadges }} dari {{ $totalBadges }}</p>
                             </div>
@@ -325,11 +334,12 @@
                         <div class="mb-4">
                             <div class="flex justify-between mb-1">
                                 <span class="text-gray-700">{{ $challenge['name'] }}</span>
-                                <span class="text-gray-600">{{ $challenge['progress'] }}/{{ $challenge['total'] }}</span>
+                                <span class="text-gray-600">{{ $challenge['progress'] }}/{{ $challenge['total']
+                                    }}</span>
                             </div>
                             <div class="w-full bg-gray-200 rounded-full h-4">
                                 <div class="bg-blue-600 h-4 rounded-full transition-all duration-500"
-                                     style="width: {{ $challenge['percentage'] }}%"></div>
+                                    style="width: {{ $challenge['percentage'] }}%"></div>
                             </div>
                         </div>
                         @endforeach
@@ -338,7 +348,8 @@
                     <!-- Badge Grid -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         @foreach($badges as $badge)
-                        <div class="bg-white rounded-xl shadow-md p-6 {{ $badge['unlocked'] ? 'border-2 border-green-500' : 'opacity-50' }}">
+                        <div
+                            class="bg-white rounded-xl shadow-md p-6 {{ $badge['unlocked'] ? 'border-2 border-green-500' : 'opacity-50' }}">
                             <div class="flex items-center justify-between mb-4">
                                 <span class="text-4xl">{{ $badge['icon'] }}</span>
                                 @if($badge['unlocked'])
@@ -351,7 +362,8 @@
                             <p class="text-gray-600 text-sm">{{ $badge['description'] }}</p>
                             @if(!$badge['unlocked'])
                             <div class="mt-4 p-2 bg-gray-50 rounded-lg">
-                                <p class="text-sm text-gray-500"><i class="fas fa-info-circle"></i> {{ $badge['requirement'] }}</p>
+                                <p class="text-sm text-gray-500"><i class="fas fa-info-circle"></i> {{
+                                    $badge['requirement'] }}</p>
                             </div>
                             @endif
                         </div>
@@ -371,5 +383,5 @@
             document.getElementById('saveBtn').classList.toggle('hidden');
         });
     </script>
-    
+
     @endsection
