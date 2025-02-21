@@ -51,4 +51,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/alarm/{id}/dismiss', [AlarmController::class, 'dismissAlarm']);
     Route::post('/alarm/{id}/snooze', [AlarmController::class, 'snoozeAlarm']);
 
+    Route::get('/notif', [MedHistoryController::class, 'notif'])->name('notif');
+
 });

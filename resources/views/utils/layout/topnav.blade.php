@@ -47,8 +47,8 @@
             <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5 text-lg">
                 <li class="breadcrumb-item text-black">
                     <a href="javascript:;" class="cursor-auto">Halaman / <span
-                            class="breadcrumb-item text-teal-500 font-semibold" aria-current="page">{{ $title
-                            }}</span>
+                            class="breadcrumb-item text-teal-500 font-semibold"
+                            aria-current="page">{{ $title }}</span>
                     </a>
                 </li>
             </ol>
@@ -72,15 +72,18 @@
 <script>
     let alarmSound;
 
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
         unlockAudio();
         fetchUpcomingAlarms();
+        notif90();
         setInterval(fetchUpcomingAlarms, 60000);
     });
 
     function unlockAudio() {
         let unlock = new Howl({
-            src: ["data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAABCxAgAEABAAZGF0YQAAAAA="], // Silent audio
+            src: [
+                "data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAABCxAgAEABAAZGF0YQAAAAA="
+            ], // Silent audio
             volume: 0
         });
 
@@ -101,14 +104,14 @@
         $.ajax({
             url: "/upcoming",
             method: "GET",
-            success: function (response) {
+            success: function(response) {
                 if (!Array.isArray(response)) {
                     console.warn("No upcoming alarms or invalid response format.");
                     return;
                 }
                 displayAlarms(response);
             },
-            error: function (xhr, status, error) {
+            error: function(xhr, status, error) {
                 console.error("Error fetching alarms:", status, error);
             }
         });
@@ -128,7 +131,8 @@
 
         alarms.forEach(alarm => {
             let alarmElement = document.createElement("div");
-            alarmElement.classList.add("bg-red-600", "text-white", "p-4", "rounded-lg", "shadow-lg", "animate-pulse");
+            alarmElement.classList.add("bg-red-600", "text-white", "p-4", "rounded-lg", "shadow-lg",
+                "animate-pulse");
 
             alarmElement.innerHTML = `
                 <div>
@@ -151,11 +155,13 @@
         $.ajax({
             url: `/alarm/${id}/snooze`,
             method: "POST",
-            data: { _token: $('meta[name="csrf-token"]').attr('content') },
-            success: function () {
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function() {
                 fetchUpcomingAlarms();
             },
-            error: function (xhr) {
+            error: function(xhr) {
                 console.error("Error snoozing alarm:", xhr.responseText);
             }
         });
@@ -165,14 +171,36 @@
         $.ajax({
             url: `/alarm/${id}/dismiss`,
             method: "POST",
-            data: { _token: $('meta[name="csrf-token"]').attr('content') },
-            success: function () {
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function() {
                 fetchUpcomingAlarms();
             },
-            error: function (xhr) {
+            error: function(xhr) {
                 console.error("Error dismissing alarm:", xhr.responseText);
             }
         });
     }
 
+    function notif90() {
+        $.ajax({
+        url: `/notif`,
+        method: 'GET',
+        success: function(response) {
+            // If the alertFlag is true, show the alert
+            if (response.alertFlag) {
+                if(response.alertFlag == 'MILESTONE_ACHIEVED'){
+                   alert("Jumlah konsumsi obat mencapai 90!");
+                }else if (response.alertFlag == 'MILESTONE_NEAR_ACHIEVED'){
+                    alert("Semangat 5 hari lagi gokss!");
+                }
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("There was an error with the request.");
+        }
+    });
+    }
 </script>
+

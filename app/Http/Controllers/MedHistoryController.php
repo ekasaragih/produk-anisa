@@ -17,22 +17,27 @@ class MedHistoryController extends Controller
         $history = MedHistory::where('user_id', $userId)
             ->selectRaw('DATE(date) as tanggal, COUNT(*) as jumlah')
             ->groupBy('tanggal')
-            ->pluck('jumlah', 'tanggal') 
+            ->pluck('jumlah', 'tanggal')
             ->toArray();
 
         $allDates = [];
         $currentDate = \Carbon\Carbon::parse($startDate);
+
         while ($currentDate->lte($endDate)) {
             $dateStr = $currentDate->toDateString();
+            $jumlah = isset($history[$dateStr]) ? $history[$dateStr] : 0;
+
             $allDates[] = [
                 'tanggal' => $dateStr,
-                'status' => isset($history[$dateStr]) ? 'Minum Obat' : 'Tidak Minum Obat'
+                'status' => $jumlah > 0 ? 'Minum Obat' : 'Tidak Minum Obat',
+                'jumlah' => $jumlah
             ];
             $currentDate->addDay();
         }
 
         return view("feature.riwayat_konsumsi", ['history' => $allDates]);
     }
+
 
 
     public function store(Request $request)
@@ -56,4 +61,33 @@ class MedHistoryController extends Controller
 
         return redirect()->back()->with('success', 'Konsumsi obat berhasil dicatat!');
     }
+
+
+    public function notif()
+    {
+        $userId = Auth::id();
+        $alertFlag = null;
+
+        $achivement90 = 90;
+        $achievementNear90 = 85;
+
+        $history = MedHistory::where('user_id', $userId)
+            ->selectRaw('DATE(date) as tanggal') // Only select the date part, ignoring the time
+            ->groupBy('tanggal') // Group by the distinct date
+            ->pluck('tanggal') // Get only the distinct dates
+            ->toArray();
+
+        $total = count($history);
+
+        // Check if the count of distinct dates equals 90
+        if ($total == $achivement90) {
+            $alertFlag = "MILESTONE_ACHIEVED";
+        }else if ($total == $achievementNear90) {
+            $alertFlag = "MILESTONE_NEAR_ACHIEVED";
+        }
+
+        // Return the alert flag as a JSON response
+        return response()->json(['alertFlag' => $alertFlag]);
+    }
+
 }
