@@ -35,9 +35,7 @@
     input {
         width: auto;
         min-width: 100px;
-        /* Optional: Set a minimum width */
         padding: 0;
-        /* Optional: Adjust padding */
     }
 </style>
 @endsection
@@ -65,7 +63,6 @@
                 </div>
             </div>
 
-            <!-- SVG Border Hiasan -->
             <svg class="absolute top-0 left-0 w-full h-auto opacity-10" xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 1440 320">
                 <path fill="#66FCF1" fill-opacity="0.2"
@@ -74,12 +71,10 @@
             </svg>
 
             <div class="relative z-10 text-center">
-                <!-- Judul Sertifikat -->
                 <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-teal-600 drop-shadow-md tracking-wide">
                     SERTIFIKAT PENCAPAIAN
                 </h1>
 
-                <!-- Nomor Sertifikat -->
                 <p class="text-gray-700 text-xs sm:text-sm mt-2">
                     Nomor
                     <input id="noInput" type="text" value="1234567"
@@ -87,7 +82,6 @@
                     <i class="fas fa-pencil-alt text-gray-500 cursor-pointer"></i>
                 </p>
 
-                <!-- Penerima Sertifikat -->
                 <p class="mt-4 sm:mt-6 text-sm sm:text-lg text-gray-700">Dengan bangga diberikan kepada:</p>
                 <p class="text-lg sm:text-2xl md:text-3xl font-bold text-teal-700">
                     <input id="nameInput" type="text" value="KUPA COCHANK"
@@ -97,7 +91,6 @@
 
                 <hr class="my-2 sm:my-4 border-gray-400 opacity-50" />
 
-                <!-- Deskripsi Penghargaan -->
                 <p class="text-xs sm:text-sm text-gray-800">
                     Sebagai penghargaan atas komitmen dan kedisiplinan menjalani pengobatan anemia selama
                     <span class="font-bold text-teal-500">90 hari</span>.
@@ -107,11 +100,9 @@
                     Teruslah melangkah menuju hidup yang lebih sehat!
                 </p>
 
-                <!-- Tanggal & Pemberi Sertifikat -->
                 <p class="mt-4 sm:mt-6 text-xs sm:text-sm text-gray-600" id="currentDate">21 Februari 2025</p>
                 <p class="text-xs sm:text-sm font-semibold text-teal-700">(Pemberi Sertifikat)</p>
 
-                <!-- Logo Institusi -->
                 <div class="flex justify-center mt-4 sm:mt-6 space-x-4 sm:space-x-6">
                     <img src="" class="w-10 h-10 sm:w-14 sm:h-14 grayscale opacity-80" alt="Logo 1" />
                     <img src="" class="w-10 h-10 sm:w-14 sm:h-14 grayscale opacity-80" alt="Logo 2" />
