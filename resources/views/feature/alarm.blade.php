@@ -76,9 +76,8 @@
             </form>
         </div>
 
-        <!-- Daftar Alarm -->
         <div class="mt-4">
-            <h3 class="text-lg font-semibold text-gray-700">Daftar Alarm</h3>
+            <h3 class="text-md sm:text-lg font-semibold text-gray-700">Daftar Alarm</h3>
             <ul id="alarm-list" class="mt-2 space-y-2"></ul>
         </div>
     </div>
@@ -210,15 +209,15 @@
 
                     alarms.forEach(alarm => {
                         let alarmHtml = `
-                        <li class="p-3 bg-gray-100 rounded-md flex justify-between items-center">
+                        <li class="p-2 sm:p-3 bg-gray-100 rounded-md flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-2 sm:space-y-0">
                             <div class="flex flex-col">
-                                <span class="text-gray-700 font-semibold">${alarm.nama_alarm} - ${alarm.jam}</span>
-                                <span class="text-gray-500 text-sm italic">${alarm.deskripsi ? alarm.deskripsi : 'Tidak ada deskripsi'}</span>
+                                <span class="text-sm sm:text-base text-gray-700 font-semibold">${alarm.nama_alarm} - ${alarm.jam}</span>
+                                <span class="text-xs sm:text-sm text-gray-500 italic">${alarm.deskripsi ? alarm.deskripsi : 'Tidak ada deskripsi'}</span>
                             </div>
-                            <div class="flex gap-2">
-                                <button class="bg-yellow-500 text-white px-3 py-1 rounded-md" data-modal-target="edit-alarm-modal" data-modal-toggle="edit-alarm-modal" onclick="showEditAlarmModal(${alarm.id})">Ubah</button>
-                                <button class="bg-red-500 text-white px-3 py-1 rounded-md" onclick="deleteAlarm(${alarm.id})">Hapus</button>
-                                <button class="bg-teal-500 text-white px-3 py-1 rounded-md" onclick="toggleAlarm(${alarm.id})">
+                            <div class="flex flex-wrap gap-2">
+                                <button class="bg-yellow-500 text-white text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-md" data-modal-target="edit-alarm-modal" data-modal-toggle="edit-alarm-modal" onclick="showEditAlarmModal(${alarm.id})">Ubah</button>
+                                <button class="bg-red-500 text-white text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-md" onclick="deleteAlarm(${alarm.id})">Hapus</button>
+                                <button class="bg-teal-500 text-white text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-md" onclick="toggleAlarm(${alarm.id})">
                                     ${alarm.aktif === 'yes' ? 'Nonaktifkan' : 'Aktifkan'}
                                 </button>
                             </div>
