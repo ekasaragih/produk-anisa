@@ -81,13 +81,14 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-6">
             <!-- Waktu Saat Ini -->
             <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-blue-500">
                 <h3 class="text-lg font-semibold text-blue-600 flex items-center">
                     ⏰ <span class="ml-2">Waktu saat ini</span>
                 </h3>
-                <div class="md:text-[2rem] text-xl mt-8 font-bold font-mono text-blue-800 bg-clip-text drop-shadow-lg animate-pulse"
+                <div class="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 
+                        mt-8 font-bold font-mono text-blue-800 bg-clip-text drop-shadow-lg animate-pulse"
                     id="liveClock"></div>
             </div>
 
@@ -129,7 +130,7 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mt-4">
+        <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-6 mt-4">
             <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-teal-500">
                 <h3 class="text-lg font-semibold text-teal-600">➤ Progress Mingguan</h3>
                 <p class="text-gray-600">Seberapa konsisten Anda dalam minum tablet.</p>
@@ -143,7 +144,7 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 mt-4">
+        <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-6 mt-4">
             <div class="bg-white shadow-md rounded-lg p-4 border-l-4 border-green-500 flex flex-col h-full">
                 <div class="flex-grow">
                     <h3 class="text-lg font-semibold text-green-600">Masukkan Kadar HB</h3>
