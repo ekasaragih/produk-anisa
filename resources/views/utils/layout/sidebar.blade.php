@@ -60,11 +60,6 @@
             <i class="fa fa-heartbeat mr-3"></i> Kadar Hb
         </a>
 
-        <a href="{{ route('certificate') }}"
-            class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'certificate' ? 'bg-blue-600 font-bold' : '' }}">
-            <i class="fa fa-certificate mr-3"></i> Sertifikat
-        </a>
-
         <a href="{{ route('contact_us') }}"
             class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'contact_us' ? 'bg-blue-600 font-bold' : '' }}">
             <i class="fa fa-phone-alt mr-3"></i> Hubungi Kami
@@ -154,10 +149,6 @@
                     <a href="{{ route('kadar_hb') }}"
                         class="block py-2 px-2 hover:bg-blue-600 {{ Route::currentRouteName() == 'kadar_hb' ? 'bg-blue-600 font-bold' : '' }}">
                         <i class="fa fa-heartbeat mr-3"></i> Kadar Hb
-                    </a>
-                    <a href="{{ route('certificate') }}"
-                        class="block py-2 px-2 hover:bg-blue-600 {{ Route::currentRouteName() == 'certificate' ? 'bg-blue-600 font-bold' : '' }}">
-                        <i class="fa fa-certificate mr-3"></i> Sertifikat
                     </a>
                     <a href="{{ route('contact_us') }}"
                         class="block py-2 px-2 hover:bg-blue-600 {{ Route::currentRouteName() == 'contact_us' ? 'bg-blue-600 font-bold' : '' }}">
