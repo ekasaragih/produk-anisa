@@ -77,15 +77,15 @@
 
                 <p class="text-gray-700 text-xs sm:text-sm mt-2">
                     Nomor
-                    <input id="noInput" type="text" value="1234567"
-                        class="bg-transparent border-b border-gray-500 text-center focus:outline-none w-20 sm:w-auto" />
+                    <input id="noInput" type="text"
+                        class="bg-transparent border-b border-gray-500 text-center focus:outline-none w-20 sm:w-auto leading-4" />
                     <i class="fas fa-pencil-alt text-gray-500 cursor-pointer"></i>
                 </p>
 
                 <p class="mt-4 sm:mt-6 text-sm sm:text-lg text-gray-700">Dengan bangga diberikan kepada:</p>
                 <p class="text-lg sm:text-2xl md:text-3xl font-bold text-teal-700">
-                    <input id="nameInput" type="text" value="KUPA COCHANK"
-                        class="bg-transparent text-center font-bold w-auto focus:outline-none" />
+                    <input id="nameInput" type="text" value="{{ Auth::user()->full_name ?? '' }}"
+                        class="bg-transparent text-center font-bold w-auto focus:outline-none" readonly />
                     <i class="fas fa-pencil-alt text-gray-500 cursor-pointer"></i>
                 </p>
 
@@ -101,7 +101,7 @@
                 </p>
 
                 <p class="mt-4 sm:mt-6 text-xs sm:text-sm text-gray-600" id="currentDate">21 Februari 2025</p>
-                <p class="text-xs sm:text-sm font-semibold text-teal-700">(Pemberi Sertifikat)</p>
+                <p class="text-xs sm:text-sm font-semibold text-teal-700">ANISA</p>
 
                 <div class="flex justify-center mt-4 sm:mt-6 space-x-4 sm:space-x-6">
                     <img src="" class="w-10 h-10 sm:w-14 sm:h-14 grayscale opacity-80" alt="Logo 1" />
@@ -171,13 +171,10 @@
     const input = document.getElementById('nameInput');
 
         function resizeInput() {
-            input.style.width = `${input.value.length + 1}ch`; // +1 for some padding
+            input.style.width = `${input.value.length + 1}ch`;
         }
 
-        // Resize input when content changes
         input.addEventListener('input', resizeInput);
-
-        // Initialize on page load to adjust size based on current value
         resizeInput();
 </script>
 
@@ -199,49 +196,71 @@
 
 <script>
     function downloadPDF() {
-            // Get the values from the input fields
-            const certificateNumber = document.getElementById('noInput').value;
-            const recipientName = document.getElementById('nameInput').value;
-            const currentDate = document.getElementById('currentDate').innerText;
+        const certificateNumber = document.getElementById('noInput').value;
+        const recipientName = document.getElementById('nameInput').value;
+        const currentDate = document.getElementById('currentDate').innerText;
 
-            // Get the certificate content div
-            const certificateElement = document.querySelector('.certificate');
+        const newCertificate = document.createElement('div');
+     
+        newCertificate.innerHTML = `
+        <div class="certificate relative border-8 border-teal-400 rounded-xl 
+               p-12 shadow-[0_10px_30px_rgba(0,255,255,0.2)] 
+               bg-gradient-to-br from-cyan-100 to-emerald-200 text-gray-900 mx-auto 
+               text-center h-[210mm] flex flex-col justify-center items-center">
+            <div class="absolute inset-0">
+                <div
+                    class="absolute top-0 left-0 w-20 h-20 sm:w-32 sm:h-32 bg-cyan-300 opacity-20 rounded-full blur-xl mix-blend-multiply">
+                </div>
+                <div
+                    class="absolute bottom-0 right-0 w-20 h-20 sm:w-32 sm:h-32 bg-teal-400 opacity-20 rounded-full blur-xl mix-blend-multiply">
+                </div>
+            </div>
+            
+            <svg class="absolute top-0 left-0 w-full h-auto opacity-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#66FCF1" fill-opacity="0.2"
+                    d="M0,224L60,213.3C120,203,240,181,360,181.3C480,181,600,203,720,229.3C840,256,960,288,1080,272C1200,256,1320,192,1380,160L1440,128V320H0Z">
+                </path>
+            </svg>
 
-            // Create a clone of the certificate content
-            const certificateClone = certificateElement.cloneNode(true);
+            <h1 class="text-4xl font-bold text-teal-600 drop-shadow-md tracking-wide">
+                SERTIFIKAT PENCAPAIAN
+            </h1>
+            <p class="text-gray-700 text-sm mt-2 border-b border-gray-500 leading-4 pb-3">Nomor: <strong>${certificateNumber}</strong></p>
+            <p class="mt-6 text-lg text-gray-700">Dengan bangga diberikan kepada:</p>
+            <p class="text-3xl font-bold text-teal-700 border-b border-gray-500">${recipientName}</p>
 
-            // Temporarily remove the pencil icons in the clone
-            const pencilIcons = certificateClone.querySelectorAll('.fa-pencil-alt');
-            pencilIcons.forEach(icon => {
-                icon.style.display = 'none'; // Hide pencil icons in the PDF version
-            });
+            <hr class="my-2 sm:my-4 border-gray-400 opacity-50" />
+            
+            <p class="text-base text-gray-800">
+                Sebagai penghargaan atas komitmen dan kedisiplinan menjalani pengobatan anemia selama
+                <span class="font-bold text-teal-500">90 hari</span>.
+            </p>
+            <p class="text-base mt-2 text-gray-800">
+                Terima kasih telah menjadi inspirasi dalam menjaga kesehatan.<br>
+                Teruslah melangkah menuju hidup yang lebih sehat!
+            </p>
+            
+            <p class="mt-6 text-base text-gray-600" id="currentDate">${currentDate}</p>
+            <p class="text-lg font-semibold text-teal-700">ANISA</p>
+            
+            <div class="flex justify-center mt-6 space-x-4">
+                <img src="" class="w-10 h-10 sm:w-14 sm:h-14 grayscale opacity-80" alt="Logo 1" />
+                <img src="" class="w-10 h-10 sm:w-14 sm:h-14 grayscale opacity-80" alt="Logo 2" />
+            </div>
+        </div>
+        `;
 
-            // Update the content dynamically in the clone
-            certificateClone.querySelector('#noInput').value = certificateNumber;
-            certificateClone.querySelector('#nameInput').value = recipientName;
-            certificateClone.querySelector('#currentDate').innerText = currentDate;
+        const options = {
+            margin: 0,
+            filename: 'certificate.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+        };
 
-            // Set the options for the PDF
-            const options = {
-                margin: 10,
-                filename: 'certificate.pdf',
-                image: {
-                    type: 'jpeg',
-                    quality: 0.98
-                },
-                html2canvas: {
-                    scale: 4
-                }, // Higher scale for better quality
-                jsPDF: {
-                    unit: 'mm',
-                    format: 'a4',
-                    orientation: 'portrait'
-                }
-            };
+        html2pdf().from(newCertificate).set(options).save();
+    }
 
-            // Convert the updated content to PDF
-            html2pdf().from(certificateClone).set(options).save();
-        }
 </script>
 
 <script>
