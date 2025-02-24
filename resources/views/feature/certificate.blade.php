@@ -118,7 +118,7 @@
                 </button>
 
 
-                <button onclick="openModal()"
+                <button data-modal-target="shareModal" data-modal-toggle="shareModal"
                     class="text-xs md:text-base bg-teal-500 hover:bg-teal-600 text-white px-3 py-1 md:px-5 md:py-2 rounded-md">
                     Share ke Media Sosial
                 </button>
@@ -130,37 +130,59 @@
 </div>
 
 <!-- Modal for Social Media Sharing -->
-<div id="shareModal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-    <div class="modal-content bg-white p-6 rounded-md w-80">
-        <h3 class="text-center text-lg font-semibold mb-4">Bagikan ke</h3>
+<div id="shareModal" tabindex="-1" aria-hidden="true"
+    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
 
-        <div class="mt-4 flex justify-between gap-4">
-            <button onclick="shareTo('facebook')" class="social-btn bg-blue-600 hover:bg-blue-700">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
-                    alt="Facebook" class="social-icon">
-            </button>
+    <div class="modal-overlay fixed inset-0 bg-gray-500 opacity-50 z-40"></div>
+    <div class="relative p-4 w-full max-w-lg max-h-full z-50">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    Bagikan ke Sosial Media
+                </h3>
+                <button type="button"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-hide="shareModal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <div class="p-4 md:p-5 space-y-4">
+                <h3 class="text-center text-lg font-semibold mb-4">Bagikan ke</h3>
 
-            <button onclick="shareTo('twitter')" class="social-btn bg-blue-400 hover:bg-blue-500">
-                <img src="https://brandlogos.net/wp-content/uploads/2023/07/x__twitter-logo_brandlogos.net_fxbde.png"
-                    alt="Twitter" class="social-icon">
-            </button>
+                <div class="mt-4 flex justify-between gap-4">
+                    <button onclick="shareTo('facebook')" class="social-btn bg-blue-600 hover:bg-blue-700">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
+                            alt="Facebook" class="social-icon">
+                    </button>
 
-            <button onclick="shareTo('whatsapp')" class="social-btn bg-green-500 hover:bg-green-600">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"
-                    class="social-icon">
-            </button>
+                    <button onclick="shareTo('twitter')" class="social-btn bg-blue-400 hover:bg-blue-500">
+                        <img src="https://brandlogos.net/wp-content/uploads/2023/07/x__twitter-logo_brandlogos.net_fxbde.png"
+                            alt="Twitter" class="social-icon">
+                    </button>
 
-            <button onclick="shareTo('instagram')" class="social-btn bg-red-500 hover:bg-red-800">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1200px-Instagram_logo_2022.svg.png"
-                    alt="Instagram" class="social-icon">
-            </button>
+                    <button onclick="shareTo('whatsapp')" class="social-btn bg-green-500 hover:bg-green-600">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"
+                            class="social-icon">
+                    </button>
+
+                    <button onclick="shareTo('instagram')" class="social-btn bg-red-500 hover:bg-red-800">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1200px-Instagram_logo_2022.svg.png"
+                            alt="Instagram" class="social-icon">
+                    </button>
+                </div>
+
+                <!-- Close Modal Button -->
+                <button data-modal-hide="shareModal"
+                    class="mt-6 text-xs w-full md:text-base bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 md:px-5 md:py-2 rounded-md">
+                    Tutup
+                </button>
+            </div>
         </div>
-
-        <!-- Close Modal Button -->
-        <button onclick="closeModal()"
-            class="mt-6 text-xs w-full md:text-base bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 md:px-5 md:py-2 rounded-md">
-            Close
-        </button>
     </div>
 </div>
 
@@ -272,25 +294,127 @@
             document.getElementById('shareModal').classList.add('hidden');
         }
 
-        function shareTo(platform) {
-            const url = encodeURIComponent(window.location.href);
-            const text = encodeURIComponent("Check out this certificate!");
-            const hashtag = "certificate";
+        function shareCertificate(platform, file) {
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                navigator.share({
+                    files: [file],
+                    title: "Sertifikat Pencapaian",
+                    text: "Lihat sertifikat saya!",
+                }).catch(err => console.error("Error sharing:", err));
+            } else {
+                alert("Browser tidak mendukung berbagi file. Silakan unggah secara manual.");
+            }
+        }
 
-            const platforms = {
-                'facebook': `https://www.facebook.com/sharer/sharer.php?u=${url}`,
-                'twitter': `https://twitter.com/intent/tweet?url=${url}&text=${text}&hashtags=${hashtag}`,
-                'whatsapp': `https://wa.me/?text=${text}%20${url}`,
-                'instagram': `https://www.instagram.com/?url=${url}`
+        function downloadAndShare(platform) {
+            const certificateNumber = document.getElementById('noInput').value;
+            const recipientName = document.getElementById('nameInput').value;
+            const currentDate = document.getElementById('currentDate').innerText;
+
+            const newCertificate = document.createElement('div');
+            newCertificate.innerHTML = `
+            <div class="certificate relative border-8 border-teal-400 rounded-xl 
+                           p-12 shadow-[0_10px_30px_rgba(0,255,255,0.2)] 
+                           bg-gradient-to-br from-cyan-100 to-emerald-200 text-gray-900 mx-auto 
+                           text-center h-[210mm] flex flex-col justify-center items-center">
+                <div class="absolute inset-0">
+                    <div
+                        class="absolute top-0 left-0 w-20 h-20 sm:w-32 sm:h-32 bg-cyan-300 opacity-20 rounded-full blur-xl mix-blend-multiply">
+                    </div>
+                    <div
+                        class="absolute bottom-0 right-0 w-20 h-20 sm:w-32 sm:h-32 bg-teal-400 opacity-20 rounded-full blur-xl mix-blend-multiply">
+                    </div>
+                </div>
+            
+                <svg class="absolute top-0 left-0 w-full h-auto opacity-10" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 1440 320">
+                    <path fill="#66FCF1" fill-opacity="0.2"
+                        d="M0,224L60,213.3C120,203,240,181,360,181.3C480,181,600,203,720,229.3C840,256,960,288,1080,272C1200,256,1320,192,1380,160L1440,128V320H0Z">
+                    </path>
+                </svg>
+            
+                <h1 class="text-4xl font-bold text-teal-600 drop-shadow-md tracking-wide">
+                    SERTIFIKAT PENCAPAIAN
+                </h1>
+                <p class="text-gray-700 text-sm mt-2 border-b border-gray-500 leading-4 pb-3">Nomor:
+                    <strong>${certificateNumber}</strong></p>
+                <p class="mt-6 text-lg text-gray-700">Dengan bangga diberikan kepada:</p>
+                <p class="text-3xl font-bold text-teal-700 border-b border-gray-500">${recipientName}</p>
+            
+                <hr class="my-2 sm:my-4 border-gray-400 opacity-50" />
+            
+                <p class="text-base text-gray-800">
+                    Sebagai penghargaan atas komitmen dan kedisiplinan menjalani pengobatan anemia selama
+                    <span class="font-bold text-teal-500">90 hari</span>.
+                </p>
+                <p class="text-base mt-2 text-gray-800">
+                    Terima kasih telah menjadi inspirasi dalam menjaga kesehatan.<br>
+                    Teruslah melangkah menuju hidup yang lebih sehat!
+                </p>
+            
+                <p class="mt-6 text-base text-gray-600" id="currentDate">${currentDate}</p>
+                <p class="text-lg font-semibold text-teal-700">ANISA</p>
+            
+                <div class="flex justify-center mt-6 space-x-4">
+                    <img src="" class="w-10 h-10 sm:w-14 sm:h-14 grayscale opacity-80" alt="Logo 1" />
+                    <img src="" class="w-10 h-10 sm:w-14 sm:h-14 grayscale opacity-80" alt="Logo 2" />
+                </div>
+            </div>
+            `;
+
+            const options = {
+                margin: 0,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
             };
 
-            if (platforms[platform]) {
-                window.open(platforms[platform], '_blank');
-            } else {
-                alert('Invalid platform');
-            }
+            // Generate PDF dan convert ke Blob
+            html2pdf().from(newCertificate).set(options).outputPdf('blob').then(pdfBlob => {
+                const file = new File([pdfBlob], "certificate.pdf", { type: "application/pdf" });
 
+                // Share ke sosial media setelah file selesai di-generate
+                shareCertificate(platform, file);
+            });
+        }
+
+        function shareTo(platform) {
+            if (platform === "file") {
+                downloadAndShare();
+            } else {
+                const url = encodeURIComponent(window.location.href);
+                const text = encodeURIComponent("Check out this certificate!");
+                const hashtag = "certificate";
+
+                const platforms = {
+                    'facebook': `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+                    'twitter': `https://twitter.com/intent/tweet?url=${url}&text=${text}&hashtags=${hashtag}`,
+                    'whatsapp': `https://wa.me/?text=${text}%20${url}`,
+                    'instagram': `https://www.instagram.com/?url=${url}`
+                };
+
+                // Khusus WhatsApp, coba share file jika didukung
+                if (platform === "whatsapp") {
+                    const certificateFile = new File([""], "certificate.pdf", { type: "application/pdf" });
+
+                    if (navigator.canShare && navigator.canShare({ files: [certificateFile] })) {
+                        navigator.share({
+                            files: [certificateFile],
+                            title: "Sertifikat Pencapaian",
+                            text: "Lihat sertifikat saya!",
+                        }).catch(err => console.error("Error sharing:", err));
+                    } else {
+                        alert("Browser tidak mendukung berbagi file PDF. Silakan unggah manual.");
+                    }
+                } else if (platforms[platform]) {
+                    window.open(platforms[platform], '_blank');
+                } else {
+                    alert('Invalid platform');
+                }
+            }
             closeModal();
         }
+
+
 </script>
 @endsection
