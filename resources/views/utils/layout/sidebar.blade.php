@@ -18,15 +18,13 @@
 <body class="font-rubik bg-white">
 
     <!-- Desktop Sidebar -->
-    <nav x-data="{ isOpen: false}" class=" hidden md:flex flex-col w-64 h-screen bg-blue-700 text-white fixed inset-y-0 left-3 top-3 shadow-lg
-        rounded-r-lg border-r-4 rounded-l-lg border-teal-500 p-5">
+    <nav x-data="{ isOpen: false }" class="hidden md:flex flex-col w-64 h-screen bg-blue-700 text-white fixed inset-y-0 left-3 top-3 shadow-lg
+               rounded-r-lg border-r-4 rounded-l-lg border-teal-500 p-5 overflow-y-auto">
         <h4 class="text-left text-lg font-bold">
             <a href="/" id="title">Produk Anisa</a>
         </h4>
 
         <hr class="my-3">
-
-
 
         @if(auth()->check())
         <h6 class="mt-4 uppercase text-xs font-semibold opacity-70">Pemantauan</h6>
