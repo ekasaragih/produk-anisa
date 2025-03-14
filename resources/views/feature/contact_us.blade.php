@@ -26,7 +26,7 @@
     <div class="container mx-auto pb-12 px-4 min-h-screen">
         <div class="page p-8 bg-white rounded-2xl shadow-lg border border-gray-200 animate-fade-in">
             <h2 class="text-3xl font-extrabold text-gray-800 text-center mb-6">
-                Apakah Anda Mengalami Efek Samping?
+                Untuk Konsultasi Lanjutan
             </h2>
 
             <div class="space-y-4 mt-8">
