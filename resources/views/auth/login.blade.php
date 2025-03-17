@@ -45,15 +45,18 @@
                             class="w-full px-4 py-2 mt-1 border rounded-lg border-teal-500 focus:ring focus:ring-teal-300 transition duration-300 ease-in-out focus:outline-none"
                             placeholder="Masukkan email anda" required>
                     </div>
-                    <div class="mt-4 relative">
+
+                    <div class="mt-4">
                         <label class="block text-sm font-medium text-gray-600">Kata Sandi</label>
-                        <input type="password" id="password" name="password"
-                            class="w-full px-4 py-2 mt-1 border rounded-lg border-teal-500 focus:ring focus:ring-teal-300"
-                            placeholder="Masukkan kata sandi" required>
-                        <button type="button" id="togglePassword"
-                            class="absolute inset-y-0 right-3 flex items-center text-gray-500">
-                            <i class="fa fa-eye"></i>
-                        </button>
+                        <div class="relative">
+                            <input type="password" id="password" name="password"
+                                class="w-full px-4 py-2 border rounded-lg border-teal-500 focus:ring focus:ring-teal-300"
+                                placeholder="Masukkan kata sandi" required>
+                            <button type="button" id="togglePassword"
+                                class="absolute inset-y-0 right-3 flex items-center text-gray-500">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                        </div>
                     </div>
                     <button type="submit"
                         class="w-full px-4 py-2 mt-6 font-semibold text-white bg-teal-500 rounded-lg hover:bg-teal-600 transition duration-300 ease-in-out shadow-lg transform hover:scale-105">
