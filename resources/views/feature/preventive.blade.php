@@ -42,10 +42,7 @@
             komplikasi. Misalnya, LiLA yang kurang dari 23,5 cm dapat menunjukkan risiko Kurang Energi Kronis (KEK)
             pada ibu hamil.</p>
 
-        <button id="questionnaire-btn" data-modal-target="questionnaire-modal" data-modal-toggle="questionnaire-modal"
-            class="my-2 bg-gradient-to-l from-blue-500 to-teal-400 hover:from-teal-400 hover:to-blue-500 text-white font-bold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300">
-            <i class="fa fa-edit mr-2"></i>Isi Kuesioner
-        </button>
+
 
         <hr class="border-gray-300 my-3">
 
@@ -154,10 +151,12 @@
                 </p>
             </div>
         </div>
+
+        <button id="questionnaire-btn" data-modal-target="questionnaire-modal" data-modal-toggle="questionnaire-modal"
+            class="mt-5 bg-gradient-to-l from-blue-500 to-teal-400 hover:from-teal-400 hover:to-blue-500 text-white font-bold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300">
+            <i class="fa fa-edit mr-2"></i>Isi Kuesioner
+        </button>
     </div>
-
-
-
 
     {{-- DONT REPLACE THIS PART --}}
     @include('utils.layout.footer')
