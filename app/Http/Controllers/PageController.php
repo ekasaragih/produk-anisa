@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
 {
+    public function welcome()
+    {
+        return view("welcome");
+    }
+
     public function tingkat_pengetahuan_ibu_hamil()
     {
         return view("tingkat_pengetahuan_ibu_hamil");

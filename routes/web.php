@@ -17,12 +17,13 @@ Route::post('/auth/logout', [AuthController::class, 'logout'])->name('user.logou
 
 // Guest
 Route::middleware('guest')->group(function () {
-    Route::get('/', function () { return view('welcome'); });
+    Route::get('/welcome', [PageController::class, 'welcome'])->name('welcome_guest');
     Route::get('/promotive_guest', [PageController::class, 'promotive'])->name('promotive_guest');
 });
 
 // Authenticated pages
 Route::middleware('auth')->group(function () {
+    Route::get('/', [PageController::class, 'welcome'])->name('welcome');
     Route::get('/edukasi', [PageController::class, 'tingkat_pengetahuan_ibu_hamil'])->name('edukasi');
     Route::get('/promotive', [PageController::class, 'promotive'])->name('promotive');
     Route::get('/preventive', [PageController::class, 'preventive'])->name('preventive');

@@ -27,7 +27,13 @@
         <hr class="my-3">
 
         @if(auth()->check())
+        <a href="{{ route('welcome') }}"
+            class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'welcome' ? 'bg-blue-600 font-bold' : '' }}">
+            <i class="fa-solid fa-house mr-3"></i> Welcome
+        </a>
+
         <h6 class="mt-4 uppercase text-xs font-semibold opacity-70">Pemantauan</h6>
+
         <a href="{{ route('dashboard') }}"
             class="flex items-center px-5 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'dashboard' ? 'bg-blue-600 font-bold' : '' }}">
             <i class="fa fa-tachometer-alt mr-3"></i> Dashboard
@@ -118,7 +124,13 @@
                 <a href="/" class="block py-2 px-4 text-xl font-semibold">Produk Anisa</a>
                 @if(auth()->check())
                 <div class="space-y-1 px-3">
+                    <a href="{{ route('welcome') }}"
+                        class="block py-2 px-2 hover:bg-blue-600 {{ Route::currentRouteName() == 'welcome' ? 'bg-blue-600 font-bold' : '' }}">
+                        <i class="fa fa-tachometer-alt mr-3"></i> Welcome
+                    </a>
+
                     <h6 class="mt-4 uppercase text-xs font-semibold opacity-70">Pemantauan</h6>
+
                     <a href="{{ route('dashboard') }}"
                         class="block py-2 px-4 hover:bg-blue-600 {{ Route::currentRouteName() == 'dashboard' ? 'bg-blue-600 font-bold' : '' }}">
                         <i class="fa fa-tachometer-alt mr-3"></i> Dashboard

@@ -57,7 +57,7 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($request->only('email', 'password'))) {
-            return redirect()->route('dashboard');
+            return redirect()->route('welcome');
         }
 
         return back()->withErrors(['email' => 'Email atau password salah!']);
@@ -65,6 +65,6 @@ class AuthController extends Controller
 
     public function logout() {
         Auth::logout();
-        return redirect()->route('tingkat_pengetahuan_ibu_hamil');
+        return redirect()->route('welcome_guest');
     }
 }

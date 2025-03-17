@@ -41,9 +41,16 @@
                 Aplikasi ini membantu ibu hamil memahami anemia, cara pencegahan, serta memberikan edukasi
                 kesehatan kehamilan.
             </p>
+            @guest
             <a href="{{ route('login') }}"
                 class="mt-6 inline-block bg-white text-blue-600 font-bold px-6 py-3 rounded-lg hover:bg-gray-200 transition duration-300 shadow-md">
                 Masuk ke Aplikasi
+            </a>
+            @endguest
+
+            <a href="{{ route('dashboard') }}"
+                class="mt-6 inline-block bg-white text-blue-600 font-bold px-6 py-3 rounded-lg hover:bg-gray-200 transition duration-300 shadow-md">
+                Lihat dashboardku
             </a>
         </div>
 
