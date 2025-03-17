@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Produk Anisa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     @vite('resources/css/app.css')
 </head>
 
@@ -44,11 +45,15 @@
                             class="w-full px-4 py-2 mt-1 border rounded-lg border-teal-500 focus:ring focus:ring-teal-300 transition duration-300 ease-in-out focus:outline-none"
                             placeholder="Masukkan email anda" required>
                     </div>
-                    <div class="mt-4">
+                    <div class="mt-4 relative">
                         <label class="block text-sm font-medium text-gray-600">Kata Sandi</label>
-                        <input type="password" name="password"
-                            class="w-full px-4 py-2 mt-1 border rounded-lg border-teal-500 focus:ring focus:ring-teal-300 transition duration-300 ease-in-out focus:outline-none"
+                        <input type="password" id="password" name="password"
+                            class="w-full px-4 py-2 mt-1 border rounded-lg border-teal-500 focus:ring focus:ring-teal-300"
                             placeholder="Masukkan kata sandi" required>
+                        <button type="button" id="togglePassword"
+                            class="absolute inset-y-0 right-3 flex items-center text-gray-500">
+                            <i class="fa fa-eye"></i>
+                        </button>
                     </div>
                     <button type="submit"
                         class="w-full px-4 py-2 mt-6 font-semibold text-white bg-teal-500 rounded-lg hover:bg-teal-600 transition duration-300 ease-in-out shadow-lg transform hover:scale-105">
@@ -61,6 +66,22 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function () {
+                const passwordInput = document.getElementById('password');
+                const icon = this.querySelector('i');
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    passwordInput.type = 'password';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            });
+    </script>
 </body>
 
 </html>
