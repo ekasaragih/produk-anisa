@@ -58,8 +58,15 @@
                             </button>
                         </div>
                     </div>
+
+                    <div class="mt-4 flex items-center">
+                        <input type="checkbox" id="rememberMe" name="remember"
+                            class="w-4 h-4 text-teal-600 bg-gray-100 border-gray-300 rounded focus:ring-teal-500 focus:ring-2">
+                        <label for="rememberMe" class="ml-2 text-sm text-gray-600">Ingat Saya</label>
+                    </div>
+
                     <button type="submit"
-                        class="w-full px-4 py-2 mt-6 font-semibold text-white bg-teal-500 rounded-lg hover:bg-teal-600 transition duration-300 ease-in-out shadow-lg transform hover:scale-105">
+                        class="w-full px-4 py-2 mt-4 mb-2 font-semibold text-white bg-teal-500 rounded-lg hover:bg-teal-600 transition duration-300 ease-in-out shadow-lg transform hover:scale-105">
                         Masuk Sekarang
                     </button>
                 </form>
