@@ -146,40 +146,40 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <script>
         function checkAnswers() {
-        const answers = {
-            q1: 'benar',
-            q2: 'benar',
-            q3: 'benar',
-            q4: 'benar',
-            q5: 'benar',
-            q6: 'benar',
-            q7: 'benar',
-            q8: 'benar',
-            q9: 'benar',
-            q10: 'benar'
-        };
+            const answers = {
+                q1: 'benar',
+                q2: 'benar',
+                q3: 'benar',
+                q4: 'benar',
+                q5: 'benar',
+                q6: 'benar',
+                q7: 'benar',
+                q8: 'benar',
+                q9: 'benar',
+                q10: 'benar'
+            };
 
-        let score = 0;
-        for (let key in answers) {
-            const selected = document.querySelector(`input[name='${key}']:checked`);
-            if (selected && selected.value === answers[key]) {
-                score++;
+            let score = 0;
+            for (let key in answers) {
+                const selected = document.querySelector(`input[name='${key}']:checked`);
+                if (selected && selected.value === answers[key]) {
+                    score++;
+                }
             }
+
+            const resultText = document.getElementById('resultText');
+            const resultDiv = document.getElementById('result');
+
+            if (score === 10) {
+                resultText.innerText = `Selamat! Pengetahuan Anda sangat baik dengan skor ${score}/10.`;
+            } else if (score >= 7) {
+                resultText.innerText = `Pengetahuan Anda cukup baik dengan skor ${score}/10. Perlu menambah wawasan!`;
+            } else {
+                resultText.innerText = `Pengetahuan Anda masih kurang dengan skor ${score}/10. Silakan pelajari lebih lanjut tentang anemia dan pencegahannya.`;
+            }
+
+            resultDiv.style.display = 'block';
         }
-
-        const resultText = document.getElementById('resultText');
-        const resultDiv = document.getElementById('result');
-
-        if (score === 10) {
-            resultText.innerText = `Selamat! Pengetahuan Anda sangat baik dengan skor ${score}/10.`;
-        } else if (score >= 7) {
-            resultText.innerText = `Pengetahuan Anda cukup baik dengan skor ${score}/10. Perlu menambah wawasan!`;
-        } else {
-            resultText.innerText = `Pengetahuan Anda masih kurang dengan skor ${score}/10. Silakan pelajari lebih lanjut tentang anemia dan pencegahannya.`;
-        }
-
-        resultDiv.style.display = 'block';
-    }
     </script>
 
     @endsection

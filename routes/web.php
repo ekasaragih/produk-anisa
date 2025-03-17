@@ -17,7 +17,7 @@ Route::post('/auth/logout', [AuthController::class, 'logout'])->name('user.logou
 
 // Guest
 Route::middleware('guest')->group(function () {
-    Route::get('/', [PageController::class, 'tingkat_pengetahuan_ibu_hamil'])->name('tingkat_pengetahuan_ibu_hamil');
+    Route::get('/', function () { return view('welcome'); });
     Route::get('/promotive_guest', [PageController::class, 'promotive'])->name('promotive_guest');
 });
 

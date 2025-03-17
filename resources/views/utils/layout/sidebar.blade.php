@@ -71,13 +71,8 @@
             </button>
         </form>
         @else
-        <a href="{{ route('tingkat_pengetahuan_ibu_hamil') }}"
-            class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'tingkat_pengetahuan_ibu_hamil' ? 'bg-blue-600 font-bold' : '' }}">
-            <i class="fa fa-venus mr-3"></i> Edukasi
-        </a>
-        <a href="{{ route('promotive_guest') }}"
-            class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 {{ Route::currentRouteName() == 'promotive_guest' ? 'bg-blue-600 font-bold' : '' }}">
-            <i class="fa fa-clipboard mr-3"></i> Promotif
+        <a href="/" class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 bg-blue-600 font-bold">
+            <i class="fa fa-venus mr-3"></i> Welcome
         </a>
 
         <div class="mt-auto">
@@ -162,13 +157,8 @@
                 </div>
                 @else
                 <div class="space-y-1 px-3">
-                    <a href="{{ route('tingkat_pengetahuan_ibu_hamil') }}"
-                        class="block py-2 px-2 hover:bg-blue-600 {{ Route::currentRouteName() == 'tingkat_pengetahuan_ibu_hamil' ? 'bg-blue-600 font-bold' : '' }}">
+                    <a href="/" class="block py-2 px-2 hover:bg-blue-600 bg-blue-600 font-bold">
                         <i class="fa fa-venus mr-3"></i> Edukasi
-                    </a>
-                    <a href="{{ route('promotive_guest') }}"
-                        class="block mx-0 py-2 px-2 hover:bg-blue-600 {{ Route::currentRouteName() == 'promotive_guest' ? 'bg-blue-600 font-bold' : '' }}">
-                        <i class="fa fa-clipboard mr-3"></i> Promotif
                     </a>
 
                     <div class="mt-auto">
