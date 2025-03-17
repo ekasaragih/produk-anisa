@@ -310,22 +310,33 @@
             <div class="p-4 md:p-5 space-y-4">
                 <form id="hbForm" method="POST" action="{{ route('hb.store') }}">
                     @csrf
+
                     <label class="block mb-2 text-sm">Kadar HB (g/dL):</label>
-                    <input type="number" id="kadarHb" name="kadar_hb" class="w-full p-2 border rounded-md mb-3"
+                    <input type="number" id="kadarHb" name="kadar_hb" class="w-full p-2 border rounded-md mb-1"
                         step="0.1" required>
+                    <p class="text-xs text-gray-500 mb-3">Masukkan kadar hemoglobin dalam satuan gram per desiliter
+                        (g/dL). Nilai normal
+                        biasanya 12-16 g/dL untuk wanita dan 13-18 g/dL untuk pria.</p>
 
                     <label class="block mb-2 text-sm">Tanggal Cek:</label>
-                    <input type="date" id="tanggalCek" name="tanggal_cek" class="w-full p-2 border rounded-md mb-3"
+                    <input type="date" id="tanggalCek" name="tanggal_cek" class="w-full p-2 border rounded-md mb-1"
                         required>
+                    <p class="text-xs text-gray-500 mb-3">Pilih tanggal pemeriksaan kadar hemoglobin.</p>
 
                     <label class="block mb-2 text-sm">Tempat/Lokasi:</label>
-                    <input type="text" id="lokasiCek" name="tempat_lokasi" class="w-full p-2 border rounded-md mb-4"
+                    <input type="text" id="lokasiCek" name="tempat_lokasi" class="w-full p-2 border rounded-md mb-1"
                         required>
+                    <p class="text-xs text-gray-500 mb-3">Masukkan lokasi atau fasilitas kesehatan tempat pemeriksaan
+                        dilakukan,
+                        misalnya "Puskesmas Bangko" atau "Rumah Sakit XYZ".</p>
 
                     <!-- Indikasi Anemia (Readonly) -->
                     <label class="block mb-2 text-sm">Indikasi Anemia:</label>
                     <input type="text" id="indicatedAnemia" name="indicated_anemia"
-                        class="w-full p-2 border rounded-md mb-4 bg-gray-100" readonly>
+                        class="w-full p-2 border rounded-md mb-1 bg-gray-100" readonly>
+                    <p class="text-xs text-gray-500 mb-3">Indikasi apakah kadar hemoglobin termasuk rendah, normal, atau
+                        tinggi. Ini
+                        akan diisi secara otomatis berdasarkan kadar Hb yang dimasukkan.</p>
 
                     <div class="flex justify-between">
                         <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-md">
