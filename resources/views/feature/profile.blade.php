@@ -34,7 +34,7 @@
             <ul class="flex flex-wrap -mb-px text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-medium text-center"
                 id="default-styled-tab" data-tabs-toggle="#default-styled-tab-content"
                 data-tabs-active-classes="text-purple-600 hover:text-purple-600 border-purple-600"
-                data-tabs-inactive-classes="text-gray-500 hover:text-gray-600 dark:text-gray-400 border-gray-100 hover:border-gray-300"
+                data-tabs-inactive-classes="text-gray-500 hover:text-gray-600 border-gray-100 hover:border-gray-300"
                 role="tablist">
                 <li class="me-1 sm:me-2 md:me-4" role="presentation">
                     <button
@@ -44,21 +44,20 @@
                 </li>
                 <li class="me-1 sm:me-2 md:me-4" role="presentation">
                     <button
-                        class="inline-block px-3 py-2 sm:px-4 sm:py-3 md:px-6 md:py-4 lg:px-6 lg:py-4 xl:px-6 xl:py-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                        class="inline-block px-3 py-2 sm:px-4 sm:py-3 md:px-6 md:py-4 lg:px-6 lg:py-4 xl:px-6 xl:py-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300"
                         id="pencapaian-tab" data-tabs-target="#pencapaian" type="button" role="tab"
                         aria-controls="pencapaian" aria-selected="false">Pencapaian Saya</button>
                 </li>
                 <li class="me-1 sm:me-2 md:me-4" role="presentation">
                     <button
-                        class="inline-block px-3 py-2 sm:px-4 sm:py-3 md:px-6 md:py-4 lg:px-6 lg:py-4 xl:px-6 xl:py-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                        class="inline-block px-3 py-2 sm:px-4 sm:py-3 md:px-6 md:py-4 lg:px-6 lg:py-4 xl:px-6 xl:py-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300"
                         id="medali-tab" data-tabs-target="#medali" type="button" role="tab" aria-controls="medali"
                         aria-selected="false">Medali Saya</button>
                 </li>
             </ul>
         </div>
         <div id="default-tab-content">
-            <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="profile" role="tabpanel"
-                aria-labelledby="profile-tab">
+            <div class="hidden p-4 rounded-lg bg-gray-50" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-6 sm:mb-8">Data Demografi</h1>
 
                 @if ($lastUpdated)
@@ -162,7 +161,7 @@
             </div>
 
             {{-- Pencapaian Tab --}}
-            <div class="hidden p-4 sm:p-6 md:p-8 rounded-lg bg-gray-50 dark:bg-gray-800" id="pencapaian" role="tabpanel"
+            <div class="hidden p-4 sm:p-6 md:p-8 rounded-lg bg-gray-50" id="pencapaian" role="tabpanel"
                 aria-labelledby="pencapaian-tab">
                 <div class="max-w-6xl mx-auto space-y-8">
                     <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-6 sm:mb-8">Ringkasan Pencapaian
@@ -278,8 +277,7 @@
             </div>
 
             {{-- Medali Tab --}}
-            <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="medali" role="tabpanel"
-                aria-labelledby="medali-tab">
+            <div class="hidden p-4 rounded-lg bg-gray-50" id="medali" role="tabpanel" aria-labelledby="medali-tab">
                 <div class="max-w-6xl mx-auto space-y-8">
                     <!-- Header Section -->
                     <div class="text-center">

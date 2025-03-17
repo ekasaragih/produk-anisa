@@ -58,8 +58,8 @@
                     <!-- Show notification if the Hb record is older than 30 days -->
                     @if ($needsCheck)
                     <div class="mt-2 p-2 text-red-800 border border-red-300 rounded">
-                        <strong>Warning:</strong> You haven't checked your Hb levels in over 30 days. Please
-                        check your Hb as soon as possible.
+                        <strong>Peringatan:</strong> Anda belum memeriksa kadar Hb selama lebih dari 30 hari.
+                        Silakan periksa kadar Hb Anda sesegera mungkin.
                     </div>
                     @endif
                     @else
@@ -189,13 +189,13 @@
 
     <div class="modal-overlay fixed inset-0 bg-gray-500 opacity-50 z-40"></div>
     <div class="relative p-4 w-full max-w-2xl max-h-full z-50">
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+        <div class="relative bg-white rounded-lg shadow">
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                <h3 class="text-xl font-semibold text-gray-900">
                     Catat Konsumsi Obat
                 </h3>
                 <button type="button"
-                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
                     data-modal-hide="add-medicine-consumption-modal">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 14 14">
@@ -207,22 +207,27 @@
             </div>
             <div class="p-4 md:p-5 space-y-4">
 
-                {{-- Form dengan action --}}
                 <form method="POST" action="{{ route('riwayat_konsumsi.store') }}" id="medicineForm">
                     @csrf
+
                     <label class="block text-sm text-gray-600">Obat yang diminum:</label>
+                    <small class="text-gray-500">Masukkan nama obat yang dikonsumsi.</small>
                     <input type="text" name="medicine_name" class="w-full border rounded p-2 mb-2">
 
                     <label class="block text-sm text-gray-600">Jumlah Tablet:</label>
+                    <small class="text-gray-500">Berapa banyak tablet yang diminum?</small>
                     <input type="number" name="tablet_amount" class="w-full border rounded p-2 mb-2" required>
 
                     <label class="block text-sm text-gray-600">Jam:</label>
+                    <small class="text-gray-500">Waktu konsumsi obat (format: HH:MM).</small>
                     <input type="time" name="medicine_time" class="w-full border rounded p-2 mb-2" required>
 
                     <label class="block text-sm text-gray-600">Tanggal:</label>
+                    <small class="text-gray-500">Tanggal konsumsi obat.</small>
                     <input type="date" name="medicine_date" class="w-full border rounded p-2 mb-2" required>
 
                     <label class="block text-sm text-gray-600">Sisa Obat:</label>
+                    <small class="text-gray-500">Jumlah tablet yang tersisa setelah konsumsi.</small>
                     <input type="number" name="remaining_tablets" class="w-full border rounded p-2 mb-4" required>
 
                     <div class="flex justify-end">
@@ -243,13 +248,13 @@
 
     <div class="modal-overlay fixed inset-0 bg-gray-500 opacity-50 z-40"></div>
     <div class="relative p-4 w-full max-w-2xl max-h-full z-50">
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+        <div class="relative bg-white rounded-lg shadow">
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                <h3 class="text-xl font-semibold text-gray-900">
                     Perbaharui dosis
                 </h3>
                 <button type="button"
-                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
                     data-modal-hide="edit-dosis-modal">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 14 14">
@@ -286,13 +291,13 @@
 
     <div class="modal-overlay fixed inset-0 bg-gray-500 opacity-50 z-40"></div>
     <div class="relative p-4 w-full max-w-2xl max-h-full z-50">
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+        <div class="relative bg-white rounded-lg shadow">
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                <h3 class="text-xl font-semibold text-gray-900">
                     Tambah Record Kadar Hb
                 </h3>
                 <button type="button"
-                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
                     data-modal-hide="add-hb-record-modal">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 14 14">
