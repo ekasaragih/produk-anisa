@@ -30,15 +30,20 @@ class AuthController extends Controller
             'email' => 'required|email|unique:users',
             'phone_num' => 'nullable|string',
             'dob' => 'nullable|date',
+            'dob_manual' => 'nullable|string|regex:/^\d{2}-\d{2}-\d{4}$/',
             'password' => 'required|min:6|confirmed'
         ]);
+
+        $dob = $request->dob_manual 
+        ? \Carbon\Carbon::createFromFormat('d-m-Y', $request->dob_manual)->format('Y-m-d') 
+        : $request->dob;
 
         $user = User::create([
             'full_name' => $request->full_name,
             'username' => $request->username,
             'email' => $request->email,
             'phone_num' => $request->phone_num,
-            'dob' => $request->dob,
+            'dob' => $dob,
             'password' => Hash::make($request->password)
         ]);
 

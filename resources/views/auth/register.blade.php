@@ -58,17 +58,14 @@
                     <div class="mt-4">
                         <label class="block text-sm font-medium text-gray-600">Tanggal Lahir</label>
                         <div class="relative">
-                            <!-- Input Date (Default) -->
                             <input type="date" id="dob_date" name="dob"
                                 class="w-full px-4 py-2 border rounded-lg border-teal-500 focus:ring focus:ring-teal-300 transition duration-300 ease-in-out focus:outline-none"
                                 min="1920-01-01" max="" required>
 
-                            <!-- Input Manual (Hidden by Default) -->
                             <input type="text" id="dob_manual" name="dob_manual"
                                 class="w-full px-4 py-2 mt-2 border rounded-lg border-teal-500 focus:ring focus:ring-teal-300 transition duration-300 ease-in-out focus:outline-none hidden"
                                 placeholder="dd-mm-yyyy">
 
-                            <!-- Tombol Switch -->
                             <button type="button" id="toggleDobInput"
                                 class="mt-2 text-teal-500 hover:underline text-sm">
                                 Input Manual
