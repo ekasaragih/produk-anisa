@@ -39,7 +39,6 @@ class MedHistoryController extends Controller
     }
 
 
-
     public function store(Request $request)
     {
         $request->validate([
@@ -50,7 +49,7 @@ class MedHistoryController extends Controller
             'medicine_date' => 'required|date',
         ]);
 
-        MedHistory::create([
+        $medHistory = MedHistory::create([
             'user_id' => Auth::id(),
             'medicine_name' => $request->medicine_name,
             'tablet_amount' => $request->tablet_amount,
@@ -59,9 +58,12 @@ class MedHistoryController extends Controller
             'date' => $request->medicine_date,
         ]);
 
-        return redirect()->back()->with('success', 'Konsumsi obat berhasil dicatat!');
+        return response()->json([
+            'success' => true,
+            'message' => 'Data berhasil disimpan',
+            'data' => $medHistory,
+        ], 201);
     }
-
 
     public function notif()
     {
@@ -72,21 +74,19 @@ class MedHistoryController extends Controller
         $achievementNear90 = 85;
 
         $history = MedHistory::where('user_id', $userId)
-            ->selectRaw('DATE(date) as tanggal') // Only select the date part, ignoring the time
-            ->groupBy('tanggal') // Group by the distinct date
-            ->pluck('tanggal') // Get only the distinct dates
+            ->selectRaw('DATE(date) as tanggal')
+            ->groupBy('tanggal')
+            ->pluck('tanggal') 
             ->toArray();
 
         $total = count($history);
 
-        // Check if the count of distinct dates equals 90
         if ($total == $achivement90) {
             $alertFlag = "MILESTONE_ACHIEVED";
         }else if ($total == $achievementNear90) {
             $alertFlag = "MILESTONE_NEAR_ACHIEVED";
         }
 
-        // Return the alert flag as a JSON response
         return response()->json(['alertFlag' => $alertFlag]);
     }
 

@@ -59,68 +59,55 @@
         <div class="mt-8">
             <h2 class="text-2xl font-bold text-gray-800 text-center">✨ Fitur-Fitur Utama</h2>
             <p class="text-center text-gray-600 mt-2">Jelajahi fitur-fitur yang tersedia dalam aplikasi ini.</p>
-            <div class="grid md:grid-cols-2 gap-6 mt-6">
-                @php $isLoggedIn = Auth::check(); @endphp
 
-                <a href="{{ $isLoggedIn ? route('profile') : '#' }}"
-                    class="block p-6 bg-blue-50 border border-blue-200 rounded-lg shadow text-center hover:bg-blue-100 transition {{ $isLoggedIn ? '' : 'cursor-not-allowed opacity-70' }}"
-                    onclick="{{ $isLoggedIn ? '' : 'event.preventDefault();' }}">
+            <div class="grid md:grid-cols-2 gap-6 mt-6">
+                <div class="p-6 bg-blue-50 border border-blue-200 rounded-lg shadow text-center">
                     <i class="fas fa-chart-pie text-4xl text-blue-600 mb-3"></i>
                     <h3 class="text-xl font-semibold text-blue-600">Data Demografi Ibu Hamil</h3>
                     <p class="text-gray-700 mt-2 text-sm">
                         Catat identitas ibu hamil, usia, pendidikan, pekerjaan, serta riwayat kehamilan dengan mudah.
                     </p>
-                </a>
+                </div>
 
-                <a href="{{ $isLoggedIn ? route('edukasi') : '#' }}"
-                    class="block p-6 bg-green-50 border border-green-200 rounded-lg shadow text-center hover:bg-green-100 transition {{ $isLoggedIn ? '' : 'cursor-not-allowed opacity-70' }}"
-                    onclick="{{ $isLoggedIn ? '' : 'event.preventDefault();' }}">
+                <div class="p-6 bg-green-50 border border-green-200 rounded-lg shadow text-center">
                     <i class="fas fa-baby text-4xl text-green-600 mb-3"></i>
                     <h3 class="text-xl font-semibold text-green-600">Pandangan Ibu Hamil Tentang Anemia</h3>
                     <p class="text-gray-700 mt-2 text-sm">
                         Mengetahui tingkat pemahaman ibu tentang anemia dan bagaimana cara pencegahannya.
                     </p>
-                </a>
+                </div>
 
-                <a href="{{ $isLoggedIn ? route('promotive') : '#' }}"
-                    class="block p-6 bg-yellow-50 border border-yellow-200 rounded-lg shadow text-center hover:bg-yellow-100 transition {{ $isLoggedIn ? '' : 'cursor-not-allowed opacity-70' }}"
-                    onclick="{{ $isLoggedIn ? '' : 'event.preventDefault();' }}">
+                <div class="p-6 bg-yellow-50 border border-yellow-200 rounded-lg shadow text-center">
                     <i class="fas fa-book-open text-4xl text-yellow-600 mb-3"></i>
                     <h3 class="text-xl font-semibold text-yellow-600">Edukasi Anemia Pada Ibu Hamil</h3>
                     <p class="text-gray-700 mt-2 text-sm">
                         Informasi lengkap tentang penyebab, gejala, dan dampak anemia selama kehamilan.
                     </p>
-                </a>
+                </div>
 
-                <a href="{{ $isLoggedIn ? route('alarm') : '#' }}"
-                    class="block p-6 bg-red-50 border border-red-200 rounded-lg shadow text-center hover:bg-red-100 transition {{ $isLoggedIn ? '' : 'cursor-not-allowed opacity-70' }}"
-                    onclick="{{ $isLoggedIn ? '' : 'event.preventDefault();' }}">
+                <div class="p-6 bg-red-50 border border-red-200 rounded-lg shadow text-center">
                     <i class="fas fa-bell text-4xl text-red-600 mb-3"></i>
                     <h3 class="text-xl font-semibold text-red-600">Alarm Konsumsi Tablet Fe</h3>
                     <p class="text-gray-700 mt-2 text-sm">
                         Pengingat otomatis untuk konsumsi tablet zat besi (Fe) agar ibu tetap sehat.
                     </p>
-                </a>
+                </div>
 
-                <a href="{{ $isLoggedIn ? route('certificate') : '#' }}"
-                    class="block p-6 bg-indigo-50 border border-indigo-200 rounded-lg shadow text-center hover:bg-indigo-100 transition {{ $isLoggedIn ? '' : 'cursor-not-allowed opacity-70' }}"
-                    onclick="{{ $isLoggedIn ? '' : 'event.preventDefault();' }}">
+                <div class="p-6 bg-indigo-50 border border-indigo-200 rounded-lg shadow text-center">
                     <i class="fas fa-award text-4xl text-indigo-600 mb-3"></i>
                     <h3 class="text-xl font-semibold text-indigo-600">Sertifikat Kepatuhan</h3>
                     <p class="text-gray-700 mt-2 text-sm">
                         Dapatkan sertifikat digital sebagai bentuk pencapaian dalam menjaga kesehatan kehamilan.
                     </p>
-                </a>
+                </div>
 
-                <a href="{{ $isLoggedIn ? route('contact_us') : '#' }}"
-                    class="block p-6 bg-purple-50 border border-purple-200 rounded-lg shadow text-center hover:bg-purple-100 transition {{ $isLoggedIn ? '' : 'cursor-not-allowed opacity-70' }}"
-                    onclick="{{ $isLoggedIn ? '' : 'event.preventDefault();' }}">
+                <div class="p-6 bg-purple-50 border border-purple-200 rounded-lg shadow text-center">
                     <i class="fas fa-hospital text-4xl text-purple-600 mb-3"></i>
                     <h3 class="text-xl font-semibold text-purple-600">Integrasi Layanan Kesehatan</h3>
                     <p class="text-gray-700 mt-2 text-sm">
                         Terhubung langsung dengan fasilitas kesehatan untuk konsultasi dan monitoring kesehatan.
                     </p>
-                </a>
+                </div>
             </div>
         </div>
 

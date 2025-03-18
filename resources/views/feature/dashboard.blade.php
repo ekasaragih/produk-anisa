@@ -1,6 +1,7 @@
 @extends('utils.layout.sidebar')
 
 @section('head')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <style>
     @keyframes fade-in {
         from {
@@ -207,9 +208,7 @@
             </div>
             <div class="p-4 md:p-5 space-y-4">
 
-                <form method="POST" action="{{ route('riwayat_konsumsi.store') }}" id="medicineForm">
-                    @csrf
-
+                <form id="medicineForm">
                     <label class="block text-sm text-gray-600">Obat yang diminum:</label>
                     <small class="text-gray-500">Masukkan nama obat yang dikonsumsi.</small>
                     <input type="text" name="medicine_name" class="w-full border rounded p-2 mb-2">
@@ -224,7 +223,8 @@
 
                     <label class="block text-sm text-gray-600">Tanggal:</label>
                     <small class="text-gray-500">Tanggal konsumsi obat.</small>
-                    <input type="date" name="medicine_date" class="w-full border rounded p-2 mb-2" required>
+                    <input type="date" name="medicine_date" id="medicine_date" class="w-full border rounded p-2 mb-2"
+                        required>
 
                     <label class="block text-sm text-gray-600">Sisa Obat:</label>
                     <small class="text-gray-500">Jumlah tablet yang tersisa setelah konsumsi.</small>
@@ -360,30 +360,57 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let dateInput = document.getElementById("medicine_date");
+        
+        let today = new Date().toISOString().split("T")[0];
+        dateInput.setAttribute("max", today);
+
+        dateInput.addEventListener("change", function() {
+            let selectedDate = this.value;
+            
+            if (selectedDate > today) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Tanggal tidak boleh lebih dari hari ini!',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                this.value = today;
+            }
+        });
+    });
+</script>
+
 <script>
     document.getElementById('medicineForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent form from submitting immediately
+        event.preventDefault();
+        var formData = $(this).serialize();
+        let csrfToken = $('meta[name="csrf-token"]').attr('content');
 
-            Swal.fire({
-                title: 'Kamu sudah minum obat hari ini!',
-                text: "",
-                icon: 'success',
-                showConfirmButton: false,
-                timer: 1800 // Show the Swal for 30 seconds
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Close the modal after form is submitted
-                    const modal = document.querySelector(
-                        '[data-modal-hide="add-medicine-consumption-modal"]');
-                    if (modal) {
-                        modal.style.display = 'none'; // Close the modal by hiding it
-                    }
-
-                    // Submit the form after closing the modal
-                    this.submit();
-                }
-            });
+        $.ajax({
+            url: "/riwayat_konsumsi/store",
+            type: "POST",
+            data: formData,
+            headers: { 'X-CSRF-TOKEN': csrfToken },
+            success: function (result) {
+                Swal.fire({
+                    title: 'Kamu sudah minum obat hari ini!',
+                    text: "",
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1800
+                }).then(() => {
+                    window.location.href = "/riwayat_konsumsi";
+                });
+            },
+            error: function () {
+                Swal.fire('Error!', 'Gagal menyimpan data!', 'error');
+            }
         });
+    });
 </script>
 
 <script>
