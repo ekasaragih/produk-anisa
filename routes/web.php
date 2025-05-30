@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HbRecordController;
 use App\Http\Controllers\MedHistoryController;
 use App\Http\Controllers\AlarmController;
+use App\Http\Controllers\DiagnosaController;
 
 // Authentication
 Route::get('/login', [AuthController::class, 'showLogin'])->name('user.login');
@@ -37,6 +38,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/kadar_hb', [HbRecordController::class, 'kadar_hb'])->name('kadar_hb');
     Route::post('/hb/store', [HbRecordController::class, 'store'])->name('hb.store');
+
+    Route::post('/diagnosa/store', [DiagnosaController::class, 'store'])->name('diagnosa.store');
 
     Route::get('/riwayat_konsumsi', [MedHistoryController::class, 'riwayat_konsumsi'])->name('riwayat_konsumsi');
     Route::post('/riwayat_konsumsi/store', [MedHistoryController::class, 'store'])->name('riwayat_konsumsi.store');
