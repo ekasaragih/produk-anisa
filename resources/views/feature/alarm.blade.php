@@ -38,6 +38,12 @@
             <h3 class="text-lg font-semibold text-gray-700">Tambah Alarm</h3>
             <form id="new-alarm-form">
                 @csrf
+                <label class="inline-flex items-center mt-2">
+                    <input type="checkbox" id="is_90_days" name="is_90_days" value="1" class="class=" form-checkbox h-5
+                        w-5 text-teal-600"">
+                    <span class="ml-2 text-gray-700">Atur pengingat selama 90 hari</span>
+                </label>
+
                 <label class="block mt-2 text-gray-700">Tanggal:</label>
                 <input type="date" name="tanggal" class="w-full p-2 border rounded-md">
 
@@ -155,6 +161,22 @@
 <script>
     document.getElementById('add-alarm-btn').addEventListener('click', function() {
         document.getElementById('alarm-form').classList.toggle('hidden');
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#is_90_days').on('change', function() {
+            if ($(this).is(':checked')) {
+                // Disable tanggal dan hari
+                $('input[name="tanggal"]').prop('disabled', true).val('');
+                $('select[name="hari"]').prop('disabled', true).val('Setiap Hari');
+            } else {
+                // Enable tanggal dan hari
+                $('input[name="tanggal"]').prop('disabled', false);
+                $('select[name="hari"]').prop('disabled', false);
+            }
+        });
     });
 </script>
 

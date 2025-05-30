@@ -21,6 +21,7 @@ class Alarm extends Model
         'snooze', 
         'max_snooze', 
         'aktif',
+        'is_90_days',
         'dismissed_at',
         'snooze_until',
     ];
