@@ -46,6 +46,7 @@
 
                 <label class="block mt-2 text-gray-700">Tanggal:</label>
                 <input type="date" name="tanggal" class="w-full p-2 border rounded-md">
+                <input type="hidden" name="tanggal_hidden" id="tanggal-hidden">
 
                 <label class="block mt-2 text-gray-700">Nama Alarm:</label>
                 <input type="text" name="nama_alarm" class="w-full p-2 border rounded-md">
@@ -65,6 +66,7 @@
                     <option>Sabtu</option>
                     <option>Minggu</option>
                 </select>
+                <input type="hidden" name="hari_hidden" id="hari-hidden">
 
                 <label class="block mt-2 text-gray-700">Deskripsi:</label>
                 <input type="text" name="deskripsi" class="w-full p-2 border rounded-md"
@@ -165,16 +167,22 @@
 </script>
 
 <script>
-    $(document).ready(function() {
-        $('#is_90_days').on('change', function() {
+    $(document).ready(function () {
+        $('#is_90_days').on('change', function () {
             if ($(this).is(':checked')) {
-                // Disable tanggal dan hari
-                $('input[name="tanggal"]').prop('disabled', true).val('');
-                $('select[name="hari"]').prop('disabled', true).val('Setiap Hari');
+                const today = new Date().toISOString().split('T')[0]; // format YYYY-MM-DD
+                $('input[name="tanggal"]').val(today).prop('disabled', true);
+                $('select[name="hari"]').val('Setiap Hari').prop('disabled', true);
+                
+                // Set nilai ke hidden input
+                $('#tanggal-hidden').val(today);
+                $('#hari-hidden').val('Setiap Hari');
             } else {
-                // Enable tanggal dan hari
-                $('input[name="tanggal"]').prop('disabled', false);
-                $('select[name="hari"]').prop('disabled', false);
+                $('#tanggal-input').val('').prop('disabled', false);
+                $('#hari-select').val('').prop('disabled', false);
+
+                $('#tanggal-hidden').val('');
+                $('#hari-hidden').val('');
             }
         });
     });

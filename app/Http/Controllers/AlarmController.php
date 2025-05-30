@@ -33,28 +33,20 @@ class AlarmController extends Controller
             'snooze' => 'required|integer|min:0',
             'max_snooze' => 'required|integer|min:1',
             'aktif' => 'required|in:yes,no',
-            'is_90_days' => 'nullable|boolean',  // checkbox input
+            'is_90_days' => 'nullable|boolean',
         ]);
-
-        if ($request->is_90_days) {
-            // Jika opsi 90 hari aktif, tanggal dikosongkan, hari set "Setiap Hari"
-            $tanggal = null;
-            $hari = 'Setiap Hari';
-        } else {
-            $hari = $request->hari;
-            $tanggal = $request->hari ? null : $request->tanggal;
-        }
 
         Alarm::create([
             'user_id' => Auth::id(),
-            'tanggal' => $tanggal,
+            'tanggal' => $request->tanggal ?? $request->tanggal_hidden,
             'nama_alarm' => $request->nama_alarm,
             'jam' => $request->jam,
-            'hari' => $hari,
+            'hari' => $request->hari ?? $request->hari_hidden,
             'deskripsi' => $request->deskripsi,
             'snooze' => $request->snooze,
             'max_snooze' => $request->max_snooze,
-            'aktif' => $request->aktif
+            'aktif' => $request->aktif,
+            'is_90_days' => $request->is_90_days ? 1 : 0,
         ]);
 
         return response()->json(['message' => 'Alarm berhasil ditambahkan'], 201);
