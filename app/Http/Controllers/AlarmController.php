@@ -110,10 +110,19 @@ class AlarmController extends Controller
 
         $alarms = Alarm::where('user_id', $user->id)
             ->where('aktif', 'yes')
-            ->where(function ($query) use ($today, $currentDay) {
-                $query->where('tanggal', $today)
+            ->where(function ($query) use ($today, $currentDay, $now) {
+                $query->where(function ($q) use ($today, $currentDay) {
+                    // Alarm biasa
+                    $q->where('tanggal', $today)
                     ->orWhere('hari', 'LIKE', "%$currentDay%")
                     ->orWhere('hari', 'LIKE', "%Setiap Hari%");
+                })
+                ->orWhere(function ($q) use ($today) {
+                    // Alarm khusus 90 hari aktif
+                    $q->where('is_90_days', true)
+                    ->whereDate('tanggal', '<=', $today)
+                    ->whereDate('tanggal', '>=', Carbon::parse($today)->subDays(90));
+                });
             })
             ->where(function ($query) use ($now) {
                 $query->whereNull('dismissed_at')
