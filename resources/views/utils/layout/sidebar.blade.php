@@ -69,6 +69,33 @@
             <i class="fa fa-phone-alt mr-3"></i> Hubungi Kami
         </a>
 
+        <div id="accordion-collapse" data-accordion="collapse">
+            <h2 id="accordion-collapse-heading-1">
+                <button type="button"
+                    class="flex items-center w-full px-3 py-3 text-sm rounded-md hover:bg-blue-600 transition {{ Route::currentRouteName() == 'adminIndex' ? 'bg-blue-600 font-bold text-white' : '' }}"
+                    data-accordion-target="#accordion-collapse-body-1" aria-expanded="false"
+                    aria-controls="accordion-collapse-body-1">
+                    <i class="fa fa-user mr-3"></i> Halaman Admin
+                </button>
+            </h2>
+            <div id="accordion-collapse-body-1" class="hidden" aria-labelledby="accordion-collapse-heading-1">
+                <div class="p-2">
+                    <a href="{{ route('adminEdukasi') }}"
+                        class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 transition {{ Route::currentRouteName() == 'adminEdukasi' ? 'bg-blue-600 font-bold text-white' : '' }}">
+                        <i class="fa fa-user mr-3"></i> Menu Edukasi
+                    </a>
+                    <a href="{{ route('adminPreventif') }}"
+                        class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 transition {{ Route::currentRouteName() == 'adminPreventif' ? 'bg-blue-600 font-bold text-white' : '' }}">
+                        <i class="fa fa-user mr-3"></i> Menu Preventif
+                    </a>
+                    <a href="{{ route('adminProgress') }}"
+                        class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 transition {{ Route::currentRouteName() == 'adminProgress' ? 'bg-blue-600 font-bold text-white' : '' }}">
+                        <i class="fa fa-user mr-3"></i> Menu Progress
+                    </a>
+                </div>
+            </div>
+        </div>
+
         <form method="post" action="{{ route('user.logout') }}" id="logout-form" class="mt-auto">
             @csrf
             <button type="submit"
@@ -158,6 +185,10 @@
                     <a href="{{ route('contact_us') }}"
                         class="block py-2 px-2 hover:bg-blue-600 {{ Route::currentRouteName() == 'contact_us' ? 'bg-blue-600 font-bold' : '' }}">
                         <i class="fa fa-phone-alt mr-3"></i> Hubungi Kami
+                    </a>
+                    <a href="{{ route('contact_us') }}"
+                        class="block py-2 px-2 hover:bg-blue-600 {{ Route::currentRouteName() == 'contact_us' ? 'bg-blue-600 font-bold' : '' }}">
+                        <i class="fa fa-phone-alt mr-3"></i> Halaman Admin
                     </a>
                     <form method="post" action="{{ route('user.logout') }}" id="logout-form" class="mt-auto">
                         @csrf
