@@ -90,6 +90,24 @@
 
                 <h3 class="text-lg font-bold text-gray-700 my-6">Grafik Kadar Hb</h3>
                 <canvas id="hbChart" class="h-72"></canvas>
+
+                <h2 class="text-lg font-semibold my-6">Riwayat Diagnosa</h2>
+                <table class="w-full table-auto border" id="diagnoseTable">
+                    <thead class="bg-gradient-to-r from-teal-500 to-blue-500 text-white sticky top-0 z-10">
+                        <tr>
+                            <th class="px-4 py-2">Tanggal</th>
+                            <th class="px-4 py-2">Hasil Diagnosa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($diagnoses as $diagnosis)
+                        <tr class="border-t">
+                            <td class="px-4 py-2">{{ $diagnosis->created_at->format('d M Y') }}</td>
+                            <td class="px-4 py-2">{{ $diagnosis->diagnose_result }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
 
             <!-- Table Section -->
@@ -214,6 +232,10 @@
                 </div>
                 @endforeach
 
+                <div id="diagnosis-result" class="mt-4 p-3 bg-gray-100 rounded text-gray-800">
+                    Pilih gejala untuk melihat hasil diagnosa...
+                </div>
+
                 <button type="submit" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
                     Simpan Diagnosa
                 </button>
@@ -229,12 +251,32 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 
+{{-- Display hb records data --}}
 <script>
     $(document).ready(function() {
         $('#hbRecordsTable').DataTable({
             responsive: true,
             lengthChange: true,
-            pageLength: 10,
+            pageLength: 15,
+            ordering: true,
+            order: [[0, 'desc']],
+            language: {
+                search: "Cari:",
+                lengthMenu: "Tampilkan _MENU_ data",
+                info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                paginate: {
+                    first: "Pertama",
+                    last: "Terakhir",
+                    next: "Berikutnya",
+                    previous: "Sebelumnya"
+                }
+            }
+        });
+
+        $('#diagnoseTable').DataTable({
+            responsive: true,
+            lengthChange: true,
+            pageLength: 5,
             ordering: true,
             order: [[0, 'desc']],
             language: {
@@ -252,6 +294,7 @@
     });
 </script>
 
+{{-- Display chart data --}}
 <script>
     const chartLabels = @json($hbRecords->pluck('tanggal_cek')->map(function($date) {
         return \Carbon\Carbon::parse($date)->format('d M Y');
@@ -332,5 +375,31 @@
         const result = kadarHb < 11 ? 'Anemia' : 'Tidak Anemia';
         document.getElementById('indicatedAnemia').value = result;
     });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"][name^="symptoms"]');
+    const resultDiv = document.getElementById('diagnosis-result');
+
+    function updateDiagnosis() {
+        const selected = [...checkboxes].filter(cb => cb.checked).length;
+        let result = 'Silakan pilih gejala terlebih dahulu.';
+
+        if (selected >= 6) {
+            result = 'Diagnosa: Anemia berat';
+        } else if (selected >= 4) {
+            result = 'Diagnosa: Anemia sedang';
+        } else if (selected >= 2) {
+            result = 'Diagnosa: Anemia ringan';
+        } else {
+            result = 'Tidak ada indikasi anemia.';
+        }
+
+        resultDiv.textContent = result;
+    }
+
+    checkboxes.forEach(cb => cb.addEventListener('change', updateDiagnosis));
+});
 </script>
 @endsection

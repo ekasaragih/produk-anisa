@@ -23,7 +23,9 @@ class HbRecordController extends Controller
         $stillAnemia = count($recentHbRecords) === 3 && 
                    array_unique($recentHbRecords) === ['Anemia'];
 
-        return view('feature.kadar_hb', compact('hbRecords', 'latestHb', 'hbRecordCount', 'stillAnemia'));
+        $diagnoses = Auth::user()->diagnosas;
+
+        return view('feature.kadar_hb', compact('hbRecords', 'latestHb', 'hbRecordCount', 'stillAnemia', 'diagnoses'));
     }
 
     public function store(Request $request)

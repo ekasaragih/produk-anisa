@@ -60,4 +60,10 @@ class User extends Authenticatable
         return $this->hasMany(MedHistory::class);
     }
 
+    public function diagnosas()
+    {
+        return $this->hasMany(Diagnosa::class);
+    }
+
+
 }
