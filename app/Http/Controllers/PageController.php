@@ -96,54 +96,52 @@ class PageController extends Controller
         return view("feature.preventive", compact('latestKuesionerResult'));
     }
 
-     public function submitKuesioner(Request $request)
+    public function submitKuesioner(Request $request)
     {
-        // Define favorable answers and their scores.
-        // This is where you define what 'SS', 'S', 'KS', 'TS' means for each question
-        // For example, if 'SS' for Q1 is good, and 'TS' for Q2 is good.
-        // I'm assuming a simple scoring where 'SS' gives 3, 'S' gives 2, 'KS' gives 1, 'TS' gives 0.
-        // You can adjust this logic based on your questionnaire's nature.
-        $scoringMatrix = [
-            'SS' => 3,
-            'S' => 2,
-            'KS' => 1,
-            'TS' => 0,
+        // Define the scoring matrix for each question
+        // Each key (q1, q2, etc.) holds an array mapping answer options to their scores.
+        // Adjust these values based on the actual scoring for each question from your "Naranjo Skor" logic.
+        $questionScoring = [
+            'q1' => ['SS' => 4, 'S' => 3, 'KS' => 2, 'TS' => 1],
+            'q2' => ['SS' => 4, 'S' => 3, 'KS' => 2, 'TS' => 1],
+            'q3' => ['SS' => 4, 'S' => 3, 'KS' => 2, 'TS' => 1],
+            'q4' => ['SS' => 1, 'S' => 2, 'KS' => 3, 'TS' => 4],
+            'q5' => ['SS' => 1, 'S' => 2, 'KS' => 3, 'TS' => 4],
+            'q6' => ['SS' => 1, 'S' => 2, 'KS' => 3, 'TS' => 4],
+            'q7' => ['SS' => 4, 'S' => 3, 'KS' => 2, 'TS' => 1],
+            'q8' => ['SS' => 4, 'S' => 3, 'KS' => 2, 'TS' => 1],
+            'q9' => ['SS' => 1, 'S' => 2, 'KS' => 3, 'TS' => 4],
+            'q10' => ['SS' => 4, 'S' => 3, 'KS' => 2, 'TS' => 1],
+            // Add more questions as needed
         ];
-
-        // You might need to define specific 'favorable' answers if the scoring isn't linear
-        // e.g., for some questions, 'TS' might be the best answer.
-        // For now, I'll apply the scoringMatrix directly.
 
         $userAnswers = [];
         $totalScore = 0;
 
-        // Loop through all 10 questions to collect answers and calculate score
-        for ($i = 1; $i <= 10; $i++) { // Assuming 10 questions based on common Kuder-style tests
-            $questionKey = 'q' . $i;
+        foreach ($questionScoring as $questionKey => $scores) {
             $answer = $request->input($questionKey);
 
-            $userAnswers[$questionKey] = $answer; // Store the user's chosen option
+            $userAnswers[$questionKey] = $answer;
 
-            // Calculate score based on the chosen option
-            if (isset($scoringMatrix[$answer])) {
-                $totalScore += $scoringMatrix[$answer];
+            if (isset($scores[$answer])) {
+                $totalScore += $scores[$answer];
+            } else {
+                $totalScore += 0;
             }
         }
 
-        // Store the result if the user is logged in
         if (Auth::check()) {
             KuesionerPreventive::create([
                 'user_id' => Auth::id(),
                 'score' => $totalScore,
-                'answers' => $userAnswers, // Store all user answers as JSON
+                'answers' => $userAnswers,
             ]);
         }
 
-        // Redirect back with success message and result data for display
         return redirect()->route('preventive')->with([
             'kuesioner_score' => $totalScore,
             'user_kuesioner_answers' => $userAnswers,
-            'scoring_matrix' => $scoringMatrix, // Pass for displaying how score was calculated if needed
+            'question_scoring' => $questionScoring,
         ]);
     }
 

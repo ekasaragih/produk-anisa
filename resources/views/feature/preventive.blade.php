@@ -180,23 +180,33 @@
                         @foreach (session('user_kuesioner_answers') as $qKey => $uAnswer)
                         @php
                         $questionNumber = str_replace('q', '', $qKey);
-                        // You might want to get the full question text here
-                        $questionText = "Pernyataan " . $questionNumber; // Placeholder
+                        $questionText = ""; // Initialize
                         switch ($questionNumber) {
-                        case 1: $questionText = "Saya mengonsumsi nasi/sumber karbohidrat lainnya setiap hari."; break;
-                        case 2: $questionText = "Saya mengonsumsi lauk pauk (daging, ikan, telur, tempe, tahu) setiap
-                        hari.";
+                        case 1: $questionText = "Ibu hamil sebaiknya melakukan pemeriksaan darah minimal 2x semasa
+                        hamil.";
                         break;
-                        case 3: $questionText = "Saya mengonsumsi sayuran setiap hari."; break;
-                        case 4: $questionText = "Saya mengonsumsi buah-buahan setiap hari."; break;
-                        case 5: $questionText = "Saya minum tablet tambah darah (Fe) sesuai anjuran."; break;
-                        case 6: $questionText = "Saya menghindari minum teh/kopi setelah makan."; break;
-                        case 7: $questionText = "Saya mengonsumsi makanan yang bervariasi setiap hari."; break;
-                        case 8: $questionText = "Saya mengonsumsi makanan tinggi zat besi (hati, daging merah, bayam).";
+                        case 2: $questionText = "Memeriksakan kehamilan secara rutin itu penting untuk kesehatan
+                        kehamilan saya
+                        terutama untuk mendeteksi anemia."; break;
+                        case 3: $questionText = "Saya harus segera pergi ke puskesmas untuk periksa ketika tablet zat
+                        besi saya
+                        habis."; break;
+                        case 4: $questionText = "Saya merasa terganggu setiap ada petugas puskesmas yang menyuruh saya
+                        mengkonsumsi tablet zat besi."; break;
+                        case 5: $questionText = "Saya tidak suka mengkonsumsi tablet zat besi karena rasanya pahit.";
                         break;
-                        case 9: $questionText = "Saya mengonsumsi makanan tinggi vitamin C (jeruk, mangga, tomat).";
+                        case 6: $questionText = "Menurut saya, tablet zat besi dikonsumsi saat saya merasa sakit saja.";
                         break;
-                        case 10: $questionText = "Saya menjaga kebersihan makanan dan minuman yang saya konsumsi.";
+                        case 7: $questionText = "Saya harus sering memakan lauk pauk kaya zat besi seperti telur dan
+                        daging
+                        selama hamil."; break;
+                        case 8: $questionText = "Selama hamil saya harus mengkonsumsi Nasi, ikan, tempe, sayuran buah
+                        serta
+                        meminum tablet tambah darah setiap hari selama 90 hari."; break;
+                        case 9: $questionText = "Saya tidak percaya bahwa konsumsi tablet zat besi penting untuk
+                        kesehatan
+                        kehamilan saya."; break;
+                        case 10: $questionText = "Saya harus sering makan sayuran hijau dan buah pada saat hamil.";
                         break;
                         }
                         @endphp
@@ -233,22 +243,33 @@
                         @foreach ($latestKuesionerResult->answers as $qKey => $uAnswer)
                         @php
                         $questionNumber = str_replace('q', '', $qKey);
-                        $questionText = "Pernyataan " . $questionNumber; // Placeholder
+                        $questionText = ""; // Initialize
                         switch ($questionNumber) {
-                        case 1: $questionText = "Saya mengonsumsi nasi/sumber karbohidrat lainnya setiap hari."; break;
-                        case 2: $questionText = "Saya mengonsumsi lauk pauk (daging, ikan, telur, tempe, tahu) setiap
-                        hari.";
+                        case 1: $questionText = "Ibu hamil sebaiknya melakukan pemeriksaan darah minimal 2x semasa
+                        hamil.";
                         break;
-                        case 3: $questionText = "Saya mengonsumsi sayuran setiap hari."; break;
-                        case 4: $questionText = "Saya mengonsumsi buah-buahan setiap hari."; break;
-                        case 5: $questionText = "Saya minum tablet tambah darah (Fe) sesuai anjuran."; break;
-                        case 6: $questionText = "Saya menghindari minum teh/kopi setelah makan."; break;
-                        case 7: $questionText = "Saya mengonsumsi makanan yang bervariasi setiap hari."; break;
-                        case 8: $questionText = "Saya mengonsumsi makanan tinggi zat besi (hati, daging merah, bayam).";
+                        case 2: $questionText = "Memeriksakan kehamilan secara rutin itu penting untuk kesehatan
+                        kehamilan saya
+                        terutama untuk mendeteksi anemia."; break;
+                        case 3: $questionText = "Saya harus segera pergi ke puskesmas untuk periksa ketika tablet zat
+                        besi saya
+                        habis."; break;
+                        case 4: $questionText = "Saya merasa terganggu setiap ada petugas puskesmas yang menyuruh saya
+                        mengkonsumsi tablet zat besi."; break;
+                        case 5: $questionText = "Saya tidak suka mengkonsumsi tablet zat besi karena rasanya pahit.";
                         break;
-                        case 9: $questionText = "Saya mengonsumsi makanan tinggi vitamin C (jeruk, mangga, tomat).";
+                        case 6: $questionText = "Menurut saya, tablet zat besi dikonsumsi saat saya merasa sakit saja.";
                         break;
-                        case 10: $questionText = "Saya menjaga kebersihan makanan dan minuman yang saya konsumsi.";
+                        case 7: $questionText = "Saya harus sering memakan lauk pauk kaya zat besi seperti telur dan
+                        daging
+                        selama hamil."; break;
+                        case 8: $questionText = "Selama hamil saya harus mengkonsumsi Nasi, ikan, tempe, sayuran buah
+                        serta
+                        meminum tablet tambah darah setiap hari selama 90 hari."; break;
+                        case 9: $questionText = "Saya tidak percaya bahwa konsumsi tablet zat besi penting untuk
+                        kesehatan
+                        kehamilan saya."; break;
+                        case 10: $questionText = "Saya harus sering makan sayuran hijau dan buah pada saat hamil.";
                         break;
                         }
                         @endphp
@@ -268,6 +289,7 @@
     {{-- DONT REPLACE THIS PART --}}
     @include('utils.layout.footer')
 </div>
+
 
 {{-- Questionnaire Modal --}}
 <div id="questionnaire-modal" tabindex="-1" aria-hidden="true"
@@ -306,16 +328,21 @@
                             <tbody>
                                 @php
                                 $questions = [
-                                "Saya mengonsumsi nasi/sumber karbohidrat lainnya setiap hari.",
-                                "Saya mengonsumsi lauk pauk (daging, ikan, telur, tempe, tahu) setiap hari.",
-                                "Saya mengonsumsi sayuran setiap hari.",
-                                "Saya mengonsumsi buah-buahan setiap hari.",
-                                "Saya minum tablet tambah darah (Fe) sesuai anjuran.",
-                                "Saya menghindari minum teh/kopi setelah makan.",
-                                "Saya mengonsumsi makanan yang bervariasi setiap hari.",
-                                "Saya mengonsumsi makanan tinggi zat besi (hati, daging merah, bayam).",
-                                "Saya mengonsumsi makanan tinggi vitamin C (jeruk, mangga, tomat).",
-                                "Saya menjaga kebersihan makanan dan minuman yang saya konsumsi.",
+                                "Ibu hamil sebaiknya melakukan pemeriksaan darah minimal 2x semasa hamil.",
+                                "Memeriksakan kehamilan secara rutin itu penting untuk kesehatan kehamilan saya terutama
+                                untuk mendeteksi anemia.",
+                                "Saya harus segera pergi ke puskesmas untuk periksa ketika tablet zat besi saya habis.",
+                                "Saya merasa terganggu setiap ada petugas puskesmas yang menyuruh saya mengkonsumsi
+                                tablet zat besi.",
+                                "Saya tidak suka mengkonsumsi tablet zat besi karena rasanya pahit.",
+                                "Menurut saya, tablet zat besi dikonsumsi saat saya merasa sakit saja.",
+                                "Saya harus sering memakan lauk pauk kaya zat besi seperti telur dan daging selama
+                                hamil.",
+                                "Selama hamil saya harus mengkonsumsi Nasi, ikan, tempe, sayuran buah serta meminum
+                                tablet tambah darah setiap hari selama 90 hari.",
+                                "Saya tidak percaya bahwa konsumsi tablet zat besi penting untuk kesehatan kehamilan
+                                saya.",
+                                "Saya harus sering makan sayuran hijau dan buah pada saat hamil.",
                                 ];
                                 @endphp
 
