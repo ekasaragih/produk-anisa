@@ -156,12 +156,120 @@
             class="mt-5 bg-gradient-to-l from-blue-500 to-teal-400 hover:from-teal-400 hover:to-blue-500 text-white font-bold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300">
             <i class="fa fa-edit mr-2"></i>Isi Kuesioner
         </button>
+
+        {{-- Display Latest Kuesioner Result --}}
+        @if (session('kuesioner_score'))
+        <div class="result bg-green-100 border border-green-400 text-green-700 rounded-lg p-4 mt-6 animate-fade-in">
+            <h3 class="text-xl font-bold mb-2">Hasil Kuesioner Terbaru Anda:</h3>
+            <p class="text-lg">
+                Anda mendapatkan total skor: <strong>{{ session('kuesioner_score') }}</strong>
+            </p>
+            <p class="mt-2">Nilai ini mencerminkan pola konsumsi gizi Anda. Terus tingkatkan kebiasaan baik!</p>
+            {{-- Optionally display individual answers or interpretation here --}}
+            <h4 class="mt-4 font-semibold">Detail Jawaban Anda:</h4>
+            <div class="overflow-x-auto">
+                <table class="questionnaire-table w-full text-sm text-left">
+                    <thead>
+                        <tr>
+                            <th class="py-2 px-3">No</th>
+                            <th class="py-2 px-3">Pernyataan</th>
+                            <th class="py-2 px-3">Jawaban Anda</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (session('user_kuesioner_answers') as $qKey => $uAnswer)
+                        @php
+                        $questionNumber = str_replace('q', '', $qKey);
+                        // You might want to get the full question text here
+                        $questionText = "Pernyataan " . $questionNumber; // Placeholder
+                        switch ($questionNumber) {
+                        case 1: $questionText = "Saya mengonsumsi nasi/sumber karbohidrat lainnya setiap hari."; break;
+                        case 2: $questionText = "Saya mengonsumsi lauk pauk (daging, ikan, telur, tempe, tahu) setiap
+                        hari.";
+                        break;
+                        case 3: $questionText = "Saya mengonsumsi sayuran setiap hari."; break;
+                        case 4: $questionText = "Saya mengonsumsi buah-buahan setiap hari."; break;
+                        case 5: $questionText = "Saya minum tablet tambah darah (Fe) sesuai anjuran."; break;
+                        case 6: $questionText = "Saya menghindari minum teh/kopi setelah makan."; break;
+                        case 7: $questionText = "Saya mengonsumsi makanan yang bervariasi setiap hari."; break;
+                        case 8: $questionText = "Saya mengonsumsi makanan tinggi zat besi (hati, daging merah, bayam).";
+                        break;
+                        case 9: $questionText = "Saya mengonsumsi makanan tinggi vitamin C (jeruk, mangga, tomat).";
+                        break;
+                        case 10: $questionText = "Saya menjaga kebersihan makanan dan minuman yang saya konsumsi.";
+                        break;
+                        }
+                        @endphp
+                        <tr>
+                            <td class="py-2 px-3">{{ $questionNumber }}</td>
+                            <td class="py-2 px-3">{{ $questionText }}</td>
+                            <td class="py-2 px-3">{{ $uAnswer ?: 'Tidak Dijawab' }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        @elseif (isset($latestKuesionerResult))
+        <div class="result bg-blue-100 border border-blue-400 text-blue-700 rounded-lg p-4 mt-6 animate-fade-in">
+            <h3 class="text-xl font-bold mb-2">Hasil Kuesioner Terakhir Anda:</h3>
+            <p class="text-lg">
+                Pada {{ \Carbon\Carbon::parse($latestKuesionerResult->created_at)->translatedFormat('d F Y H:i') }},
+                Anda
+                mendapatkan total skor: <strong>{{ $latestKuesionerResult->score }}</strong>
+            </p>
+            <p class="mt-2">Nilai ini mencerminkan pola konsumsi gizi Anda. Terus tingkatkan kebiasaan baik!</p>
+            <h4 class="mt-4 font-semibold">Detail Jawaban Terakhir Anda:</h4>
+            <div class="overflow-x-auto">
+                <table class="questionnaire-table w-full text-sm text-left">
+                    <thead>
+                        <tr>
+                            <th class="py-2 px-3">No</th>
+                            <th class="py-2 px-3">Pernyataan</th>
+                            <th class="py-2 px-3">Jawaban Anda</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($latestKuesionerResult->answers as $qKey => $uAnswer)
+                        @php
+                        $questionNumber = str_replace('q', '', $qKey);
+                        $questionText = "Pernyataan " . $questionNumber; // Placeholder
+                        switch ($questionNumber) {
+                        case 1: $questionText = "Saya mengonsumsi nasi/sumber karbohidrat lainnya setiap hari."; break;
+                        case 2: $questionText = "Saya mengonsumsi lauk pauk (daging, ikan, telur, tempe, tahu) setiap
+                        hari.";
+                        break;
+                        case 3: $questionText = "Saya mengonsumsi sayuran setiap hari."; break;
+                        case 4: $questionText = "Saya mengonsumsi buah-buahan setiap hari."; break;
+                        case 5: $questionText = "Saya minum tablet tambah darah (Fe) sesuai anjuran."; break;
+                        case 6: $questionText = "Saya menghindari minum teh/kopi setelah makan."; break;
+                        case 7: $questionText = "Saya mengonsumsi makanan yang bervariasi setiap hari."; break;
+                        case 8: $questionText = "Saya mengonsumsi makanan tinggi zat besi (hati, daging merah, bayam).";
+                        break;
+                        case 9: $questionText = "Saya mengonsumsi makanan tinggi vitamin C (jeruk, mangga, tomat).";
+                        break;
+                        case 10: $questionText = "Saya menjaga kebersihan makanan dan minuman yang saya konsumsi.";
+                        break;
+                        }
+                        @endphp
+                        <tr>
+                            <td class="py-2 px-3">{{ $questionNumber }}</td>
+                            <td class="py-2 px-3">{{ $questionText }}</td>
+                            <td class="py-2 px-3">{{ $uAnswer ?: 'Tidak Dijawab' }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        @endif
     </div>
 
     {{-- DONT REPLACE THIS PART --}}
     @include('utils.layout.footer')
 </div>
 
+{{-- Questionnaire Modal --}}
 <div id="questionnaire-modal" tabindex="-1" aria-hidden="true"
     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="modal-overlay fixed inset-0 bg-gray-500 opacity-50 z-40"></div>
@@ -180,130 +288,62 @@
             </div>
 
             <div class="p-4 md:p-5 overflow-y-auto max-h-[70vh]">
-                <form>
-                    <!-- Frekuensi Makan Karbohidrat -->
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700">Seberapa sering Anda mengonsumsi nasi,
-                            roti, atau sumber karbohidrat lainnya dalam sehari?</label>
-                        <select name="karbohidrat_frequency"
-                            class="block w-full rounded-md border-0 py-2 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                            <option value="1">1 kali</option>
-                            <option value="2">2 kali</option>
-                            <option value="3">3 kali atau lebih</option>
-                        </select>
+                <form id="kuesionerForm" action="{{ route('preventif.submitKuesioner') }}" method="POST">
+                    @csrf
+
+                    <div class="overflow-x-auto">
+                        <table class="questionnaire-table w-full border-collapse">
+                            <thead>
+                                <tr class="bg-gradient-to-l from-blue-500 to-teal-400 text-white text-md">
+                                    <th class="py-2 px-3">NO</th>
+                                    <th class="py-2 px-3">PERNYATAAN</th>
+                                    <th class="py-2 px-3 text-center">SS</th>
+                                    <th class="py-2 px-3 text-center">S</th>
+                                    <th class="py-2 px-3 text-center">KS</th>
+                                    <th class="py-2 px-3 text-center">TS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php
+                                $questions = [
+                                "Saya mengonsumsi nasi/sumber karbohidrat lainnya setiap hari.",
+                                "Saya mengonsumsi lauk pauk (daging, ikan, telur, tempe, tahu) setiap hari.",
+                                "Saya mengonsumsi sayuran setiap hari.",
+                                "Saya mengonsumsi buah-buahan setiap hari.",
+                                "Saya minum tablet tambah darah (Fe) sesuai anjuran.",
+                                "Saya menghindari minum teh/kopi setelah makan.",
+                                "Saya mengonsumsi makanan yang bervariasi setiap hari.",
+                                "Saya mengonsumsi makanan tinggi zat besi (hati, daging merah, bayam).",
+                                "Saya mengonsumsi makanan tinggi vitamin C (jeruk, mangga, tomat).",
+                                "Saya menjaga kebersihan makanan dan minuman yang saya konsumsi.",
+                                ];
+                                @endphp
+
+                                @for ($i = 0; $i < count($questions); $i++) @php $qNum=$i + 1; @endphp <tr>
+                                    <td class="py-2 px-3">{{ $qNum }}</td>
+                                    <td class="py-2 px-3">{{ $questions[$i] }}</td>
+                                    <td class="py-2 px-3 text-center">
+                                        <input type="radio" name="q{{ $qNum }}" value="SS" required>
+                                    </td>
+                                    <td class="py-2 px-3 text-center">
+                                        <input type="radio" name="q{{ $qNum }}" value="S" required>
+                                    </td>
+                                    <td class="py-2 px-3 text-center">
+                                        <input type="radio" name="q{{ $qNum }}" value="KS" required>
+                                    </td>
+                                    <td class="py-2 px-3 text-center">
+                                        <input type="radio" name="q{{ $qNum }}" value="TS" required>
+                                    </td>
+                                    </tr>
+                                    @endfor
+                            </tbody>
+                        </table>
                     </div>
 
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700">Seberapa sering Anda mengonsumsi gandum
-                            utuh atau makanan berserat tinggi?</label>
-                        <select name="karbohidrat_frequency"
-                            class="block w-full rounded-md border-0 py-2 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                            <option value="1">1 kali</option>
-                            <option value="2">2 kali</option>
-                            <option value="3">3 kali atau lebih</option>
-                        </select>
-                    </div>
-
-                    <!-- Asupan Protein -->
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700">Berapa kali dalam seminggu Anda
-                            mengonsumsi daging merah (sapi, kambing)?</label>
-                        <input type="number" name="daging_merah_frequency" min="0"
-                            class="block w-full rounded-md border-0 py-2 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            required>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700">Berapa kali dalam seminggu Anda
-                            mengonsumsi ayam atau ikan?</label>
-                        <input type="number" name="daging_merah_frequency" min="0"
-                            class="block w-full rounded-md border-0 py-2 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            required>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700">Apakah Anda mengonsumsi kacang-kacangan
-                            atau tahu/tempe secara rutin?</label>
-                        <select name="karbohidrat_frequency"
-                            class="block w-full rounded-md border-0 py-2 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                            <option value="ya">Ya</option>
-                            <option value="tidak">Tidak</option>
-                        </select>
-                    </div>
-
-                    <!-- Konsumsi Sayur -->
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700">Seberapa sering Anda mengonsumsi sayur
-                            hijau seperti bayam, kangkung, atau brokoli?</label>
-                        <select name="sayur_frequency"
-                            class="block w-full rounded-md border-0 py-2 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                            <option value="daily">Setiap hari</option>
-                            <option value="few_times_week">2-3 kali seminggu</option>
-                            <option value="rarely">Jarang</option>
-                        </select>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700">Berapa porsi buah yang Anda konsumsi
-                            setiap hari?</label>
-                        <input type="number" name="air_putih" min="0"
-                            class="block w-full rounded-md border-0 py-2 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            required>
-                    </div>
-
-                    <!-- Konsumsi Air -->
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700">Berapa gelas air putih yang Anda minum
-                            setiap hari?</label>
-                        <input type="number" name="air_putih" min="0"
-                            class="block w-full rounded-md border-0 py-2 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            required>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700">Berapa kali Anda makan dalam sehari
-                            (termasuk camilan)?</label>
-                        <input type="number" name="air_putih" min="0"
-                            class="block w-full rounded-md border-0 py-2 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            required>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700">Apakah Anda sering melewatkan waktu
-                            makan? Jika ya, waktu makan apa yang sering dilewatkan?</label>
-                        <input type="text" name="air_putih" min="0"
-                            class="block w-full rounded-md border-0 py-2 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            required>
-                    </div>
-
-                    <!-- Asupan Vitamin -->
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700">Apakah Anda rutin mengonsumsi suplemen
-                            vitamin atau mineral?</label>
-                        <textarea name="vitamin_suplemen" rows="2"
-                            class="block w-full rounded-md border-0 py-2 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            placeholder="Contoh: Vitamin C, Asam Folat, Zat Besi"></textarea>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700">Seberapa sering Anda mengonsumsi makanan
-                            yang kaya akan vitamin C (jeruk, stroberi)?</label>
-                        <select name="sayur_frequency"
-                            class="block w-full rounded-md border-0 py-2 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                            <option value="daily">Setiap hari</option>
-                            <option value="few_times_week">2-3 kali seminggu</option>
-                            <option value="rarely">Jarang</option>
-                        </select>
-                    </div>
-
-                    <!-- Alergi Makanan -->
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700">Apakah Anda memiliki alergi terhadap
-                            makanan tertentu?</label>
-                        <textarea name="alergi_makanan" rows="2"
-                            class="block w-full rounded-md border-0 py-2 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            placeholder="Contoh: Kacang, Seafood, Susu"></textarea>
-                    </div>
-
-                    <!-- Tombol Simpan -->
                     <div class="mt-6">
-                        <button type="button" data-modal-target="thankyou-modal" data-modal-toggle="thankyou-modal"
+                        <button type="submit"
                             class="w-full inline-flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                            Simpan kuesioner
+                            Simpan Kuesioner
                         </button>
                     </div>
                 </form>
@@ -352,4 +392,62 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- Modal Control (Flowbite-like) ---
+        const questionnaireModal = document.getElementById('questionnaire-modal');
+        const thankyouModal = document.getElementById('thankyou-modal');
+        const questionnaireBtn = document.getElementById('questionnaire-btn');
+        const closeQuestionnaireModalBtn = document.getElementById('close-questionnaire-modal');
+        const closeThankyouModalBtn = document.getElementById('close-thankyou-modal');
+
+        function showModal(modalElement) {
+            modalElement.classList.remove('hidden');
+            modalElement.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('overflow-hidden'); // Prevent scrolling body
+        }
+
+        function hideModal(modalElement) {
+            modalElement.classList.add('hidden');
+            modalElement.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        if (questionnaireBtn) {
+            questionnaireBtn.addEventListener('click', () => showModal(questionnaireModal));
+        }
+        if (closeQuestionnaireModalBtn) {
+            closeQuestionnaireModalBtn.addEventListener('click', () => hideModal(questionnaireModal));
+        }
+        if (closeThankyouModalBtn) {
+            closeThankyouModalBtn.addEventListener('click', () => hideModal(thankyouModal));
+        }
+
+        // Handle modal closing when clicking outside
+        questionnaireModal.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal-overlay')) {
+                hideModal(questionnaireModal);
+            }
+        });
+        thankyouModal.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal-overlay')) {
+                hideModal(thankyouModal);
+            }
+        });
+
+        // --- SweetAlert2 for success/error ---
+        @if(session('kuesioner_score'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Kuesioner Berhasil Disimpan!',
+                text: 'Terima kasih telah mengisi kuesioner Anda.',
+                showConfirmButton: false,
+                timer: 3000
+            }).then(() => {
+                // Optionally show the thank you modal after SweetAlert
+                // showModal(thankyouModal); // This would require managing its display in PHP first
+            });
+        @endif
+    });
+</script>
 @endsection

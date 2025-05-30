@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/edukasi', [PageController::class, 'submitQuiz'])->name('knowledge.quiz.submit');
     Route::get('/promotive', [PageController::class, 'promotive'])->name('promotive');
     Route::get('/preventive', [PageController::class, 'preventive'])->name('preventive');
+    Route::post('/preventive', [PageController::class, 'submitKuesioner'])->name('preventif.submitKuesioner');
     Route::get('/dashboard', [PageController::class, 'dashboard'])->name('dashboard');
     Route::get('/certificate', [PageController::class, 'certificate'])->name('certificate');
     Route::get('/contact_us', [PageController::class, 'contact_us'])->name('contact_us');

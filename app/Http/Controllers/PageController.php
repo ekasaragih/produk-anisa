@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\HbRecord;
 use App\Models\MedHistory;
 use App\Models\KuesionerPretest;
+use App\Models\KuesionerPreventive;
 use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
@@ -85,7 +86,14 @@ class PageController extends Controller
 
     public function preventive()
     {
-        return view("feature.preventive");
+        $latestKuesionerResult = null;
+        if (Auth::check()) {
+            $latestKuesionerResult = KuesionerPreventive::where('user_id', Auth::id())
+                                       ->orderByDesc('created_at')
+                                       ->first();
+        }
+
+        return view("feature.preventive", compact('latestKuesionerResult'));
     }
 
     public function dashboard()
