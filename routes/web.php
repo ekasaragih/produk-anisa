@@ -9,6 +9,7 @@ use App\Http\Controllers\MedHistoryController;
 use App\Http\Controllers\AlarmController;
 use App\Http\Controllers\DiagnosaController;
 
+
 // Authentication
 Route::get('/login', [AuthController::class, 'showLogin'])->name('user.login');
 Route::get('/auth/register', [AuthController::class, 'register']);
@@ -26,6 +27,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/welcome', [PageController::class, 'welcome'])->name('welcome');
     Route::get('/edukasi', [PageController::class, 'tingkat_pengetahuan_ibu_hamil'])->name('edukasi');
+    Route::post('/edukasi', [PageController::class, 'submitQuiz'])->name('knowledge.quiz.submit');
     Route::get('/promotive', [PageController::class, 'promotive'])->name('promotive');
     Route::get('/preventive', [PageController::class, 'preventive'])->name('preventive');
     Route::get('/dashboard', [PageController::class, 'dashboard'])->name('dashboard');

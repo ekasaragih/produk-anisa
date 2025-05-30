@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('kuesioner_pretest', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->integer('score');
+            $table->json('answers'); // To store the Q&A as JSON
             $table->timestamps();
         });
     }

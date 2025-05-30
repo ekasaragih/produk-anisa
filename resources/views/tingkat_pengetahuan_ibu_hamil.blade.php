@@ -51,7 +51,109 @@
 
         <div class="container mx-auto pb-8 px-1 md:px-4 min-h-screen">
             <div class="page p-6 md:p-8 bg-white rounded-2xl shadow-lg border border-blue-300 animate-fade-in">
-                <form id="quizForm">
+
+                {{-- Display Flash Message for Quiz Result --}}
+                @if (session('quiz_score'))
+                <div class="result mb-6 animate-fade-in">
+                    <h3 class="text-xl font-bold mb-2">Hasil Pengetahuan Anda:</h3>
+                    <p id="resultText" class="text-lg">
+                        @php
+                        $score = session('quiz_score');
+                        $knowledgeLevel = session('knowledge_level');
+                        @endphp
+                        Pengetahuan Anda **{{ $knowledgeLevel }}** dengan skor **{{ $score }}/20**.
+                    </p>
+
+                    {{-- Display detailed answers if needed --}}
+                    @if (session('user_answers') && session('correct_answers'))
+                    <h4 class="mt-4 font-semibold">Detail Jawaban Anda:</h4>
+                    <ul class="list-disc pl-5">
+                        @foreach (session('user_answers') as $qKey => $uAnswer)
+                        @php
+                        $questionNumber = str_replace('q', '', $qKey);
+                        $correctAnswer = session('correct_answers')[$qKey];
+                        $isCorrect = ($uAnswer === $correctAnswer);
+                        @endphp
+                        <li>
+                            Q{{ $questionNumber }}: Jawaban Anda:
+                            <span class="{{ $isCorrect ? 'correct-answer' : 'wrong-answer' }}">
+                                {{ $uAnswer ?: 'Tidak Dijawab' }}
+                            </span>
+                            @if (!$isCorrect)
+                            (Benar: <span class="correct-answer">{{ $correctAnswer }}</span>)
+                            @endif
+                        </li>
+                        @endforeach
+                    </ul>
+                    @endif
+
+                    <h4 class="mt-4 font-semibold">Pencegahan Anemia:</h4>
+                    <ul class="list-disc pl-5">
+                        <li>1. Mengonsumsi makanan kaya zat besi seperti daging merah, hati, bayam, dan kacang-kacangan.
+                        </li>
+                        <li>2. Mengonsumsi suplemen zat besi sesuai anjuran dokter.</li>
+                        <li>3. Memeriksa kadar hemoglobin secara berkala selama kehamilan.</li>
+                        <li>4. Menghindari konsumsi teh atau kopi berlebihan yang menghambat penyerapan zat besi.</li>
+                    </ul>
+                </div>
+                @elseif (isset($latestResult))
+                <div class="result mb-6 animate-fade-in">
+                    <h3 class="text-xl font-bold mb-2">Hasil Pengetahuan Terakhir Anda:</h3>
+                    <p class="text-lg">
+                        @php
+                        $score = $latestResult->score;
+                        $knowledgeLevel = '';
+                        if ($score >= 17) { $knowledgeLevel = 'Sangat Baik'; }
+                        else if ($score >= 13) { $knowledgeLevel = 'Cukup Baik'; }
+                        else { $knowledgeLevel = 'Kurang'; }
+                        @endphp
+                        Pada {{ \Carbon\Carbon::parse($latestResult->created_at)->translatedFormat('d F Y H:i') }},
+                        Pengetahuan Anda
+                        **{{ $knowledgeLevel }}** dengan skor **{{ $score }}/20**.
+                    </p>
+                    {{-- Display detailed answers from previous submission --}}
+                    @if ($latestResult->answers)
+                    <h4 class="mt-4 font-semibold">Detail Jawaban Terakhir Anda:</h4>
+                    @php
+                    $correctAnswers = [ // Re-define correct answers for comparison
+                    'q1' => 'b', 'q2' => 'a', 'q3' => 'c', 'q4' => 'a', 'q5' => 'b',
+                    'q6' => 'c', 'q7' => 'c', 'q8' => 'c', 'q9' => 'a', 'q10' => 'a',
+                    'q11' => 'a', 'q12' => 'a', 'q13' => 'a', 'q14' => 'a', 'q15' => 'b',
+                    'q16' => 'b', 'q17' => 'a', 'q18' => 'a', 'q19' => 'a', 'q20' => 'a'
+                    ];
+                    @endphp
+                    <ul class="list-disc pl-5">
+                        @foreach ($latestResult->answers as $qKey => $uAnswer)
+                        @php
+                        $questionNumber = str_replace('q', '', $qKey);
+                        $correctAnswer = $correctAnswers[$qKey] ?? null; // Get correct answer, handle if missing
+                        $isCorrect = ($uAnswer === $correctAnswer);
+                        @endphp
+                        <li>
+                            Q{{ $questionNumber }}: Jawaban Anda:
+                            <span class="{{ $isCorrect ? 'correct-answer' : 'wrong-answer' }}">
+                                {{ $uAnswer ?: 'Tidak Dijawab' }}
+                            </span>
+                            @if (!$isCorrect && $correctAnswer)
+                            (Benar: <span class="correct-answer">{{ $correctAnswer }}</span>)
+                            @endif
+                        </li>
+                        @endforeach
+                    </ul>
+                    @endif
+                    <h4 class="mt-4 font-semibold">Pencegahan Anemia:</h4>
+                    <ul class="list-disc pl-5">
+                        <li>1. Mengonsumsi makanan kaya zat besi seperti daging merah, hati, bayam, dan kacang-kacangan.
+                        </li>
+                        <li>2. Mengonsumsi suplemen zat besi sesuai anjuran dokter.</li>
+                        <li>3. Memeriksa kadar hemoglobin secara berkala selama kehamilan.</li>
+                        <li>4. Menghindari konsumsi teh atau kopi berlebihan yang menghambat penyerapan zat besi.</li>
+                    </ul>
+                </div>
+                @endif
+
+                <form id="quizForm" action="{{ route('knowledge.quiz.submit') }}" method="POST">
+                    @csrf
                     <div class="question">
                         <p>1. Anemia pada kehamilan adalah...</p>
                         <label><input type="radio" name="q1" value="a"> a. Kadar Hemoglobin (Hb) lebih dari 12
@@ -201,7 +303,7 @@
                         <label><input type="radio" name="q20" value="c"> c. Kacang, teh dan kopi</label>
                     </div>
 
-                    <button type="button" onclick="checkAnswers()"
+                    <button type="submit"
                         class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Kirim
                         Jawaban</button>
                 </form>
