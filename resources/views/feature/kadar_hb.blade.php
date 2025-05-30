@@ -88,10 +88,10 @@
                 </div>
                 @endif
 
-                <h3 class="text-lg font-bold text-gray-700 my-6">Grafik Kadar Hb</h3>
+                <h3 class="text-lg font-bold text-gray-700 mt-10 mb-8">Grafik Kadar Hb</h3>
                 <canvas id="hbChart" class="h-72"></canvas>
 
-                <h2 class="text-lg font-semibold my-6">Riwayat Diagnosa</h2>
+                <h2 class="text-lg font-semibold mt-10 mb-8">Riwayat Diagnosa</h2>
                 <table class="w-full table-auto border" id="diagnoseTable">
                     <thead class="bg-gradient-to-r from-teal-500 to-blue-500 text-white sticky top-0 z-10">
                         <tr>
@@ -214,6 +214,13 @@
             </div>
             <form method="POST" action="{{ route('diagnosa.store') }}" class="p-4 md:p-5 space-y-4">
                 @csrf
+
+                <div class="mb-4 text-gray-700 italic text-sm">
+                    <p>Silakan centang gejala yang Anda alami untuk membantu kami mendiagnosa anemia Anda dengan lebih
+                        akurat.</p>
+                    <p>Jika Anda tidak yakin, centang saja yang paling terasa atau alami saat ini.</p>
+                </div>
+
                 @php
                 $gejala = [
                 'wajah' => 'Wajah pucat',
