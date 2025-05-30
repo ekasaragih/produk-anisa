@@ -53,7 +53,7 @@
                 <tbody>
                     @foreach($history as $record)
                     <tr class="border">
-                        <td class="p-2">{{ \Carbon\Carbon::parse($record['tanggal'])->translatedFormat('j F Y') }}</td>
+                        <td class="p-2">{{ \Carbon\Carbon::parse($record['tanggal'])->translatedFormat('d F Y') }}</td>
                         <td class="p-2 {{ $record['status'] == 'Minum Obat' ? 'text-green-500' : 'text-red-500' }}">
                             {{ $record['status'] }}
                         </td>

@@ -11,8 +11,8 @@ class MedHistoryController extends Controller
     public function riwayat_konsumsi()
     {
         $userId = Auth::id();
-        $startDate = now()->subDays(30)->toDateString();
         $endDate = now()->toDateString();
+        $startDate = now()->subDays(30)->toDateString();
 
         $history = MedHistory::where('user_id', $userId)
             ->selectRaw('DATE(date) as tanggal, COUNT(*) as jumlah')
@@ -21,23 +21,25 @@ class MedHistoryController extends Controller
             ->toArray();
 
         $allDates = [];
-        $currentDate = \Carbon\Carbon::parse($startDate);
+        $currentDate = \Carbon\Carbon::parse($endDate);
 
-        while ($currentDate->lte($endDate)) {
+        while ($currentDate->gte($startDate)) {
             $dateStr = $currentDate->toDateString();
-            $jumlah = isset($history[$dateStr]) ? $history[$dateStr] : 0;
+            $jumlah = $history[$dateStr] ?? 0;
 
             $allDates[] = [
                 'tanggal' => $dateStr,
                 'status' => $jumlah > 0 ? 'Minum Obat' : 'Tidak Minum Obat',
                 'jumlah' => $jumlah
             ];
-            $currentDate->addDay();
+
+            $currentDate->subDay();
         }
+
+        // Jangan pakai usort di sini
 
         return view("feature.riwayat_konsumsi", ['history' => $allDates]);
     }
-
 
     public function store(Request $request)
     {
