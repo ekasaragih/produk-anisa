@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
@@ -59,5 +60,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/alarm/{id}/snooze', [AlarmController::class, 'snoozeAlarm']);
 
     Route::get('/notif', [MedHistoryController::class, 'notif'])->name('notif');
+
+    // Route::get('/admin', [AdminController::class, 'adminIndex'])->name('adminIndex');
+    Route::get('/adminEdukasi', [AdminController::class, 'adminIndex'])->name('adminEdukasi');
+    Route::get('/adminPreventif', [AdminController::class, 'adminIndex'])->name('adminPreventif');
+    Route::get('/adminProgress', [AdminController::class, 'adminIndex'])->name('adminProgress');
 
 });
