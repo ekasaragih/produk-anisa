@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\KuesionerPretest;
+use App\Models\KuesionerPreventive;
 
 class AdminController extends Controller
 {
@@ -16,7 +17,8 @@ class AdminController extends Controller
 
     public function preventif()
     {
-        return view('admin.preventif');
+         $kuesioners = KuesionerPreventive::with('user.profile')->get();
+        return view('admin.preventif', compact('kuesioners'));
     }
 
     public function progress()
