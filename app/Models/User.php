@@ -65,5 +65,8 @@ class User extends Authenticatable
         return $this->hasMany(Diagnosa::class);
     }
 
-
+    public function hbRecords()
+    {
+        return $this->hasMany(HbRecord::class);
+    }
 }
