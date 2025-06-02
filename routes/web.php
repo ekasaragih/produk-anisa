@@ -1,16 +1,15 @@
 <?php
 
-use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PageController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PageController;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Controllers\AlarmController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DiagnosaController;
+use App\Http\Controllers\Admin\AdminController as AdminController;
 use App\Http\Controllers\HbRecordController;
 use App\Http\Controllers\MedHistoryController;
-use App\Http\Controllers\AlarmController;
-use App\Http\Controllers\DiagnosaController;
-use App\Http\Middleware\AdminMiddleware;
-
 
 // Authentication
 Route::get('/login', [AuthController::class, 'showLogin'])->name('user.login');
@@ -23,6 +22,13 @@ Route::post('/auth/logout', [AuthController::class, 'logout'])->name('user.logou
 Route::middleware('guest')->group(function () {
     Route::get('/', [PageController::class, 'welcome'])->name('welcome_guest');
     Route::get('/promotive_guest', [PageController::class, 'promotive'])->name('promotive_guest');
+});
+
+// Admin Authenticated Pages
+Route::middleware(['auth', AdminMiddleware::class])->group(function () {
+    Route::get('/admin/edukasi', [AdminController::class, 'edukasi'])->name('admin_edukasi');
+    Route::get('/admin/preventif', [AdminController::class, 'preventif'])->name('admin_preventif');
+    Route::get('/admin/progress', [AdminController::class, 'progress'])->name('admin_progress');
 });
 
 // Authenticated Pages
@@ -63,9 +69,4 @@ Route::middleware('auth')->group(function () {
     Route::get('/notif', [MedHistoryController::class, 'notif'])->name('notif');
 });
 
-// Admin Authenticated Pages
-Route::middleware(['auth', AdminMiddleware::class])->group(function () {
-    Route::get('/admin/edukasi', [AdminController::class, 'edukasi'])->name('admin_edukasi');
-    Route::get('/admin/preventif', [AdminController::class, 'preventif'])->name('admin_preventif');
-    Route::get('/admin/progress', [AdminController::class, 'progress'])->name('admin_progress');
-});
+

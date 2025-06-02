@@ -1,14 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\KuesionerPretest;
 
 class AdminController extends Controller
 {
     public function edukasi()
     {
-        return view('admin.edukasi');
+        $kuesioners = KuesionerPretest::with(['user.profile'])->get();
+        return view('admin.edukasi', compact('kuesioners'));
     }
 
     public function preventif()
