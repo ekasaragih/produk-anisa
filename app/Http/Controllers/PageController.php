@@ -53,7 +53,7 @@ class PageController extends Controller
 
         // Store the result if the user is logged in
         if (Auth::check()) {
-            KuesionerPretest::create([
+            KuesionerPretest::create([ // Ensure this is the correct model for the pretest quiz
                 'user_id' => Auth::id(),
                 'score' => $score,
                 'answers' => $userAnswers, // Storing all user answers as JSON
@@ -70,8 +70,8 @@ class PageController extends Controller
             $knowledgeLevel = 'Kurang';
         }
 
-        // You can return the result directly or redirect back with a flash message
-        return redirect()->route('edukasi')->with([
+        // CHANGE THIS LINE: Redirect back to the quiz display page
+        return redirect()->route('edukasi')->with([ // Make sure 'knowledge.quiz.show' is the actual route name
             'quiz_score' => $score,
             'knowledge_level' => $knowledgeLevel,
             'user_answers' => $userAnswers, // Pass user answers back to display

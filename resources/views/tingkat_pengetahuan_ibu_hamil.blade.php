@@ -23,12 +23,22 @@
     }
 
     .result {
-        display: none;
+        /* REMOVE 'display: none;' from here */
         margin-top: 2rem;
         padding: 1rem;
         border: 1px solid #d1d5db;
         border-radius: 0.5rem;
         background-color: #e5e7eb;
+    }
+
+    .correct-answer {
+        color: green;
+        font-weight: bold;
+    }
+
+    .wrong-answer {
+        color: red;
+        font-weight: bold;
     }
 </style>
 @endsection
@@ -51,106 +61,6 @@
 
         <div class="container mx-auto pb-8 px-1 md:px-4 min-h-screen">
             <div class="page p-6 md:p-8 bg-white rounded-2xl shadow-lg border border-blue-300 animate-fade-in">
-
-                {{-- Display Flash Message for Quiz Result --}}
-                @if (session('quiz_score'))
-                <div class="result mb-6 animate-fade-in">
-                    <h3 class="text-xl font-bold mb-2">Hasil Pengetahuan Anda:</h3>
-                    <p id="resultText" class="text-lg">
-                        @php
-                        $score = session('quiz_score');
-                        $knowledgeLevel = session('knowledge_level');
-                        @endphp
-                        Pengetahuan Anda **{{ $knowledgeLevel }}** dengan skor **{{ $score }}/20**.
-                    </p>
-
-                    {{-- Display detailed answers if needed --}}
-                    @if (session('user_answers') && session('correct_answers'))
-                    <h4 class="mt-4 font-semibold">Detail Jawaban Anda:</h4>
-                    <ul class="list-disc pl-5">
-                        @foreach (session('user_answers') as $qKey => $uAnswer)
-                        @php
-                        $questionNumber = str_replace('q', '', $qKey);
-                        $correctAnswer = session('correct_answers')[$qKey];
-                        $isCorrect = ($uAnswer === $correctAnswer);
-                        @endphp
-                        <li>
-                            Q{{ $questionNumber }}: Jawaban Anda:
-                            <span class="{{ $isCorrect ? 'correct-answer' : 'wrong-answer' }}">
-                                {{ $uAnswer ?: 'Tidak Dijawab' }}
-                            </span>
-                            @if (!$isCorrect)
-                            (Benar: <span class="correct-answer">{{ $correctAnswer }}</span>)
-                            @endif
-                        </li>
-                        @endforeach
-                    </ul>
-                    @endif
-
-                    <h4 class="mt-4 font-semibold">Pencegahan Anemia:</h4>
-                    <ul class="list-disc pl-5">
-                        <li>1. Mengonsumsi makanan kaya zat besi seperti daging merah, hati, bayam, dan kacang-kacangan.
-                        </li>
-                        <li>2. Mengonsumsi suplemen zat besi sesuai anjuran dokter.</li>
-                        <li>3. Memeriksa kadar hemoglobin secara berkala selama kehamilan.</li>
-                        <li>4. Menghindari konsumsi teh atau kopi berlebihan yang menghambat penyerapan zat besi.</li>
-                    </ul>
-                </div>
-                @elseif (isset($latestResult))
-                <div class="result mb-6 animate-fade-in">
-                    <h3 class="text-xl font-bold mb-2">Hasil Pengetahuan Terakhir Anda:</h3>
-                    <p class="text-lg">
-                        @php
-                        $score = $latestResult->score;
-                        $knowledgeLevel = '';
-                        if ($score >= 17) { $knowledgeLevel = 'Sangat Baik'; }
-                        else if ($score >= 13) { $knowledgeLevel = 'Cukup Baik'; }
-                        else { $knowledgeLevel = 'Kurang'; }
-                        @endphp
-                        Pada {{ \Carbon\Carbon::parse($latestResult->created_at)->translatedFormat('d F Y H:i') }},
-                        Pengetahuan Anda
-                        **{{ $knowledgeLevel }}** dengan skor **{{ $score }}/20**.
-                    </p>
-                    {{-- Display detailed answers from previous submission --}}
-                    @if ($latestResult->answers)
-                    <h4 class="mt-4 font-semibold">Detail Jawaban Terakhir Anda:</h4>
-                    @php
-                    $correctAnswers = [ // Re-define correct answers for comparison
-                    'q1' => 'b', 'q2' => 'a', 'q3' => 'c', 'q4' => 'a', 'q5' => 'b',
-                    'q6' => 'c', 'q7' => 'c', 'q8' => 'c', 'q9' => 'a', 'q10' => 'a',
-                    'q11' => 'a', 'q12' => 'a', 'q13' => 'a', 'q14' => 'a', 'q15' => 'b',
-                    'q16' => 'b', 'q17' => 'a', 'q18' => 'a', 'q19' => 'a', 'q20' => 'a'
-                    ];
-                    @endphp
-                    <ul class="list-disc pl-5">
-                        @foreach ($latestResult->answers as $qKey => $uAnswer)
-                        @php
-                        $questionNumber = str_replace('q', '', $qKey);
-                        $correctAnswer = $correctAnswers[$qKey] ?? null; // Get correct answer, handle if missing
-                        $isCorrect = ($uAnswer === $correctAnswer);
-                        @endphp
-                        <li>
-                            Q{{ $questionNumber }}: Jawaban Anda:
-                            <span class="{{ $isCorrect ? 'correct-answer' : 'wrong-answer' }}">
-                                {{ $uAnswer ?: 'Tidak Dijawab' }}
-                            </span>
-                            @if (!$isCorrect && $correctAnswer)
-                            (Benar: <span class="correct-answer">{{ $correctAnswer }}</span>)
-                            @endif
-                        </li>
-                        @endforeach
-                    </ul>
-                    @endif
-                    <h4 class="mt-4 font-semibold">Pencegahan Anemia:</h4>
-                    <ul class="list-disc pl-5">
-                        <li>1. Mengonsumsi makanan kaya zat besi seperti daging merah, hati, bayam, dan kacang-kacangan.
-                        </li>
-                        <li>2. Mengonsumsi suplemen zat besi sesuai anjuran dokter.</li>
-                        <li>3. Memeriksa kadar hemoglobin secara berkala selama kehamilan.</li>
-                        <li>4. Menghindari konsumsi teh atau kopi berlebihan yang menghambat penyerapan zat besi.</li>
-                    </ul>
-                </div>
-                @endif
 
                 <form id="quizForm" action="{{ route('knowledge.quiz.submit') }}" method="POST">
                     @csrf
@@ -308,11 +218,43 @@
                         Jawaban</button>
                 </form>
 
-                <div id="result" class="result">
+                {{-- Display Flash Message for Quiz Result --}}
+                @if (session('quiz_score'))
+                <div class="result mb-6 animate-fade-in">
                     <h3 class="text-xl font-bold mb-2">Hasil Pengetahuan Anda:</h3>
-                    <p id="resultText"></p>
+                    <p id="resultText" class="text-lg">
+                        @php
+                        $score = session('quiz_score');
+                        $knowledgeLevel = session('knowledge_level');
+                        @endphp
+                        Pengetahuan Anda <b>{{ $knowledgeLevel }}</b> dengan skor <b>{{ $score }}/20</b>.
+                    </p>
+
+                    {{-- Display detailed answers if needed --}}
+                    @if (session('user_answers') && session('correct_answers'))
+                    <h4 class="mt-4 font-semibold">Detail Jawaban Anda:</h4>
+                    <ul class="list-disc pl-5">
+                        @foreach (session('user_answers') as $qKey => $uAnswer)
+                        @php
+                        $questionNumber = str_replace('q', '', $qKey);
+                        $correctAnswer = session('correct_answers')[$qKey];
+                        $isCorrect = ($uAnswer === $correctAnswer);
+                        @endphp
+                        <li>
+                            Q{{ $questionNumber }}: Jawaban Anda:
+                            <span class="{{ $isCorrect ? 'correct-answer' : 'wrong-answer' }}">
+                                {{ $uAnswer ?: 'Tidak Dijawab' }}
+                            </span>
+                            @if (!$isCorrect)
+                            (Benar: <span class="correct-answer">{{ $correctAnswer }}</span>)
+                            @endif
+                        </li>
+                        @endforeach
+                    </ul>
+                    @endif
+
                     <h4 class="mt-4 font-semibold">Pencegahan Anemia:</h4>
-                    <ul>
+                    <ul class="list-disc pl-5">
                         <li>1. Mengonsumsi makanan kaya zat besi seperti daging merah, hati, bayam, dan kacang-kacangan.
                         </li>
                         <li>2. Mengonsumsi suplemen zat besi sesuai anjuran dokter.</li>
@@ -320,6 +262,61 @@
                         <li>4. Menghindari konsumsi teh atau kopi berlebihan yang menghambat penyerapan zat besi.</li>
                     </ul>
                 </div>
+                @elseif (isset($latestResult))
+                <div class="result mb-6 animate-fade-in">
+                    <h3 class="text-xl font-bold mb-2">Hasil Pengetahuan Terakhir Anda:</h3>
+                    <p class="text-lg">
+                        @php
+                        $score = $latestResult->score;
+                        $knowledgeLevel = '';
+                        if ($score >= 17) { $knowledgeLevel = 'Sangat Baik'; }
+                        else if ($score >= 13) { $knowledgeLevel = 'Cukup Baik'; }
+                        else { $knowledgeLevel = 'Kurang'; }
+                        @endphp
+                        Pada {{ \Carbon\Carbon::parse($latestResult->created_at)->translatedFormat('d F Y H:i') }},
+                        Pengetahuan Anda
+                        <b>{{ $knowledgeLevel }}</b> dengan skor <b>{{ $score }}/20</b>.
+                    </p>
+                    {{-- Display detailed answers from previous submission --}}
+                    @if ($latestResult->answers)
+                    <h4 class="mt-4 font-semibold">Detail Jawaban Terakhir Anda:</h4>
+                    @php
+                    $correctAnswers = [ // Re-define correct answers for comparison
+                    'q1' => 'b', 'q2' => 'a', 'q3' => 'c', 'q4' => 'a', 'q5' => 'b',
+                    'q6' => 'c', 'q7' => 'c', 'q8' => 'c', 'q9' => 'a', 'q10' => 'a',
+                    'q11' => 'a', 'q12' => 'a', 'q13' => 'a', 'q14' => 'a', 'q15' => 'b',
+                    'q16' => 'b', 'q17' => 'a', 'q18' => 'a', 'q19' => 'a', 'q20' => 'a'
+                    ];
+                    @endphp
+                    <ul class="list-disc pl-5">
+                        @foreach ($latestResult->answers as $qKey => $uAnswer)
+                        @php
+                        $questionNumber = str_replace('q', '', $qKey);
+                        $correctAnswer = $correctAnswers[$qKey] ?? null; // Get correct answer, handle if missing
+                        $isCorrect = ($uAnswer === $correctAnswer);
+                        @endphp
+                        <li>
+                            Q{{ $questionNumber }}: Jawaban Anda:
+                            <span class="{{ $isCorrect ? 'correct-answer' : 'wrong-answer' }}">
+                                {{ $uAnswer ?: 'Tidak Dijawab' }}
+                            </span>
+                            @if (!$isCorrect && $correctAnswer)
+                            (Benar: <span class="correct-answer">{{ $correctAnswer }}</span>)
+                            @endif
+                        </li>
+                        @endforeach
+                    </ul>
+                    @endif
+                    <h4 class="mt-4 font-semibold">Pencegahan Anemia:</h4>
+                    <ul class="list-disc pl-5">
+                        <li>1. Mengonsumsi makanan kaya zat besi seperti daging merah, hati, bayam, dan kacang-kacangan.
+                        </li>
+                        <li>2. Mengonsumsi suplemen zat besi sesuai anjuran dokter.</li>
+                        <li>3. Memeriksa kadar hemoglobin secara berkala selama kehamilan.</li>
+                        <li>4. Menghindari konsumsi teh atau kopi berlebihan yang menghambat penyerapan zat besi.</li>
+                    </ul>
+                </div>
+                @endif
             </div>
 
         </div>
@@ -331,56 +328,5 @@
     </div>
 
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-    <script>
-        function checkAnswers() {
-            const answers = {
-                q1: 'b',
-                q2: 'a',
-                q3: 'c',
-                q4: 'a',
-                q5: 'b',
-                q6: 'c',
-                q7: 'c',
-                q8: 'c',
-                q9: 'a',
-                q10: 'a',
-                q11: 'a',
-                q12: 'a',
-                q13: 'a',
-                q14: 'a',
-                q15: 'b',
-                q16: 'b',
-                q17: 'a',
-                q18: 'a',
-                q19: 'a',
-                q20: 'a'
-            };
-
-            let score = 0;
-            for (let key in answers) {
-                const selected = document.querySelector(`input[name='${key}']:checked`);
-                if (selected && selected.value === answers[key]) {
-                    score++;
-                }
-            }
-
-            const resultText = document.getElementById('resultText');
-            const resultDiv = document.getElementById('result');
-
-            if (score >= 17) {
-                resultText.innerText = `Selamat! Pengetahuan Anda sangat baik dengan skor ${score}/20.`;
-            } else if (score >= 13) {
-                resultText.innerText = `Pengetahuan Anda cukup baik dengan skor ${score}/20. Perlu menambah wawasan!`;
-            } else {
-                resultText.innerText = `Pengetahuan Anda masih kurang dengan skor ${score}/20. Silakan pelajari lebih lanjut tentang anemia dan pencegahannya.`;
-            }
-
-            resultDiv.style.display = 'block';
-        }
-    </script>
 
     @endsection
