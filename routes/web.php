@@ -9,6 +9,7 @@ use App\Http\Controllers\HbRecordController;
 use App\Http\Controllers\MedHistoryController;
 use App\Http\Controllers\AlarmController;
 use App\Http\Controllers\DiagnosaController;
+use App\Http\Middleware\AdminMiddleware;
 
 
 // Authentication
@@ -24,7 +25,7 @@ Route::middleware('guest')->group(function () {
     Route::get('/promotive_guest', [PageController::class, 'promotive'])->name('promotive_guest');
 });
 
-// Authenticated pages
+// Authenticated Pages
 Route::middleware('auth')->group(function () {
     Route::get('/welcome', [PageController::class, 'welcome'])->name('welcome');
     Route::get('/edukasi', [PageController::class, 'tingkat_pengetahuan_ibu_hamil'])->name('edukasi');
@@ -60,10 +61,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/alarm/{id}/snooze', [AlarmController::class, 'snoozeAlarm']);
 
     Route::get('/notif', [MedHistoryController::class, 'notif'])->name('notif');
+});
 
-    // Route::get('/admin', [AdminController::class, 'adminIndex'])->name('adminIndex');
-    Route::get('/adminEdukasi', [AdminController::class, 'adminIndex'])->name('adminEdukasi');
-    Route::get('/adminPreventif', [AdminController::class, 'adminIndex'])->name('adminPreventif');
-    Route::get('/adminProgress', [AdminController::class, 'adminIndex'])->name('adminProgress');
-
+// Admin Authenticated Pages
+Route::middleware(['auth', AdminMiddleware::class])->group(function () {
+    Route::get('/admin/edukasi', [AdminController::class, 'edukasi'])->name('admin_edukasi');
+    Route::get('/admin/preventif', [AdminController::class, 'preventif'])->name('admin_preventif');
+    Route::get('/admin/progress', [AdminController::class, 'progress'])->name('admin_progress');
 });

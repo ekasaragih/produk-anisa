@@ -69,32 +69,43 @@
             <i class="fa fa-phone-alt mr-3"></i> Hubungi Kami
         </a>
 
-        <div id="accordion-collapse" data-accordion="collapse">
-            <h2 id="accordion-collapse-heading-1">
+        @if(auth()->check() && auth()->user()->is_admin)
+        <h6 class="mt-4 uppercase text-xs font-semibold opacity-70">Admin</h6>
+
+        <div id="accordion-admin" data-accordion="collapse">
+            <h2 id="accordion-admin-heading">
                 <button type="button"
-                    class="flex items-center w-full px-3 py-3 text-sm rounded-md hover:bg-blue-600 transition {{ Route::currentRouteName() == 'adminIndex' ? 'bg-blue-600 font-bold text-white' : '' }}"
-                    data-accordion-target="#accordion-collapse-body-1" aria-expanded="false"
-                    aria-controls="accordion-collapse-body-1">
-                    <i class="fa fa-user mr-3"></i> Halaman Admin
+                    class="flex items-center justify-between w-full px-5 py-3 text-sm font-medium text-left text-white rounded-md hover:bg-blue-600 transition aria-expanded:bg-blue-800"
+                    data-accordion-target="#accordion-admin-body" aria-expanded="false"
+                    aria-controls="accordion-admin-body">
+                    <span class="flex items-center">
+                        <i class="fa fa-user mr-3"></i> Halaman Admin
+                    </span>
+                    <svg data-accordion-icon
+                        class="w-4 h-4 transition-transform duration-300 rotate-0 aria-expanded:rotate-180" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
                 </button>
             </h2>
-            <div id="accordion-collapse-body-1" class="hidden" aria-labelledby="accordion-collapse-heading-1">
+            <div id="accordion-admin-body" class="hidden" aria-labelledby="accordion-admin-heading">
                 <div class="p-2">
-                    <a href="{{ route('adminEdukasi') }}"
-                        class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 transition {{ Route::currentRouteName() == 'adminEdukasi' ? 'bg-blue-600 font-bold text-white' : '' }}">
-                        <i class="fa fa-user mr-3"></i> Menu Edukasi
+                    <a href="{{ route('admin_edukasi') }}"
+                        class="flex items-center px-5 py-3 text-sm rounded-md hover:bg-blue-600 transition {{ Route::currentRouteName() == 'admin_edukasi' ? 'bg-blue-600 font-bold text-white' : '' }}">
+                        <i class="fa fa-user-graduate mr-3"></i> Menu Edukasi
                     </a>
-                    <a href="{{ route('adminPreventif') }}"
-                        class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 transition {{ Route::currentRouteName() == 'adminPreventif' ? 'bg-blue-600 font-bold text-white' : '' }}">
-                        <i class="fa fa-user mr-3"></i> Menu Preventif
+                    <a href="{{ route('admin_preventif') }}"
+                        class="flex items-center px-5 py-3 text-sm rounded-md hover:bg-blue-600 transition {{ Route::currentRouteName() == 'admin_preventif' ? 'bg-blue-600 font-bold text-white' : '' }}">
+                        <i class="fa fa-shield-alt mr-3"></i> Menu Preventif
                     </a>
-                    <a href="{{ route('adminProgress') }}"
-                        class="flex items-center px-3 py-3 text-sm rounded-md hover:bg-blue-600 transition {{ Route::currentRouteName() == 'adminProgress' ? 'bg-blue-600 font-bold text-white' : '' }}">
-                        <i class="fa fa-user mr-3"></i> Menu Progress
+                    <a href="{{ route('admin_progress') }}"
+                        class="flex items-center px-5 py-3 text-sm rounded-md hover:bg-blue-600 transition {{ Route::currentRouteName() == 'admin_progress' ? 'bg-blue-600 font-bold text-white' : '' }}">
+                        <i class="fa fa-chart-line mr-3"></i> Menu Progress
                     </a>
                 </div>
             </div>
         </div>
+        @endif
 
         <form method="post" action="{{ route('user.logout') }}" id="logout-form" class="mt-auto">
             @csrf
@@ -186,10 +197,39 @@
                         class="block py-2 px-2 hover:bg-blue-600 {{ Route::currentRouteName() == 'contact_us' ? 'bg-blue-600 font-bold' : '' }}">
                         <i class="fa fa-phone-alt mr-3"></i> Hubungi Kami
                     </a>
-                    <a href="{{ route('contact_us') }}"
-                        class="block py-2 px-2 hover:bg-blue-600 {{ Route::currentRouteName() == 'contact_us' ? 'bg-blue-600 font-bold' : '' }}">
-                        <i class="fa fa-phone-alt mr-3"></i> Halaman Admin
-                    </a>
+                    @if(auth()->user()->is_admin)
+                    <h6 class="mt-4 uppercase text-xs font-semibold opacity-70">Admin</h6>
+
+                    <div x-data="{ isAdminOpen: false }" class="w-full">
+                        <button @click="isAdminOpen = !isAdminOpen"
+                            class="flex items-center justify-between w-full py-2 px-2 text-sm font-medium text-left hover:bg-blue-600 transition rounded-md"
+                            :class="{ 'bg-blue-700': isAdminOpen }">
+                            <span class="flex items-center">
+                                <i class="fa fa-user mr-3"></i> Halaman Admin
+                            </span>
+                            <svg class="w-4 h-4 transition-transform duration-300"
+                                :class="{ 'rotate-180': isAdminOpen }" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div x-show="isAdminOpen" x-transition class="pl-4 mt-1 space-y-1">
+                            <a href="{{ route('admin_edukasi') }}"
+                                class="block py-2 px-2 hover:bg-blue-600 rounded-md {{ Route::currentRouteName() == 'admin_edukasi' ? 'bg-blue-600 font-bold' : '' }}">
+                                <i class="fa fa-user-graduate mr-3"></i> Menu Edukasi
+                            </a>
+                            <a href="{{ route('admin_preventif') }}"
+                                class="block py-2 px-2 hover:bg-blue-600 rounded-md {{ Route::currentRouteName() == 'admin_preventif' ? 'bg-blue-600 font-bold' : '' }}">
+                                <i class="fa fa-shield-alt mr-3"></i> Menu Preventif
+                            </a>
+                            <a href="{{ route('admin_progress') }}"
+                                class="block py-2 px-2 hover:bg-blue-600 rounded-md {{ Route::currentRouteName() == 'admin_progress' ? 'bg-blue-600 font-bold' : '' }}">
+                                <i class="fa fa-chart-line mr-3"></i> Menu Progress
+                            </a>
+                        </div>
+                    </div>
+                    @endif
                     <form method="post" action="{{ route('user.logout') }}" id="logout-form" class="mt-auto">
                         @csrf
                         <button type="submit"
@@ -201,7 +241,7 @@
                 @else
                 <div class="space-y-1 px-3">
                     <a href="/" class="block py-2 px-2 hover:bg-blue-600 bg-blue-600 font-bold">
-                        <i class="fa fa-venus mr-3"></i> Edukasi
+                        <i class="fa fa-venus mr-3"></i> Welcome
                     </a>
 
                     <div class="mt-auto">
