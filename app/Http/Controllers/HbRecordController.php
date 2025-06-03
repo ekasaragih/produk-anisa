@@ -11,17 +11,25 @@ class HbRecordController extends Controller
     
     public function kadar_hb()
     {
-        $hbRecords = HbRecord::orderBy('tanggal_cek', 'desc')->get();
-        $latestHb = HbRecord::orderBy('tanggal_cek', 'desc')->first();
+        $userId = Auth::id();
+        $hbRecords = HbRecord::where('user_id', $userId)
+                             ->orderBy('tanggal_cek', 'desc')
+                             ->get();
+
+        $latestHb = HbRecord::where('user_id', $userId)
+                            ->orderBy('tanggal_cek', 'desc')
+                            ->first();
+
         $hbRecordCount = $hbRecords->count();
 
-        $recentHbRecords = HbRecord::orderBy('tanggal_cek', 'desc')
-                               ->take(3)
-                               ->pluck('indicated_anemia')
-                               ->toArray();
+        $recentHbRecords = HbRecord::where('user_id', $userId)
+                                   ->orderBy('tanggal_cek', 'desc')
+                                   ->take(3)
+                                   ->pluck('indicated_anemia')
+                                   ->toArray();
         
-        $stillAnemia = count($recentHbRecords) === 3 && 
-                   array_unique($recentHbRecords) === ['Anemia'];
+        $stillAnemia = count($recentHbRecords) === 3 &&
+                       array_unique($recentHbRecords) === ['Anemia'];
 
         $diagnoses = Auth::user()->diagnosas;
 
